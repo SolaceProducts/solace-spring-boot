@@ -1,0 +1,7 @@
+# Intellij configuration files
+.idea
+**/*.iml
+
+# Build files
+**/target
+**/.flattened-pom.xml

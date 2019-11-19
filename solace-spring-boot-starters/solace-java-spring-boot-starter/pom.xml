@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.solace.spring.boot</groupId>
+		<artifactId>solace-spring-boot-parent</artifactId>
+		<version>2.2.0-SNAPSHOT</version>
+		<relativePath>../../solace-spring-boot-parent/pom.xml</relativePath>
+	</parent>
+
+	<artifactId>solace-java-spring-boot-starter</artifactId>
+	<version>4.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Solace Spring Boot Starter - Java</name>
+	<description>Starter for messaging using the Solace Java API</description>
+	<url>https://github.com/SolaceProducts/solace-java-spring-boot</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.solace.spring.boot</groupId>
+			<artifactId>solace-java-spring-boot-autoconfigure</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.solacesystems</groupId>
+			<artifactId>sol-jcsmp</artifactId>
+		</dependency>
+	</dependencies>
+</project>
