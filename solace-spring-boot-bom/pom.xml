@@ -31,9 +31,6 @@
         <solace.java.version>4.0.0-SNAPSHOT</solace.java.version>
         <solace.jms.version>4.0.0-SNAPSHOT</solace.jms.version>
         <solace.all.version>4.0.0-SNAPSHOT</solace.all.version>
-
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
     </properties>
 
     <dependencyManagement>
