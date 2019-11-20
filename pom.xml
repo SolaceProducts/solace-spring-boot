@@ -42,4 +42,11 @@
         <module>solace-spring-boot-starters/solace-jms-spring-boot-starter</module>
         <module>solace-spring-boot-starters/solace-spring-boot-starter</module>
     </modules>
+
+    <scm>
+        <url>https://github.com/SolaceProducts/solace-spring.git</url>
+        <connection>scm:git:git://github.com/SolaceProducts/solace-spring.git</connection>
+        <developerConnection>scm:git:git@github.com:SolaceProducts/solace-spring.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
 </project>
