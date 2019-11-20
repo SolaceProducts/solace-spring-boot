@@ -36,7 +36,10 @@
     <modules>
         <module>solace-spring-boot-bom</module>
         <module>solace-spring-boot-parent</module>
-        <module>solace-spring-boot-autoconfigure</module>
-        <module>solace-spring-boot-starters</module>
+        <module>solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure</module>
+        <module>solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure</module>
+        <module>solace-spring-boot-starters/solace-java-spring-boot-starter</module>
+        <module>solace-spring-boot-starters/solace-jms-spring-boot-starter</module>
+        <module>solace-spring-boot-starters/solace-spring-boot-starter</module>
     </modules>
 </project>
