@@ -26,11 +26,14 @@
     </organization>
 
     <properties>
+        <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
         <solace.spring.boot.version>2.2.0-SNAPSHOT</solace.spring.boot.version>
 
         <solace.java.version>4.0.0-SNAPSHOT</solace.java.version>
         <solace.jms.version>4.0.0-SNAPSHOT</solace.jms.version>
-        <solace.all.version>4.0.0-SNAPSHOT</solace.all.version>
+        <solace.jms-and-java.version>1.0.0-SNAPSHOT</solace.jms-and-java.version>
+
+        <solace.binder.version>1.3.0-SNAPSHOT</solace.binder.version>
     </properties>
 
     <dependencyManagement>
@@ -38,7 +41,7 @@
             <dependency>
                 <groupId>com.solace.spring.boot</groupId>
                 <artifactId>solace-spring-boot-starter</artifactId>
-                <version>${solace.all.version}</version>
+                <version>${solace.jms-and-java.version}</version>
             </dependency>
 
             <dependency>
@@ -62,155 +65,17 @@
                 <artifactId>solace-java-spring-boot-autoconfigure</artifactId>
                 <version>${solace.java.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.solace.spring.cloud</groupId>
+                <artifactId>solace-spring-cloud-stream-binder-starter</artifactId>
+                <version>${solace.binder.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.solace.spring.cloud</groupId>
+                <artifactId>solace-spring-cloud-stream-binder-autoconfigure</artifactId>
+                <version>${solace.binder.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
-                <configuration>
-                    <updatePomFile>true</updatePomFile>
-                    <flattenMode>bom</flattenMode>
-                    <pomElements>
-                        <parent>expand</parent>
-                        <distributionManagement>remove</distributionManagement>
-                        <repositories>remove</repositories>
-                    </pomElements>
-                </configuration>
-                <executions>
-                    <!-- enable flattening -->
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <!-- ensure proper cleanup -->
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-        <profile>
-            <id>releaseCentral</id>
-            <activation>
-                <property>
-                    <name>releaseCentral</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <properties>
-                <gpg.executable>gpg2</gpg.executable>
-                <gpg.passphrase>Solace1!</gpg.passphrase>
-            </properties>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.3</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <!--<stagingProfileId>1d86d96a0b6bce</stagingProfileId> -->
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>releaseInternal</id>
-            <activation>
-                <property>
-                    <name>!releaseCentral</name>
-                </property>
-            </activation>
-            <distributionManagement>
-                <repository>
-                    <id>releases</id>
-                    <name>Apps Releases Repository</name>
-                    <url>http://apps-jenkins:9090/nexus/content/repositories/releases</url>
-                </repository>
-                <snapshotRepository>
-                    <id>snapshots</id>
-                    <name>Apps Snapshots Repository</name>
-                    <url>http://apps-jenkins:9090/nexus/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
 </project>

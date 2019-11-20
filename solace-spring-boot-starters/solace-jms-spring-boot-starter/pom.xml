@@ -11,7 +11,7 @@
 
 	<artifactId>solace-jms-spring-boot-starter</artifactId>
 	<version>4.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>Solace Spring Boot Starter - JMS</name>
 	<description>Starter for JMS messaging using Solace</description>
