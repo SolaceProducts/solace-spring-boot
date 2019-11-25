@@ -23,23 +23,9 @@
 			<artifactId>spring-boot-autoconfigure</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.solace.cloud.core</groupId>
-			<artifactId>solace-services-info</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.solacesystems</groupId>
-			<artifactId>sol-jcsmp</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -47,13 +33,33 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-		  <groupId>com.solace.cloud.cloudfoundry</groupId>
-		  <artifactId>solace-spring-cloud-connector</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solace.cloud.core</groupId>
+			<artifactId>solace-services-info</artifactId>
+			<version>${solace-services-info.version}</version>
 		</dependency>
 		<dependency>
-		  <groupId>com.github.stefanbirkner</groupId>
-		  <artifactId>system-rules</artifactId>
-		  <scope>test</scope>
+			<groupId>com.solacesystems</groupId>
+			<artifactId>sol-jcsmp</artifactId>
+			<version>${sol-jcsmp.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.solace.cloud.cloudfoundry</groupId>
+			<artifactId>solace-spring-cloud-connector</artifactId>
+			<version>${solace-cloud-connector.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.stefanbirkner</groupId>
+			<artifactId>system-rules</artifactId>
+			<version>${system-rules.version}</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

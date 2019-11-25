@@ -23,16 +23,19 @@
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.solace.spring.boot</groupId>
-			<artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jms</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.solace.spring.boot</groupId>
+			<artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
+			<version>${solace.jms-autoconf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.solacesystems</groupId>
 			<artifactId>sol-jms</artifactId>
+			<version>${sol-jms.version}</version>
 		</dependency>
 	</dependencies>
 </project>

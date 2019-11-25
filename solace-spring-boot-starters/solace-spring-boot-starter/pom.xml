@@ -21,10 +21,12 @@
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-jms-spring-boot-starter</artifactId>
+            <version>${solace.jms-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-java-spring-boot-starter</artifactId>
+            <version>${solace.java-starter.version}</version>
         </dependency>
     </dependencies>
 </project>
