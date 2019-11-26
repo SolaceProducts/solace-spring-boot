@@ -11,7 +11,7 @@
 
     <artifactId>solace-spring-boot-starter</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>Solace Spring Boot Starter - All</name>
     <description>Starter which includes all Solace Starters</description>
@@ -29,4 +29,21 @@
             <version>${solace.java-starter.version}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- JAR will always be empty - suppress build warning that JAR is empty -->
+                <!-- This warning is triggered when the target/classes directory does not exist -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <classesDirectory>.</classesDirectory>
+                    <excludes>
+                        <exclude>**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
