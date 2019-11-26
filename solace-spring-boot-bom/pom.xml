@@ -3,9 +3,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>com.solace.spring.boot</groupId>
+        <artifactId>solace-spring-boot-build</artifactId>
+        <version>2.2.0-SNAPSHOT</version>
+    </parent>
+
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-bom</artifactId>
-    <version>2.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot BOM</name>
@@ -24,14 +29,6 @@
         <name>Solace</name>
         <url>https://www.solace.com</url>
     </organization>
-
-    <properties>
-        <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
-
-        <solace.java-starter.version>4.0.0-SNAPSHOT</solace.java-starter.version>
-        <solace.jms-starter.version>4.0.0-SNAPSHOT</solace.jms-starter.version>
-        <solace.multi-starter.version>1.0.0-SNAPSHOT</solace.multi-starter.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -60,28 +57,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
                 <configuration>
                     <flattenMode>bom</flattenMode>
+                    <pomElements>
+                        <scm>remove</scm>
+                    </pomElements>
                 </configuration>
-                <executions>
-                    <!-- enable flattening -->
-                    <execution>
-                        <id>flatten</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>flatten</goal>
-                        </goals>
-                    </execution>
-                    <!-- ensure proper cleanup -->
-                    <execution>
-                        <id>flatten.clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
