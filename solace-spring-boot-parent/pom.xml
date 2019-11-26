@@ -23,6 +23,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
+        <solace.java-autoconf.version>4.0.0-SNAPSHOT</solace.java-autoconf.version>
+        <solace.jms-autoconf.version>4.0.0-SNAPSHOT</solace.jms-autoconf.version>
+
         <sol-jcsmp.version>10.6.3</sol-jcsmp.version>
         <sol-jms.version>10.6.3</sol-jms.version>
         <solace-services-info.version>0.4.0</solace-services-info.version>

@@ -27,12 +27,9 @@
 
     <properties>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
-        <solace.spring.boot.version>2.2.0-SNAPSHOT</solace.spring.boot.version>
 
         <solace.java-starter.version>4.0.0-SNAPSHOT</solace.java-starter.version>
-        <solace.java-autoconf.version>4.0.0-SNAPSHOT</solace.java-autoconf.version>
         <solace.jms-starter.version>4.0.0-SNAPSHOT</solace.jms-starter.version>
-        <solace.jms-autoconf.version>4.0.0-SNAPSHOT</solace.jms-autoconf.version>
         <solace.multi-starter.version>1.0.0-SNAPSHOT</solace.multi-starter.version>
     </properties>
 
