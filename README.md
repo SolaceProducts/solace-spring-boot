@@ -253,15 +253,19 @@ mvn package
 
 ```
 solace-spring-boot-build (root)
---> solace-spring-boot-bom
---> solace-spring-boot-parent 
-    --> solace-spring-boot-java-starter
-    --> solace-spring-boot-jms-starter
-    --> solace-spring-boot-starter
-    --> solace-java-spring-boot-autoconfigure
-    --> solace-jms-spring-boot-autoconfigure
+<-- solace-spring-boot-bom
+<-- solace-spring-boot-parent 
+    <-- solace-spring-boot-java-starter
+    <-- solace-spring-boot-jms-starter
+    <-- solace-spring-boot-starter
+    <-- solace-java-spring-boot-autoconfigure
+    <-- solace-jms-spring-boot-autoconfigure
 
-Where --> indicates the parent of the project
+solace-java-sample-app
+solace-jms-sample-app
+solace-jms-sample-app-jndi
+
+Where <-- indicates the parent of the project
 ```
 
 All subprojects are included as modules of solace-spring-boot-build. Running `mvn install` at the root of the project will install all subprojects.
@@ -293,6 +297,10 @@ Note that solace-spring-boot-starter is simply both the Java and JMS starter bun
 #### solace-java-spring-boot-autoconfigure, solace-jms-spring-boot-autoconfigure
 
 Spring Boot autoconfigurations.
+
+#### solace-java-sample-app, solace-jms-sample-app, solace-jms-sample-app-jndi
+
+These samples demonstrate a basic use of the Solace Spring Boot starters. See [Running The Samples](#running-the-samples) below.
 
 ## Running The Samples
 
