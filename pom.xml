@@ -44,12 +44,12 @@
     <modules>
         <module>solace-spring-boot-bom</module>
         <module>solace-spring-boot-parent</module>
+        <module>solace-spring-boot/solace-java-cfenv</module>
         <module>solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-starters/solace-java-spring-boot-starter</module>
         <module>solace-spring-boot-starters/solace-jms-spring-boot-starter</module>
         <module>solace-spring-boot-starters/solace-spring-boot-starter</module>
-        <module>solace-spring-boot/solace-java-cfenv</module>
     </modules>
 
     <scm>
