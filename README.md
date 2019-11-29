@@ -260,6 +260,7 @@ solace-spring-boot-build (root)
     <-- solace-spring-boot-starter
     <-- solace-java-spring-boot-autoconfigure
     <-- solace-jms-spring-boot-autoconfigure
+    <-- solace-java-cfenv
 
 solace-java-sample-app
 solace-jms-sample-app
