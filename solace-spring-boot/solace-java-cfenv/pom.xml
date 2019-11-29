@@ -52,13 +52,6 @@
 		</developer>
 	</developers>
 
-	<scm>
-		<url>https://github.com/SolaceProducts/sl-spring-cloud-connectors.git</url>
-		<connection>scm:git:git://github.com/SolaceProducts/sl-spring-cloud-connectors.git</connection>
-		<developerConnection>scm:git:git@github.com:SolaceProducts/sl-spring-cloud-connectors.git</developerConnection>
-		<tag>solace-spring-cloud-connector-5.0.0</tag>
-	</scm>
-
 	<dependencies>
 		<dependency>
 			<groupId>com.solace.cloud.core</groupId>
