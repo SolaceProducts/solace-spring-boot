@@ -50,9 +50,9 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.solace.cloud.cloudfoundry</groupId>
-			<artifactId>solace-spring-cloud-connector</artifactId>
-			<version>${solace-cloud-connector.version}</version>
+			<groupId>com.solace.spring.boot</groupId>
+			<artifactId>solace-java-cfenv</artifactId>
+			<version>${solace-java-cfenv.version}</version>
 		</dependency>
 
 		<dependency>

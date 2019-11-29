@@ -28,13 +28,12 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.solace.spring.boot</groupId>
-	<artifactId>solace-spring-java-cfenv</artifactId>
+	<artifactId>solace-java-cfenv</artifactId>
 	<packaging>jar</packaging>
-	<version>5.0.0</version>
+	<version>1.0.0-SNAPSHOT</version>
+
 	<name>Solace Spring Java CFEnv</name>
 	<description>Java CFEnv for Solace services</description>
-
-
 	<url>http://dev.solacesystems.com</url>
 
 	<licenses>
