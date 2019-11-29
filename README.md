@@ -303,6 +303,10 @@ Spring Boot autoconfigurations.
 
 These samples demonstrate a basic use of the Solace Spring Boot starters. See [Running The Samples](#running-the-samples) below.
 
+#### solace-java-cfenv
+
+This subproject loads credentials for local Solace services. It is used for when you are running within a Cloud Foundry environment.
+
 ## Running The Samples
 
 To run the samples you will need a Solace PubSub+ Event Broker.
