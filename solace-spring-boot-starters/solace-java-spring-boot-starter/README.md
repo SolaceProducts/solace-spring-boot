@@ -6,7 +6,7 @@ This is the Spring Boot starter for building Spring Boot applications with Solac
 
 ## Table of Contents
 * [Quickstart Guide](#quickstart-guide)
-* [Advanced Configuration](#advanced-configuration)
+* [Configuration](#configuration)
     * [Exposing a Solace PubSub+ Service Manifest in the Application's Environment](#exposing-a-solace-pubsub-service-manifest-in-the-applications-environment)
     * [Updating your Application Properties](#updating-your-application-properties)
 
@@ -16,7 +16,7 @@ This is the Spring Boot starter for building Spring Boot applications with Solac
 
 To get started quickly, see [here](../../README.md)
 
-## Advanced Configuration
+## Configuration
 
 ### Exposing a Solace PubSub+ Service Manifest in the Application's Environment
 
