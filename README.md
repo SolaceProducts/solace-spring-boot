@@ -52,7 +52,7 @@ Once these dependencies are declared, we can automatically autowire Solace Sprin
         private JndiTemplate jndiTemplate;              // for JNDI
     ```
     
-    Note that if there are multiple services available, e.g. in a cloud deployment or if the application is configured by exposure of a [Solace PubSub+ service manifest](#jms---exposing-a-solace-pubsub-service-manifest-in-the-applications-environment), one of the services will be picked automatically. You can control service selection by autowiring `com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory` or `com.solacesystems.jms.SpringSolJmsJndiTemplateCloudFactory`, which enable getting the list of all services and use the Factory pattern to create a connection object.
+    Note that if there are multiple services available, e.g. in a cloud deployment or if the application is configured by exposure of a [Solace PubSub+ service manifest](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md), one of the services will be picked automatically. You can control service selection by autowiring `com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory` or `com.solacesystems.jms.SpringSolJmsJndiTemplateCloudFactory`, which enable getting the list of all services and use the Factory pattern to create a connection object.
 
 ### Quickstart Guide - Java
 
@@ -92,7 +92,7 @@ Once these dependencies are declared, we can automatically autowire Solace Sprin
     private JCSMPProperties jcsmpProperties;
     ```
     
-    However note that the `SolaceServiceCredentials` will only provide meaningful information if the application is configured by [exposure of a Solace PubSub+ service manifest](#java---exposing-a-solace-pubsub-service-manifest-in-the-applications-environment), and not by using the [application properties file](#java---updating-your-application-properties).
+    However note that the `SolaceServiceCredentials` will only provide meaningful information if the application is configured by [exposure of a Solace PubSub+ service manifest](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md), and not by using the [application properties file](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md).
 
 #### Maven Quickstart
 ```xml
@@ -252,7 +252,7 @@ Now, once you have your PubSub+ instance, you will just need to do these two thi
 
 1. Configure `application.properties`
     * This file can be found in `src/main/resources`
-    * For more information, see [Updating your application properties (Java)](#java---updating-your-application-properties) or [Updating your application properties (JMS)](#jms---updating-your-application-properties)
+    * For more information, see the [Solace Java Spring Boot Starter README](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md) or the [Solace JMS Spring Boot Starter README](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
     * Example: 
        ```
        solace.java.host=tcp://192.168.133.64:55555
@@ -274,13 +274,13 @@ The samples work by publishing a simple message of "Hello World" to the event br
 
 You can find additional information about each of the projects in their respective README's.
 
+### Solace Java Spring Boot Starter
+
+[solace-spring-boot-starters/solace-java-spring-boot-starter/README.md](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md)
+
 ### Solace JMS Spring Boot Starter
 
 [solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
-
-### Solace Java Spring Boot Starter
-
-[solace-spring-boot-starters/solace-java-spring-boot-starter/README.md](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
 
 ### Solace Java CFEnv
 
