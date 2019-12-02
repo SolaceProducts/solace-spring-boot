@@ -9,19 +9,22 @@ This includes the Java (JCSMP) starter and the JMS starter.
 * [Quickstart Guide](#quickstart-guide)
     * [Quickstart Guide - Java](#quickstart-guide---java)
     * [Quickstart Guide - JMS](#quickstart-guide---jms)
-* [Advanced Configuration](#advanced-configuration)
-    * [Advanced Configuration - Java](#advanced-configuration---java)
-    * [Advanced Configuration - JMS](#advanced-configuration---jms)
 * [Building Locally](#building-locally)
     * [Maven Project Structure](#maven-project-structure)
 * [Running The Samples](#running-the-samples)
     * [What Do The Samples Do?](#what-do-the-samples-do)
 * [Additional Information](#additional-information)
+    * [Solace Java Spring Boot Starter](#solace-java-spring-boot-starter)
+    * [Solace JMS Spring Boot Starter](#solace-jms-spring-boot-starter)
+    * [Solace Java CFEnv](#solace-java-cfenv)
+* [Additional Meta-Information](#additional-meta-information)
     * [Contributing](#contributing)
     * [Authors](#authors)
     * [License](#license)
     * [Support](#support)
     * [Resources](#resources)
+    
+---
 
 ## Quickstart Guide
 
@@ -156,97 +159,22 @@ Note: Gradle 4 isn't natively compatible with Maven BOM's. Thus, we have to use 
     }
 ```
 
-## Advanced Configuration
-
-### Advanced Configuration - Java
-
-#### Java - Exposing a Solace PubSub+ Service Manifest in the Application's Environment
-
-Configuration of the `SpringJCSMPFactory` can be done through exposing a Solace PubSub+ service manifest to the application's JVM properties or OS environment.
-
-For example, you can set a `SOLCAP_SERVICES` variable in either your JVM properties or OS's environment to directly contain a `VCAP_SERVICES`-formatted manifest file. In which case, the autoconfigure will pick up any Solace PubSub+ services in it and use them to accordingly configure your `SpringJCSMPFactory`.
-
-The properties provided by this externally-provided manifest can also be augmented using the values from the [application's properties file](#java---updating-your-application-properties).
-
-For details on valid manifest formats and other ways of exposing Solace service manifests to your application, see the _Manifest Load Order and Expected Formats_ section in the [Solace Services Info](https://github.com/SolaceProducts/solace-services-info#manifest-load-order-and-expected-formats) project.
-
-#### Java - Updating your Application Properties
-
-Alternatively, configuration of the `SpringJCSMPFactory` can also be done through the [`application.properties` file](https://github.com/SolaceProducts/solace-spring/blob/master/solace-spring-boot-samples/solace-java-sample-app/src/main/resources/application.properties). This is where users can control the Solace Java API properties. Currently this project supports direct configuration of the following properties:
-
-```
-solace.java.host
-solace.java.msgVpn
-solace.java.clientUsername
-solace.java.clientPassword
-solace.java.clientName
-solace.java.connectRetries
-solace.java.reconnectRetries
-solace.java.connectRetriesPerHost
-solace.java.reconnectRetryWaitInMillis
-```
-
-Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.java.host`.
-
-See [`SolaceJavaProperties`](https://github.com/SolaceProducts/solace-spring/blob/master/solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJavaProperties.java) for the most up to date list.
-
-Any additional Solace Java API properties can be set through configuring `solace.java.apiProperties.<Property>` where `<Property>` is the name of the property as defined in the [Solace Java API documentation for `com.solacesystems.jcsmp.JCSMPProperties`](https://docs.solace.com/API-Developer-Online-Ref-Documentation/java/constant-values.html#com.solacesystems.jcsmp.JCSMPProperties.ACK_EVENT_MODE), for example:
-
-```
-solace.java.apiProperties.reapply_subscriptions=false
-solace.java.apiProperties.ssl_trust_store=/path/to/truststore
-```
-
-Note that the direct configuration of `solace.java.` properties takes precedence over the `solace.java.apiProperties.`.
-
-### Advanced Configuration - JMS
-
-#### JMS - Exposing a Solace PubSub+ Service Manifest in the Application's Environment
-
-Configuration of the `ConnectionFactory` and/or the `JndiTemplate` can be done through exposing a Solace PubSub+ service manifest to the application's JVM properties or OS environment.
-
-For example, you can set a `SOLCAP_SERVICES` variable in either your JVM properties or OS's environment to directly contain a `VCAP_SERVICES`-formatted manifest file. In which case, the autoconfigure will pick up any Solace PubSub+ services in it and use them to accordingly configure your `JmsTemplate`.
-
-The properties provided by this externally-provided manifest can also be augmented using the values from the [application's properties file](#jms---updating-your-application-properties).
-
-For details on valid manifest formats and other ways of exposing Solace service manifests to your application, see the [Manifest Load Order and Expected Formats](//github.com/SolaceProducts/solace-services-info#manifest-load-order-and-expected-formats) section in the [Solace Services Info](//github.com/SolaceProducts/solace-services-info) project.
-
-#### JMS - Updating your Application Properties
-
-Alternatively, configuration of the `JmsTemplate` can also be entirely done through the `application.properties` file located in the `src/main/resources` folder. This is where users can control the Solace JMS API properties. Currently this project supports direct configuration of the following properties:
-
-```
-solace.jms.host
-solace.jms.msgVpn
-solace.jms.clientUsername
-solace.jms.clientPassword
-# Following properties do not apply when using JNDI, see below.
-solace.jms.clientName
-solace.jms.directTransport
-```
-
-Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.jms.host`. When using JNDI, the configured connection factory properties on the Solace message broker are taken as a starting point, including the `clientName` and `directTransport` configurations.
-
-See [`SolaceJmsProperties`](//github.com/SolaceProducts/solace-spring/blob/master/solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJmsProperties.java) for the most up to date list of directly configurable properties.
-
-Any additional supported Solace JMS API properties can be set through configuring `solace.jms.apiProperties.<Property>` where `<Property>` is the "Value" of the property in the ["com.solacesystems.jms.SupportedProperty" table as defined in the Solace JMS API documentation](//docs.solace.com/API-Developer-Online-Ref-Documentation/jms/constant-values.html#com.solacesystems.jms.SupportedProperty.SOLACE_JMS_SSL_TRUST_STORE ), for example:
-
-```
-solace.jms.apiProperties.Solace_JMS_SSL_TrustStore=ABC
-```
-
-Note that the direct configuration of `solace.jms.` properties takes precedence over the `solace.jms.apiProperties.`.
-
-
 ## Building Locally
 
-To build the artifacts locally, run `mvn package` at the root of the project.
+To build the artifacts locally, simply clone this repository and run `mvn package` at the root of the project.
 This will build everything.
 
 ```bash
 git clone https://github.com/SolaceProducts/solace-spring.git
 cd solace-spring
 mvn package
+```
+
+If you want to install the latest versions of all the artifacts locally, you can also run a 'mvn install'
+```bash
+git clone https://github.com/SolaceProducts/solace-spring.git
+cd solace-spring
+mvn install
 ```
 
 ### Maven Project Structure
@@ -344,6 +272,22 @@ The samples work by publishing a simple message of "Hello World" to the event br
 
 ## Additional Information
 
+You can find additional information about each of the projects in their respective README's.
+
+### Solace JMS Spring Boot Starter
+
+[solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
+
+### Solace Java Spring Boot Starter
+
+[solace-spring-boot-starters/solace-java-spring-boot-starter/README.md](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
+
+### Solace Java CFEnv
+
+[solace-spring-boot/solace-java-cfenv/README.md](solace-spring-boot/solace-java-cfenv/README.md)
+
+## Additional Meta-Information
+
 ### Contributing
 
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us.
@@ -371,10 +315,20 @@ https://solace.community
 ### Resources
 
 For more information about Spring Boot Auto-Configuration and Starters try these resources:
-
 - [Spring Docs - Spring Boot Auto-Configuration](//docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#using-boot-auto-configuration)
 - [Spring Docs - Developing Auto-Configuration](//docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-developing-auto-configuration)
 - [GitHub Tutorial - Master Spring Boot Auto-Configuration](//github.com/snicoll-demos/spring-boot-master-auto-configuration)
+
+For more information about Cloud Foundry and the Solace PubSub+ service these resources:
+- [Solace PubSub+ for Pivotal Cloud Foundry](http://docs.pivotal.io/solace-messaging/)
+- [Cloud Foundry Documentation](http://docs.cloudfoundry.org/)
+- For an introduction to Cloud Foundry: https://www.cloudfoundry.org/
+
+For more information about Spring Cloud try these resources:
+- [Spring Cloud](http://projects.spring.io/spring-cloud/)
+- [Spring Cloud Connectors](http://cloud.spring.io/spring-cloud-connectors/)
+- [Spring Cloud Connectors Docs](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
+- [Spring Cloud Connectors GitHub](https://github.com/spring-cloud/spring-cloud-connectors)
 
 For more information about Solace technology in general please visit these resources:
 

@@ -18,6 +18,7 @@
         <solace.java-starter.version>4.0.0-SNAPSHOT</solace.java-starter.version>
         <solace.jms-starter.version>4.0.0-SNAPSHOT</solace.jms-starter.version>
         <solace.multi-starter.version>1.0.0-SNAPSHOT</solace.multi-starter.version>
+        <solace.java-cfenv.version>1.0.0-SNAPSHOT</solace.java-cfenv.version>
     </properties>
 
     <licenses>

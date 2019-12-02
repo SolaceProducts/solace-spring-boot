@@ -1,151 +1,100 @@
-[![Build Status](https://travis-ci.org/SolaceProducts/sl-spring-cloud-connectors.svg?branch=master)](https://travis-ci.org/SolaceProducts/sl-spring-cloud-connectors)
-
-# Solace PubSub+ Spring Cloud Connectors
-
-A Spring Cloud Connector for an instance of Solace PubSub+ in Cloud Foundry. Specifically a ServiceInfo and ServiceInfoCreator implementation for Solace PubSub+ in Cloud Foundry.
-
-## Contents
-
-* [Overview](#overview)
-* [Spring Cloud Connectors](#spring-cloud-connectors)
-* [Java Applications](#java-applications)
-* [Spring Applications](#spring-applications)
-* [Using it in your Application](#using-it-in-your-application)
-* [Checking out and Building](#checking-out-and-building)
-* [Contributing](#contributing)
-* [Release Notes & Versioning](#release-notes-and-versioning)
-* [Authors](#authors)
-* [License](#license)
-* [Resources](#resources)
-
-
----
+# Solace Java CFEnv
 
 ## Overview
 
-This project provides an implementation of the ServiceInfo and ServiceInfoCreator interfaces to extend the Spring Cloud Connectors project to the Solace PubSub+ Cloud Foundry service. Using this in your Spring application can make consuming the Solace PubSub+ service simpler than straight parsing of the `VCAP_SERVICES` environment variable.
+This project loads Cloud Foundry (CF) environment information to autodetect local Solace PubSub+ services.
 
-The Spring cloud documentation provides both a nice introduction to Cloud Connectors and a nice overview of the options for [extending Spring Cloud](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html#_extending_spring_cloud_connectors). This project provides a Cloud Service Support extension to make it easy to consume the Solace PubSub+ Cloud Foundry Service in your Cloud Foundry application. The following diagram attempts to provide an architectural overview of what is implemented in this project.
+## Table of Contents
 
-![Architecture](resources/Architecture.png)
+* [Getting Started](#getting-started)
+    * [Getting Started - Maven](#getting-started---maven)
+    * [Getting Started - Gradle 4](#getting-started---gradle-4)
+    * [Getting Started - Gradle 5](#getting-started---gradle-5)
+* [Usage](#usage)
+* [Functionality](#functionality)
 
-## Spring Cloud connectors
+---
 
-This project extends Spring Cloud Connectors. If you are new to Spring Cloud Connectors, check out their project on GitHub here: https://github.com/spring-cloud/spring-cloud-connectors
+## Getting Started
 
-The following is a brief introduction copied from their README:
+If you depend on `solace-spring-boot-starter`, `solace-java-spring-boot-starter` or `solace-jms-spring-boot-starter`, this dependency will be included transitively by default.
 
->Spring Cloud Connectors simplifies the process of connecting to services and gaining operating environment awareness in cloud platforms such as Cloud Foundry and Heroku, especially for Spring applications. It is designed for extensibility: you can use one of the provided cloud connectors or write one for your cloud platform, and you can use the built-in support for commonly-used services (relational databases, MongoDB, Redis, RabbitMQ) or extend Spring Cloud Connectors to work with your own services.
+If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the dependency by itself. You will need to first import `solace-spring-boot-bom` as a BOM dependency. In Gradle 4 or earlier, this requires use of the `dependency-management-plugin`.
 
-## Java Applications
+### Getting Started - Maven
+```xml
+<!-- Add me to your POM.xml -->
+    <properties>
+        <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
+    </properties>
 
-Applications can use this connector with Spring Cloud to access the information in the VCAP_SERVICES environment variable, necessary for connection to a Solace PubSub+ Service Instance.
+    <dependencyManagement>
+        <groupId>com.solace.spring.boot</groupId>
+        <artifactId>solace-spring-boot-bom</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependencyManagement>
 
-In the following example the code finds the Solace PubSub+ Cloud Foundry service instance name `MyService` and uses the `SolaceServiceCredentials` object to connect a Solace PubSub+ API for Java (JCSMP) session.
+    <dependencies>
+        <dependency>
+            <groupId>com.solace.spring.boot</groupId>
+            <artifactId>solace-java-cfenv</artifactId>    
+        </dependency>
+    </dependencies>
+```
+
+### Getting Started - Gradle 4
+```groovy
+    /* Add me to your build.gradle */
+    buildscript {
+        ext {
+            springBootVersion = '2.2.0.RELEASE'
+        }
+        dependencies {
+            classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
+        }
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom "com.solace.spring.boot:solace-spring-boot-bom:${springBootVersion}"
+        }
+    }
+    
+    dependencies {
+        compile("com.solace.spring.boot:solace-java-cfenv")
+    }
+```
+
+### Getting Started - Gradle 5
+```groovy
+    /* Add me to your build.gradle */
+    buildscript {
+        ext {
+            springBootVersion = '2.2.0.RELEASE'
+        }
+    }
+    
+    dependencies {
+        implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:${springBootVersion}"))
+        implementation("com.solace.spring.boot:solace-java-cfenv")
+    }
+```
+
+## Usage
+
+This will get the `SolaceServiceCredentials` for each Solace PubSub+ service that is available in the current Cloud Foundry environment.
 
 ```java
-CloudFactory cloudFactory = new CloudFactory();
-Cloud cloud = cloudFactory.getCloud();
-SolaceServiceCredentials solacemessaging = (SolaceServiceCredentials) cloud.getServiceInfo("MyService");
-
-// Setting up the JCSMP Connection
-final JCSMPProperties props = new JCSMPProperties();
-props.setProperty(JCSMPProperties.HOST, solacemessaging.getSmfHost());
-props.setProperty(JCSMPProperties.VPN_NAME, solacemessaging.getMsgVpnName());
-props.setProperty(JCSMPProperties.USERNAME, solacemessaging.getClientUsername());
-props.setProperty(JCSMPProperties.PASSWORD, solacemessaging.getClientPassword());
-
-JCSMPSession session = JCSMPFactory.onlyInstance().createSession(props);
-session.connect();
+List<SolaceServiceCredentials> solaceServiceCredentialsList;
+solaceServiceCredentialsList = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
 ```
 
-## Spring Applications
+Note: If no Solace PubSub+ services are found, the list will be empty (not null).
 
-The Spring Cloud Auto-Configure Java, JMS and JNDI tutorials in the [Solace PubSub+ with Pivotal Cloud Foundry Getting Started Samples](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/) provide easy integration into Spring applications.
+## Functionality
 
-Above example for the Solace PubSub+ API for Java (JCSMP) would be further simplified as follows: here Spring creates a SpringJCSMPFactory with all the properties set and all that is required is to autowire this into your application. Check out the [tutorial](https://dev.solace.com/samples/solace-samples-cloudfoundry-java/spring-cloud-autoconf-java/) for further details.
-
-```java
-@Autowired
-private SpringJCSMPFactory solaceFactory;
-
-JCSMPSession session = solaceFactory.createSession();
-session.connect();
-```
-
-## Using it in your Application
-
-The releases from this project are hosted in [Maven Central](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.solace.cloud.cloudfoundry%22%20AND%20a%3A%22solace-spring-cloud-connector%22)
-
-##Here is how to include it in your project using Gradle and Maven.
-
-Include version 4.0.0 or later to use Spring Boot release 2.x
-
-### Using it with Gradle
-
-```
-// Solace Cloud
-compile("com.solace.cloud.cloudfoundry:solace-spring-cloud-connector:4.1.0")
-```
-
-### Using it with Maven
-
-```
-<!-- Solace Cloud -->
-<dependency>
-  <groupId>com.solace.cloud.cloudfoundry</groupId>
-  <artifactId>solace-spring-cloud-connector</artifactId>
-  <version>4.1.0</version>
-</dependency>
-```
-
-## Checking out and Building
-
-This project depends on maven for building. To build the jar locally, check out the project and build from source by doing the following:
-
-    git clone https://github.com/SolaceProducts/sl-spring-cloud-connectors.git
-    cd sl-spring-cloud-connectors
-    mvn package
-
-This will build a jar file which will be named similar to the following:
-
-```
-target/solace-spring-cloud-connector-3.3.0-SNAPSHOT.jar
-```
-
-You can install this file in your maven repository locally.
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Release Notes and Versioning
-
-This project uses [SemVer](http://semver.org/) for versioning. For the versions available and corresponding release notes, see the [Releases in this repository](https://github.com/SolaceProducts/sl-spring-cloud-connectors/releases).
-
-## Authors
-
-See the list of [contributors](https://github.com/SolaceProducts/sl-spring-cloud-connectors/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the Apache License, Version 2.0. - See the [LICENSE](LICENSE) file for details.
-
-## Resources
-
-For more information about Cloud Foundry and the Solace PubSub+ service these resources:
-- [Solace PubSub+ for Pivotal Cloud Foundry](http://docs.pivotal.io/solace-messaging/)
-- [Cloud Foundry Documentation](http://docs.cloudfoundry.org/)
-- For an introduction to Cloud Foundry: https://www.cloudfoundry.org/
-
-For more information about Spring Cloud try these resources:
-- [Spring Cloud](http://projects.spring.io/spring-cloud/)
-- [Spring Cloud Connectors](http://cloud.spring.io/spring-cloud-connectors/)
-- [Spring Cloud Connectors Docs](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
-- [Spring Cloud Connectors GitHub](https://github.com/spring-cloud/spring-cloud-connectors)
-
-For more information about Solace technology in general please visit these resources:
-
-- The Solace Developer Portal website at: http://dev.solacesystems.com
-- Understanding [Solace technology.](http://dev.solacesystems.com/tech/)
-- Ask the [Solace community](http://dev.solacesystems.com/community/).
+Any CF service with either the Solace label or tag (defined in [SolaceServiceCredentialsFactory.java](src/main/java/com/solace/spring/cloud/core/SolaceServiceCredentialsFactory.java)), or both the label and tag, is considered to be a Solace PubSub+ service. These services will be autodetected by Java CFEnv.

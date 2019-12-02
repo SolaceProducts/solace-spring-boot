@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>com.solace.spring.boot</groupId>
 			<artifactId>solace-java-cfenv</artifactId>
-			<version>${solace-java-cfenv.version}</version>
+			<version>${solace.java-cfenv.version}</version>
 		</dependency>
 
 		<dependency>
