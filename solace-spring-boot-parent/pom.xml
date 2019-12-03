@@ -14,7 +14,6 @@
 
     <name>Solace Spring Boot Parent</name>
     <description>Parent package for Solace Spring Boot</description>
-    <url>https://github.com/solacedev/solace-spring</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
