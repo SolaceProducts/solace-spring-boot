@@ -182,15 +182,15 @@ To build the artifacts locally, simply clone this repository and run `mvn packag
 This will build everything.
 
 ```bash
-git clone https://github.com/SolaceProducts/solace-spring.git
-cd solace-spring
+git clone https://github.com/SolaceProducts/solace-spring-boot.git
+cd solace-spring-boot
 mvn package
 ```
 
 If you want to install the latest versions of all the artifacts locally, you can also run a 'mvn install'
 ```bash
-git clone https://github.com/SolaceProducts/solace-spring.git
-cd solace-spring
+git clone https://github.com/SolaceProducts/solace-spring-boot.git
+cd solace-spring-boot
 mvn install
 ```
 

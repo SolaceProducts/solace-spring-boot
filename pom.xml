@@ -9,7 +9,7 @@
 
     <name>Solace Spring Boot Build</name>
     <description>Build for Solace Spring Boot support</description>
-    <url>https://github.com/solacedev/solace-spring</url>
+    <url>https://github.com/solacedev/solace-spring-boot</url>
 
     <properties>
         <!-- This is the version of Spring Boot we have targeted for this build -->
@@ -54,9 +54,9 @@
     </modules>
 
     <scm>
-        <url>https://github.com/SolaceDev/solace-spring.git</url>
-        <connection>scm:git:git://github.com/SolaceDev/solace-spring.git</connection>
-        <developerConnection>scm:git:git@github.com:SolaceDev/solace-spring.git</developerConnection>
+        <url>https://github.com/SolaceDev/solace-spring-boot.git</url>
+        <connection>scm:git:git://github.com/SolaceDev/solace-spring-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:SolaceDev/solace-spring-boot.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 

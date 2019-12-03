@@ -9,7 +9,6 @@
 
 	<name>Solace Spring Boot Sample - Java</name>
 	<description>Sample Application using the custom auto-config</description>
-	<url>https://github.com/SolaceProducts/solace-spring</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
