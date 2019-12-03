@@ -44,7 +44,7 @@
 
             <dependency>
                 <groupId>com.solace.spring.boot</groupId>
-                <artifactId>solace-java-spring-boot-starter</artifactId>
+                <artifactId>solace-java-cfenv</artifactId>
                 <version>${solace.java-cfenv.version}</version>
             </dependency>
         </dependencies>
