@@ -40,8 +40,17 @@ Once these dependencies are declared, we can automatically autowire Solace Sprin
     * [Using Maven](#maven-quickstart)
     * [Using Gradle 4](#gradle-4-quickstart)
     * [Using Gradle 5](#gradle-5-quickstart)
+2.Configure your properties file. For more detailed information, see the [Solace JMS Spring Boot Starter README](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md).
+  ```properties
+  # Add me to your application.properties
+  solace.jms.host=tcp://mrabcdef123.messaging.solace.cloud:20032
+  solace.jms.msgVpn=msgvpn-abcdef123
+  solace.jms.clientUsername=solace-cloud-client
+  solace.jms.clientPassword=hunter2
+  ```
+You can skip this step if you are running within Cloud Foundry as local services will be discovered automatically by default.
 
-2. Autowire the following connection objects in your code for JMS or JNDI:
+3. Autowire the following connection objects in your code for JMS or JNDI:
 
     ```java
         @Autowired
@@ -60,8 +69,16 @@ Once these dependencies are declared, we can automatically autowire Solace Sprin
     * [Using Maven](#maven-quickstart)
     * [Using Gradle 4](#gradle-4-quickstart)
     * [Using Gradle 5](#gradle-5-quickstart)
-
-2. Declare `SpringJCSMPFactory` and annotate it so that it is autowired:
+2. Configure your properties file. For more detailed information, see the [Solace Java Spring Boot Starter README](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md).
+  ```properties
+  # Add me to your application.properties
+  solace.java.host=tcp://mrabcdef123.messaging.solace.cloud:20032
+  solace.java.msgVpn=msgvpn-abcdef123
+  solace.java.clientUsername=solace-cloud-client
+  solace.java.clientPassword=hunter2
+  ```
+You can skip this step if you are running within Cloud Foundry as local services will be discovered automatically by default.
+3. Declare `SpringJCSMPFactory` and annotate it so that it is autowired:
     
     ```java
     @Autowired
