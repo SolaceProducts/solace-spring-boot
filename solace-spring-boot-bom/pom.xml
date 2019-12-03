@@ -15,15 +15,7 @@
 
     <name>Solace Spring Boot BOM</name>
     <description>BOM for Solace Spring Boot</description>
-    <url>https://github.com/SolaceDev/solace-spring</url>
-
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://github.com/SolaceDev/solace-spring/blob/master/LICENSE</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+    <url>https://github.com/SolaceDev/solace-spring-boot</url>
 
     <organization>
         <name>Solace</name>

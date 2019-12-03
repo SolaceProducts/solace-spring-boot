@@ -23,8 +23,9 @@
 
     <licenses>
         <license>
-            <name>The Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>Apache License, Version 2.0</name>
+            <url>https://github.com/SolaceDev/solace-spring-boot/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
