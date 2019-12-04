@@ -7,6 +7,7 @@ This includes the Java (JCSMP) starter and the JMS starter.
 
 ## Table of contents
 * [Quickstart Guide](#quickstart-guide)
+    * [Quickstart Guide - Spring Boot Version Compatibility](#quickstart-guide---spring-boot-version-compatibility)
     * [Quickstart Guide - Java](#quickstart-guide---java)
     * [Quickstart Guide - JMS](#quickstart-guide---jms)
 * [Building Locally](#building-locally)
@@ -35,6 +36,8 @@ To get started, we need to pull in 2 dependencies:
 2. `solace-spring-boot-bom`
 
 Once these dependencies are declared, we can automatically autowire Solace Spring Boot beans.
+
+### Quickstart Guide - Spring Boot Version Compatibility
 
 The `solace-spring-boot-bom` will guarantee that the versions of the Solace Spring Boot starters and autoconfigurations are what works with your version of Spring Boot.
 Consult the table below to determine what version of the BOM you need for your version of Spring Boot.
@@ -127,12 +130,15 @@ You can skip this step if you are running within Cloud Foundry as local services
     <!-- Add me to your POM.xml -->
     <properties>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
+    
+        <!-- Consult the README versioning table -->
+        <solace.spring.boot.bom.version>1.0.0</solace.spring.boot.bom.version>
     </properties>
 
     <dependencyManagement>
         <groupId>com.solace.spring.boot</groupId>
         <artifactId>solace-spring-boot-bom</artifactId>
-        <version>${spring.boot.version}</version>
+        <version>${solace.spring.boot.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
     </dependencyManagement>
@@ -151,6 +157,9 @@ You can skip this step if you are running within Cloud Foundry as local services
     buildscript {
         ext {
             springBootVersion = '2.2.0.RELEASE'
+
+            // Consult the README versioning table
+            solaceSpringBootBomVersion = '1.0.0'
         }
         dependencies {
             classpath 'io.spring.gradle:dependency-management-plugin:1.0.8.RELEASE'
@@ -161,7 +170,7 @@ You can skip this step if you are running within Cloud Foundry as local services
 
     dependencyManagement {
         imports {
-            mavenBom "com.solace.spring.boot:solace-spring-boot-bom:${springBootVersion}"
+            mavenBom "com.solace.spring.boot:solace-spring-boot-bom:${solaceSpringBootBomVersion}"
         }
     }
     
@@ -178,11 +187,14 @@ Note: Gradle 4 isn't natively compatible with Maven BOM's. Thus, we have to use 
     buildscript {
         ext {
             springBootVersion = '2.2.0.RELEASE'
+
+            // Consult the README versioning table
+            solaceSpringBootBomVersion = '1.0.0'
         }
     }
     
     dependencies {
-        implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:${springBootVersion}"))
+        implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:${solaceSpringBootBomVersion}"))
         implementation("com.solace.spring.boot:solace-spring-boot-starter")
     }
 ```
