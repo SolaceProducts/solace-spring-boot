@@ -14,9 +14,9 @@ This includes the Java (JCSMP) starter and the JMS starter.
 * [Running The Samples](#running-the-samples)
     * [What Do The Samples Do?](#what-do-the-samples-do)
 * [Additional Information](#additional-information)
-    * [Solace Java Spring Boot Starter](#solace-java-spring-boot-starter)
-    * [Solace JMS Spring Boot Starter](#solace-jms-spring-boot-starter)
-    * [Solace Java CFEnv](#solace-java-cfenv)
+    * [Solace Java Spring Boot Starter](#solace-java-spring-boot-starter-readme)
+    * [Solace JMS Spring Boot Starter](#solace-jms-spring-boot-starter-readme)
+    * [Solace Java CFEnv](#solace-java-cfenv-readme)
 * [Additional Meta-Information](#additional-meta-information)
     * [Contributing](#contributing)
     * [Authors](#authors)
@@ -291,15 +291,15 @@ The samples work by publishing a simple message of "Hello World" to the event br
 
 You can find additional information about each of the projects in their respective README's.
 
-### Solace Java Spring Boot Starter
+### Solace Java Spring Boot Starter README
 
 [solace-spring-boot-starters/solace-java-spring-boot-starter/README.md](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md)
 
-### Solace JMS Spring Boot Starter
+### Solace JMS Spring Boot Starter README
 
 [solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
 
-### Solace Java CFEnv
+### Solace Java CFEnv README
 
 [solace-spring-boot/solace-java-cfenv/README.md](solace-spring-boot/solace-java-cfenv/README.md)
 
