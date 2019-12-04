@@ -26,6 +26,8 @@ This includes the Java (JCSMP) starter and the JMS starter.
     
 ---
 
+
+
 ## Quickstart Guide
 
 To get started, we need to pull in 2 dependencies:
@@ -33,6 +35,15 @@ To get started, we need to pull in 2 dependencies:
 2. `solace-spring-boot-bom`
 
 Once these dependencies are declared, we can automatically autowire Solace Spring Boot beans.
+
+The `solace-spring-boot-bom` will guarantee that the versions of the Solace Spring Boot starters and autoconfigurations are what works with your version of Spring Boot.
+Consult the table below to determine what version of the BOM you need for your version of Spring Boot.
+
+|Spring Boot       | Solace BOM             |
+|----------------- |------------------------|
+| 2.2.0            | 1.0.0                  |
+| 2.2.1            |                        |
+| 2.2.2-SNAPSHOT   |                        |
 
 ### Quickstart Guide - JMS
 
