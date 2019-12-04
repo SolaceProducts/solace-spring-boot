@@ -42,7 +42,7 @@ Once these dependencies are declared, we can automatically autowire Solace Sprin
 The `solace-spring-boot-bom` will guarantee that the versions of the Solace Spring Boot starters and autoconfigurations are what works with your version of Spring Boot.
 Consult the table below to determine what version of the BOM you need for your version of Spring Boot.
 
-|Spring Boot       | Solace BOM             |
+|Spring Boot       | Solace Spring Boot BOM |
 |----------------- |------------------------|
 | 2.2.0            | 1.0.0                  |
 | 2.2.1            |                        |
