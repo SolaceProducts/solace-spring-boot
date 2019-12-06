@@ -138,11 +138,15 @@ You can skip this step if you are running within Cloud Foundry as local services
     </properties>
 
     <dependencyManagement>
-        <groupId>com.solace.spring.boot</groupId>
-        <artifactId>solace-spring-boot-bom</artifactId>
-        <version>${solace.spring.boot.bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <dependencies>
+            <dependency>
+                <groupId>com.solace.spring.boot</groupId>
+                <artifactId>solace-spring-boot-bom</artifactId>
+                <version>${solace.spring.boot.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
     </dependencyManagement>
 
     <dependencies>
