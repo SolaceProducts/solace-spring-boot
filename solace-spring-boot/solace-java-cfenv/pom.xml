@@ -27,7 +27,6 @@
 	</parent>
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.solace.spring.boot</groupId>
 	<artifactId>solace-java-cfenv</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0-SNAPSHOT</version>
@@ -49,7 +48,7 @@
 		<dependency>
 			<groupId>com.solace.cloud.core</groupId>
 			<artifactId>solace-services-info</artifactId>
-			<version>${solace-services-info.version}</version>
+			<version>${solace.services-info.version}</version>
 		</dependency>
 
 		<dependency>

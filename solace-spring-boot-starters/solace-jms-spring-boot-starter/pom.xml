@@ -30,12 +30,11 @@
 		<dependency>
 			<groupId>com.solace.spring.boot</groupId>
 			<artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
-			<version>${solace.jms-autoconf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.solacesystems</groupId>
 			<artifactId>sol-jms</artifactId>
-			<version>${sol-jms.version}</version>
+			<version>${solace.jms.version}</version>
 		</dependency>
 	</dependencies>
 

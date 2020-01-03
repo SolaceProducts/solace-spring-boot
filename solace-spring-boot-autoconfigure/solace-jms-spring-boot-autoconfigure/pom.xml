@@ -50,24 +50,23 @@
 		<dependency>
 			<groupId>com.solace.cloud.core</groupId>
 			<artifactId>solace-services-info</artifactId>
-			<version>${solace-services-info.version}</version>
+			<version>${solace.services-info.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.solacesystems</groupId>
 			<artifactId>sol-jms</artifactId>
 			<optional>true</optional>
-			<version>${sol-jms.version}</version>
+			<version>${solace.jms.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.solace.spring.boot</groupId>
 			<artifactId>solace-java-cfenv</artifactId>
-			<version>${solace.java-cfenv.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.github.stefanbirkner</groupId>
 			<artifactId>system-rules</artifactId>
-			<version>${system-rules.version}</version>
+			<version>1.16.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

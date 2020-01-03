@@ -22,15 +22,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <solace.java-autoconf.version>4.0.0-SNAPSHOT</solace.java-autoconf.version>
-        <solace.jms-autoconf.version>4.0.0-SNAPSHOT</solace.jms-autoconf.version>
+        <solace.spring.boot.java-autoconf.version>4.0.0-SNAPSHOT</solace.spring.boot.java-autoconf.version>
+        <solace.spring.boot.jms-autoconf.version>4.0.0-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <sol-jcsmp.version>10.6.3</sol-jcsmp.version>
-        <sol-jms.version>10.6.3</sol-jms.version>
-        <solace-services-info.version>0.4.0</solace-services-info.version>
-
-        <system-rules.version>1.16.0</system-rules.version>
-        <commons-logging.version>1.2</commons-logging.version>
+        <solace.jcsmp.version>10.6.3</solace.jcsmp.version>
+        <solace.jms.version>10.6.3</solace.jms.version>
+        <solace.services-info.version>0.4.0</solace.services-info.version>
     </properties>
 
     <dependencyManagement>
@@ -42,6 +39,18 @@
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.solace.spring.boot</groupId>
+                <artifactId>solace-java-spring-boot-autoconfigure</artifactId>
+                <version>${solace.spring.boot.java-autoconf.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.solace.spring.boot</groupId>
+                <artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
+                <version>${solace.spring.boot.jms-autoconf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

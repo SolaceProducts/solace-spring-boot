@@ -14,7 +14,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>demo.DemoApplication</start-class>
 		<java.version>1.8</java.version>
-		<spring-boot.version>2.2.0.RELEASE</spring-boot.version>
+		<spring.boot.version>2.2.0.RELEASE</spring.boot.version>
+		<solace.spring.boot.version>1.0.0-SNAPSHOT</solace.spring.boot.version>
 	</properties>
 
 	<dependencyManagement>
@@ -22,7 +23,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
+				<version>${spring.boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -30,7 +31,7 @@
 			<dependency>
 				<groupId>com.solace.spring.boot</groupId>
 				<artifactId>solace-spring-boot-bom</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>${solace.spring.boot.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -68,7 +69,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
+				<version>${spring.boot.version}</version>
 				<configuration>
 					<fork>true</fork>
 					<skip>false</skip>

@@ -26,12 +26,11 @@
 		<dependency>
 			<groupId>com.solace.spring.boot</groupId>
 			<artifactId>solace-java-spring-boot-autoconfigure</artifactId>
-			<version>${solace.java-autoconf.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.solacesystems</groupId>
 			<artifactId>sol-jcsmp</artifactId>
-			<version>${sol-jcsmp.version}</version>
+			<version>${solace.jcsmp.version}</version>
 		</dependency>
 	</dependencies>
 

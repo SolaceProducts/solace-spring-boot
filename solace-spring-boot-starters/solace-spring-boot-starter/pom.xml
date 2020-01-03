@@ -13,20 +13,18 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Solace Spring Boot Starter - All</name>
-    <description>Starter which includes all Solace Starters</description>
+    <name>Solace Spring Boot Starter</name>
+    <description>Starter for JCSMP/JMS messaging using Solace</description>
     <url>https://github.com/SolaceProducts/solace-jms-spring-boot</url>
 
     <dependencies>
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-jms-spring-boot-starter</artifactId>
-            <version>${solace.jms-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-java-spring-boot-starter</artifactId>
-            <version>${solace.java-starter.version}</version>
         </dependency>
     </dependencies>
 
