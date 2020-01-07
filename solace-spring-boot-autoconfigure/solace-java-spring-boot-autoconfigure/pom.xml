@@ -15,7 +15,7 @@
 
 	<name>Solace Spring Boot Autoconfiguration - Java</name>
 	<description>Autoconfiguration for messaging using the Solace Java API</description>
-	<url>https://github.com/SolaceProducts/solace-java-spring-boot</url>
+	<url>https://github.com/SolaceProducts/solace-spring-boot</url>
 
 	<dependencies>
 		<dependency>

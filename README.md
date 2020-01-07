@@ -24,7 +24,7 @@ This includes the Java (JCSMP) starter and the JMS starter.
     * [License](#license)
     * [Support](#support)
     * [Resources](#resources)
-    
+
 ---
 
 
@@ -54,7 +54,7 @@ Consult the table below to determine what version of the BOM you need for your v
     * [Using Maven](#maven-quickstart)
     * [Using Gradle 4](#gradle-4-quickstart)
     * [Using Gradle 5](#gradle-5-quickstart)
-    
+
 2.Configure your properties file. For more detailed information, see the [Solace JMS Spring Boot Starter README](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md).
   ```properties
   # Add me to your application.properties
@@ -75,7 +75,7 @@ You can skip this step if you are running within Cloud Foundry as local services
         @Autowired
         private JndiTemplate jndiTemplate;              // for JNDI
     ```
-    
+
     Note that if there are multiple services available, e.g. in a cloud deployment or if the application is configured by exposure of a [Solace PubSub+ service manifest](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md), one of the services will be picked automatically. You can control service selection by autowiring `com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory` or `com.solacesystems.jms.SpringSolJmsJndiTemplateCloudFactory`, which enable getting the list of all services and use the Factory pattern to create a connection object.
 
 ### Quickstart Guide - Java
@@ -84,7 +84,7 @@ You can skip this step if you are running within Cloud Foundry as local services
     * [Using Maven](#maven-quickstart)
     * [Using Gradle 4](#gradle-4-quickstart)
     * [Using Gradle 5](#gradle-5-quickstart)
-    
+
 2. Configure your properties file. For more detailed information, see the [Solace Java Spring Boot Starter README](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md).
   ```properties
   # Add me to your application.properties
@@ -95,36 +95,36 @@ You can skip this step if you are running within Cloud Foundry as local services
   ```
 You can skip this step if you are running within Cloud Foundry as local services will be discovered automatically by default.
 3. Declare `SpringJCSMPFactory` and annotate it so that it is autowired:
-    
+
     ```java
     @Autowired
     private SpringJCSMPFactory solaceFactory;
     ```
-    
+
     Once you have the `SpringJCSMPFactory`, it behaves just like the `JCSMPFactory` and can be used to create sessions. For example:
-    
+
     ```java
     final JCSMPSession session = solaceFactory.createSession();
     ```
-    
+
     The `SpringJCSMPFactory` is a wrapper of the singleton `JCSMPFactory` which contains an associated `JCSMPProperties`. This facilitates auto-wiring by Spring but otherwise maintains the familiar `JCSMPFactory` interface known to users of the Solace Java API.
-    
+
     Alternatively, you could autowire one or more of the following to create your own customized `SpringJCSMPFactory`:
-    
+
     ```java
     /* A factory for creating SpringJCSMPFactory. */
     @Autowired
     private SpringJCSMPFactoryCloudFactory springJcsmpFactoryCloudFactory;
-    
+
     /* A POJO describing the credentials for the first detected Solace PubSub+ service */
     @Autowired
     private SolaceServiceCredentials solaceServiceCredentials;
-    
+
     /* The properties of a JCSMP connection for the first detected Solace PubSub+ service */
     @Autowired
     private JCSMPProperties jcsmpProperties;
     ```
-    
+
     However note that the `SolaceServiceCredentials` will only provide meaningful information if the application is configured by [exposure of a Solace PubSub+ service manifest](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md), and not by using the [application properties file](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md).
 
 #### Maven Quickstart
@@ -132,7 +132,7 @@ You can skip this step if you are running within Cloud Foundry as local services
     <!-- Add me to your POM.xml -->
     <properties>
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
-    
+
         <!-- Consult the README versioning table -->
         <solace.spring.boot.bom.version>1.0.0</solace.spring.boot.bom.version>
     </properties>
@@ -152,7 +152,7 @@ You can skip this step if you are running within Cloud Foundry as local services
     <dependencies>
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
-            <artifactId>solace-spring-boot-starter</artifactId>    
+            <artifactId>solace-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 ```
@@ -179,7 +179,7 @@ You can skip this step if you are running within Cloud Foundry as local services
             mavenBom "com.solace.spring.boot:solace-spring-boot-bom:${solaceSpringBootBomVersion}"
         }
     }
-    
+
     dependencies {
         compile("com.solace.spring.boot:solace-spring-boot-starter")
     }
@@ -198,7 +198,7 @@ Note: Gradle 4 isn't natively compatible with Maven BOM's. Thus, we have to use 
             solaceSpringBootBomVersion = '1.0.0'
         }
     }
-    
+
     dependencies {
         implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:${solaceSpringBootBomVersion}"))
         implementation("com.solace.spring.boot:solace-spring-boot-starter")
@@ -228,7 +228,7 @@ mvn install
 ```
 solace-spring-boot-build (root)
 <-- solace-spring-boot-bom
-<-- solace-spring-boot-parent 
+<-- solace-spring-boot-parent
     <-- solace-spring-boot-java-starter
     <-- solace-spring-boot-jms-starter
     <-- solace-spring-boot-starter
@@ -255,7 +255,7 @@ If it shouldn't be inherited by the BOM, it doesn't go here.
 
 #### solace-spring-boot-parent
 
-This POM defines common properties and dependencies for the Spring Boot starters and autoconfigurations. 
+This POM defines common properties and dependencies for the Spring Boot starters and autoconfigurations.
 
 If a starter or autoconfiguration shares a dependency with another starter, it is a good idea to specify it as a property in this POM to keep things tidy. It would not be beneficial to have two versions of a common library be included in the starter if a common version works with both.
 
@@ -293,13 +293,13 @@ Here are two ways you can get started quickly if you don't already have a PubSub
     * Visit https://solace.com/downloads/
     * A variety of download options are available to run the software locally
     * Follow the instructions for whatever download option you choose
-    
+
 Now, once you have your PubSub+ instance, you will just need to do these two things:
 
 1. Configure `application.properties`
     * This file can be found in `src/main/resources`
     * For more information, see the [Solace Java Spring Boot Starter README](solace-spring-boot-starters/solace-java-spring-boot-starter/README.md) or the [Solace JMS Spring Boot Starter README](solace-spring-boot-starters/solace-jms-spring-boot-starter/README.md)
-    * Example: 
+    * Example:
        ```
        solace.java.host=tcp://192.168.133.64:55555
        solace.java.msgVpn=default
@@ -340,7 +340,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for su
 
 ### Authors
 
-See the list of [contributors](https://github.com/SolaceProducts/solace-spring/graphs/contributors) who participated in this project.
+See the list of [contributors](https://github.com/SolaceProducts/solace-spring-boot/graphs/contributors) who participated in this project.
 
 ### License
 
