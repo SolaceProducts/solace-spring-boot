@@ -9,9 +9,11 @@
 
     <name>Solace Spring Boot Build</name>
     <description>Build for Solace Spring Boot support</description>
-    <url>https://github.com/SolaceProducts/solace-spring-boot</url>
+    <url>https://github.com/${repoName}/solace-spring-boot</url>
 
     <properties>
+        <repoName>SolaceProducts</repoName>
+
         <!-- This is the version of Spring Boot we have targeted for this build -->
         <spring.boot.version>2.2.0.RELEASE</spring.boot.version>
 
@@ -24,7 +26,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>https://github.com/SolaceProducts/solace-spring-boot/blob/master/LICENSE</url>
+            <url>https://github.com/${repoName}/solace-spring-boot/blob/master/LICENSE</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -56,9 +58,9 @@
     </modules>
 
     <scm>
-        <url>https://github.com/SolaceProducts/solace-spring-boot.git</url>
-        <connection>scm:git:git://github.com/SolaceProducts/solace-spring-boot.git</connection>
-        <developerConnection>scm:git:git@github.com:SolaceProducts/solace-spring-boot.git</developerConnection>
+        <url>https://github.com/${repoName}/solace-spring-boot.git</url>
+        <connection>scm:git:git://github.com/${repoName}/solace-spring-boot.git</connection>
+        <developerConnection>scm:git:git@github.com:${repoName}/solace-spring-boot.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 

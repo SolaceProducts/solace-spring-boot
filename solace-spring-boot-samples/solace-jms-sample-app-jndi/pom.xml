@@ -9,7 +9,7 @@
 
 	<name>Solace Spring Boot Sample - JMS (JNDI)</name>
 	<description>Sample Application using the custom auto-config</description>
-	<url>https://github.com/SolaceProducts/solace-spring-boot</url>
+	<url>https://github.com/${repoName}/solace-spring-boot</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
