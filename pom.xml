@@ -9,7 +9,7 @@
 
     <name>Solace Spring Boot Build</name>
     <description>Build for Solace Spring Boot support</description>
-    <url>https://github.com/${repoName}/solace-spring-boot</url>
+    <url>https://github.com/${repoName}/solace-spring-boot/tree/${project.scm.tag}</url>
 
     <properties>
         <repoName>SolaceProducts</repoName>

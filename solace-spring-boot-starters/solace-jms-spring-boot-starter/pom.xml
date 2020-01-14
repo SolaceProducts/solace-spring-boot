@@ -15,7 +15,7 @@
 
 	<name>Solace Spring Boot Starter - JMS</name>
 	<description>Starter for JMS messaging using Solace</description>
-	<url>https://github.com/${repoName}/solace-spring-boot</url>
+	<url>https://github.com/${repoName}/solace-spring-boot/tree/${project.scm.tag}/solace-spring-boot-starters/solace-jms-spring-boot-starter</url>
 
 	<dependencies>
 		<dependency>

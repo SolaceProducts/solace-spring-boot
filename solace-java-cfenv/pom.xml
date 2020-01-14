@@ -33,7 +33,7 @@
 
 	<name>Solace Spring Java CFEnv</name>
 	<description>Java CFEnv for Solace services</description>
-	<url>http://dev.solacesystems.com</url>
+	<url>https://github.com/${repoName}/solace-spring-boot/tree/${project.scm.tag}/solace-java-cfenv</url>
 
 	<developers>
 		<developer>

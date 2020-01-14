@@ -9,6 +9,7 @@
 
     <name>Solace Spring Spring Boot Samples Parent</name>
     <description>Solace sample applications for Spring Boot</description>
+    <url>https://github.com/SolaceProducts/solace-spring-boot</url>
 
     <modules>
         <module>solace-java-sample-app</module>
