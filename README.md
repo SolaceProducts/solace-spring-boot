@@ -5,9 +5,8 @@
 An umbrella project containing all Solace projects for Spring Boot.
 
 ## Table of Contents
-* [Maven Project Structure](#maven-project-structure)
+* [Repository Contents](#repository-contents)
 * [Building Locally](#building-locally)
-* [Running The Samples](#running-the-samples)
 * [Contributing](#contributing)
 * [Authors](#authors)
 * [License](#license)
@@ -16,37 +15,25 @@ An umbrella project containing all Solace projects for Spring Boot.
 
 ---
 
-## Maven Project Structure
+## Repository Contents
 
-```
-solace-spring-boot-build (root)
-<-- solace-spring-boot-bom
-<-- solace-spring-boot-parent
-    <-- solace-spring-boot-java-starter
-    <-- solace-spring-boot-jms-starter
-    <-- solace-spring-boot-starter
-    <-- solace-java-spring-boot-autoconfigure
-    <-- solace-jms-spring-boot-autoconfigure
-    <-- solace-java-cfenv
+### Solace Spring Boot Bill of Materials (BOM)
 
-solace-java-sample-app
-solace-jms-sample-app
-solace-jms-sample-app-jndi
+The [Solace Spring Boot BOM](./solace-spring-boot-bom) is a POM file which defines the versions of [Solace Spring Boot projects](#solace-spring-boot-projects) that are compatible to a particular version of Spring Boot.
 
-Where <-- indicates the parent of the project
-```
-
-All sub-projects are included as modules of solace-spring-boot-build. Running `mvn package` or `mvn install` at the root of the project will install all sub-projects.
+Please consult the [Spring Boot Compatibility Table](./solace-spring-boot-bom/README.md#spring-boot-version-compatibility) to determine which version of the BOM is compatible with your project. 
 
 ### Solace Spring Boot Projects
 
-These are the projects which are contained within this repo:
-* [Solace Spring Boot BOM](_docs/solace-spring-boot-bom.md)
-* [Solace Java Spring Boot Starter](_docs/solace-java-spring-boot.md)
-* [Solace JMS Spring Boot Starter](_docs/solace-jms-spring-boot.md)
-* Solace Spring Boot Starter
-  * This just combines Solace Java Spring Boot Starter and Solace JMS Spring Boot Starter.
-* [Solace Java CF-Env](_docs/solace-java-cfenv.md)
+These are the projects contained within this repository:
+* [Solace Java Spring Boot Starter](./solace-spring-boot-starters/solace-java-spring-boot-starter)
+* [Solace JMS Spring Boot Starter](./solace-spring-boot-starters/solace-jms-spring-boot-starter)
+* [Solace Spring Boot Starter](./solace-spring-boot-starters/solace-spring-boot-starter)
+* [Solace Java CF-Env](./solace-java-cfenv)
+
+### Solace Spring Boot Sample Applications
+
+The sample applications for all Solace Spring Boot projects can be found under [solace-spring-boot-samples](./solace-spring-boot-samples).
 
 ### solace-spring-boot-build
 
@@ -68,53 +55,34 @@ This POM defines common properties and dependencies for the Solace Spring Boot p
 To build the artifacts locally, simply clone this repository and run `mvn package` at the root of the project.
 This will build everything.
 
-```bash
+```shell script
 git clone https://github.com/SolaceProducts/solace-spring-boot.git
 cd solace-spring-boot
-mvn package
+mvn package # or mvn install to install them locally
 ```
 
-If you want to install the latest versions of all the artifacts locally, you can also run a `mvn install`
-```bash
-git clone https://github.com/SolaceProducts/solace-spring-boot.git
-cd solace-spring-boot
-mvn install
+### Maven Project Structure
+
+```
+solace-spring-boot-build (root)
+    <-> solace-spring-boot-bom
+    <-> solace-spring-boot-parent
+        <-> solace-spring-boot-java-starter
+        <-> solace-spring-boot-jms-starter
+        <-> solace-spring-boot-starter
+        <-> solace-java-spring-boot-autoconfigure
+        <-> solace-jms-spring-boot-autoconfigure
+        <-> solace-java-cfenv
+    --> solace-java-sample-app
+    --> solace-jms-sample-app
+    --> solace-jms-sample-app-jndi
+
+Where:
+    <-- indicates the parent of the project
+    --> indicates a sub-module of the project
 ```
 
-## Running The Samples
-
-To run the samples you will need a Solace PubSub+ Event Broker.
-Here are two ways you can get started quickly if you don't already have a PubSub+ instance:
-
-1. Get a free Solace PubSub+ event broker cloud instance
-    * Visit https://solace.com/products/event-broker/cloud/
-    * Create an account and instance for free
-2. Run the Solace PubSub+ event broker locally
-    * Visit https://solace.com/downloads/
-    * A variety of download options are available to run the software locally
-    * Follow the instructions for whatever download option you choose
-
-Now, once you have your PubSub+ instance, you will just need to do these two things:
-
-1. Configure `application.properties`
-    * This file can be found in `src/main/resources`
-    * For more information, consult the [Solace Java Spring Boot Starter README](_docs/solace-java-spring-boot.md#running-the-sample) or the [Solace JMS Spring Boot Starter README](_docs/solace-jms-spring-boot.md#running-the-sample).
-    * Example:
-       ```
-       solace.java.host=tcp://192.168.133.64:55555
-       solace.java.msgVpn=default
-       solace.java.clientUsername=yourUsername
-       solace.java.clientPassword=yourPassword
-       ```
-2. Run the project from the root folder of the sample using Maven
-    ```bash
-    cd solace-java-sample-app
-    mvn spring-boot:run
-    ```
-
-### What Do The Samples Do?
-
-The samples work by publishing a simple message of "Hello World" to the event broker. Then, because they are subscribed to the topic that they published "Hello World" to, they should also receive "Hello World" back. You can watch this happen by looking at what is logged to the console when you run `mvn spring-boot:run`.
+All sub-projects are included as modules of solace-spring-boot-build. Running `mvn package` or `mvn install` at the root of the project will package/install all sub-projects.
 
 ## Contributing
 
@@ -122,7 +90,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for su
 
 ## Authors
 
-See the list of [contributors](https://github.com/SolaceProducts/solace-spring-boot/graphs/contributors) who participated in this project.
+See the list of [contributors](//github.com/SolaceProducts/solace-spring-boot/graphs/contributors) who participated in this project.
 
 ## License
 
@@ -148,19 +116,19 @@ For more information about Spring Boot Auto-Configuration and Starters try these
 - [GitHub Tutorial - Master Spring Boot Auto-Configuration](//github.com/snicoll-demos/spring-boot-master-auto-configuration)
 
 For more information about Cloud Foundry and the Solace PubSub+ service these resources:
-- [Solace PubSub+ for Pivotal Cloud Foundry](http://docs.pivotal.io/solace-messaging/)
-- [Cloud Foundry Documentation](http://docs.cloudfoundry.org/)
+- [Solace PubSub+ for Pivotal Cloud Foundry](//docs.pivotal.io/solace-messaging/)
+- [Cloud Foundry Documentation](//docs.cloudfoundry.org/)
 - For an introduction to Cloud Foundry: https://www.cloudfoundry.org/
 
 For more information about Spring Cloud try these resources:
-- [Spring Cloud](http://projects.spring.io/spring-cloud/)
-- [Spring Cloud Connectors](http://cloud.spring.io/spring-cloud-connectors/)
-- [Spring Cloud Connectors Docs](http://cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
-- [Spring Cloud Connectors GitHub](https://github.com/spring-cloud/spring-cloud-connectors)
+- [Spring Cloud](//projects.spring.io/spring-cloud/)
+- [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/)
+- [Spring Cloud Connectors Docs](//cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
+- [Spring Cloud Connectors GitHub](//github.com/spring-cloud/spring-cloud-connectors)
 
 For more information about Solace technology in general please visit these resources:
 
-- The Solace Developer Portal website at: https://solace.dev
+- The [Solace Developer Portal](//dev.solace.com)
 
 ```
 .......................HELLO FROM THE OTTER SIDE...........

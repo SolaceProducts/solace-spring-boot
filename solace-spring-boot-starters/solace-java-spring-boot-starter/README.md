@@ -6,7 +6,6 @@ This project provides Spring Boot Auto-Configuration and an associated Spring Bo
 
 * [Overview](#overview)
 * [Using Auto-Configuration in your App](#using-auto-configuration-in-your-app)
-* [Running the Sample](#running-the-sample)
 * [Resources](#resources)
 
 ---
@@ -21,7 +20,7 @@ One item to note as described below is that this project introduces a new factor
 
 ## Using Auto-Configuration in your App
 
-See the associated `solace-java-sample-app` for an example of how this is all put together in a simple application. You'll need to do three steps:
+See the associated [`solace-java-sample-app`](../../solace-spring-boot-samples/solace-java-sample-app) for an example of how this is all put together in a simple application. You'll need to do three steps:
 
 1. Update your build.
 2. Autowire a `SpringJCSMPFactory`.
@@ -29,11 +28,11 @@ See the associated `solace-java-sample-app` for an example of how this is all pu
 
 ### Updating your build
 
-The releases from this project are hosted in [Maven Central](https://mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter)
+The releases from this project are hosted in [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter).
 
-The easiest way to get started is to include the `solace-java-spring-boot-starter` (or `solace-spring-boot-starter`) in your application. For an examples see the [Java Sample App](../solace-spring-boot-samples/solace-java-sample-app) in this project.
+The easiest way to get started is to include the `solace-java-spring-boot-starter` (or `solace-spring-boot-starter`) in your application. For an examples see the [Java Sample App](../../solace-spring-boot-samples/solace-java-sample-app) in this project.
 
-Here is how to include the latest spring boot starter in your project using Gradle and Maven. You can also add a specific version from [Maven Central](https://mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter ).
+Here is how to include the latest spring boot starter in your project using Gradle and Maven. You can also add a specific version from [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter ).
 Note that you'll need to include version 3.1.0 or later to use Spring Boot release 2.x.
 
 #### Using it with Gradle
@@ -93,9 +92,9 @@ However note that the `SolaceServiceCredentials` will only provide meaningful in
 
 #### Deploying your Application to a Cloud Platform
 
-By using [Spring Cloud Connectors](https://cloud.spring.io/spring-cloud-connectors/), this library can automatically configure a `SpringJCSMPFactory` using the detected Solace PubSub+ services when deployed on a Cloud Platform such as Cloud Foundry.
+By using [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/), this library can automatically configure a `SpringJCSMPFactory` using the detected Solace PubSub+ services when deployed on a Cloud Platform such as Cloud Foundry.
 
-Currently, the [Solace Cloud Foundry Cloud Connector](//github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector) is the only connector that is supported by default in this library, but could easily be augmented by adding your own Solace Spring Cloud Connectors as dependencies to the [auto-configuration's POM](../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/pom.xml).
+Currently, the [Solace Cloud Foundry Cloud Connector](//github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector) is the only connector that is supported by default in this library, but could easily be augmented by adding your own Solace Spring Cloud Connectors as dependencies to the [auto-configuration's POM](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/pom.xml).
 
 For example:
 
@@ -115,11 +114,11 @@ For example, you can set a `SOLCAP_SERVICES` variable in either your JVM propert
 
 The properties provided by this externally-provided manifest can also be augmented using the values from the [application's properties file](#updating-your-application-properties).
 
-For details on valid manifest formats and other ways of exposing Solace service manifests to your application, see the _Manifest Load Order and Expected Formats_ section in the [Solace Services Info](https://github.com/SolaceProducts/solace-services-info#manifest-load-order-and-expected-formats) project.
+For details on valid manifest formats and other ways of exposing Solace service manifests to your application, see the _Manifest Load Order and Expected Formats_ section in the [Solace Services Info](//github.com/SolaceProducts/solace-services-info#manifest-load-order-and-expected-formats) project.
 
 #### Updating your Application Properties
 
-Alternatively, configuration of the `SpringJCSMPFactory` can also be done through the [`application.properties` file](../solace-spring-boot-samples/solace-java-sample-app/src/main/resources/application.properties). This is where users can control the Solace Java API properties. Currently this project supports direct configuration of the following properties:
+Alternatively, configuration of the `SpringJCSMPFactory` can also be done through the [`application.properties` file](../../solace-spring-boot-samples/solace-java-sample-app/src/main/resources/application.properties). This is where users can control the Solace Java API properties. Currently this project supports direct configuration of the following properties:
 
 ```
 solace.java.host
@@ -135,9 +134,9 @@ solace.java.reconnectRetryWaitInMillis
 
 Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.java.host`.
 
-See [`SolaceJavaProperties`](../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJavaProperties.java) for the most up to date list.
+See [`SolaceJavaProperties`](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJavaProperties.java) for the most up to date list.
 
-Any additional Solace Java API properties can be set through configuring `solace.java.apiProperties.<Property>` where `<Property>` is the name of the property as defined in the [Solace Java API documentation for `com.solacesystems.jcsmp.JCSMPProperties`](https://docs.solace.com/API-Developer-Online-Ref-Documentation/java/constant-values.html#com.solacesystems.jcsmp.JCSMPProperties.ACK_EVENT_MODE), for example:
+Any additional Solace Java API properties can be set through configuring `solace.java.apiProperties.<Property>` where `<Property>` is the name of the property as defined in the [Solace Java API documentation for `com.solacesystems.jcsmp.JCSMPProperties`](//docs.solace.com/API-Developer-Online-Ref-Documentation/java/constant-values.html#com.solacesystems.jcsmp.JCSMPProperties.ACK_EVENT_MODE), for example:
 
 ```
 solace.java.apiProperties.reapply_subscriptions=false
@@ -146,27 +145,16 @@ solace.java.apiProperties.ssl_trust_store=/path/to/truststore
 
 Note that the direct configuration of `solace.java.` properties takes precedence over the `solace.java.apiProperties.`.
 
-## Running the Sample
-
-The simplest way to run the sample is from the project root folder using maven. For example:
-
-	cd solace-spring-boot-samples/solace-java-sample-app
-    mvn spring-boot:run
-
-Hint: look for "Sending Hello World" and "TextMessage received: Hello World" in the displayed logs.
-
-Note: the JMS sample will automatically provision the queue used for testing on the message broker.
-
 ## Resources
 
 For more information about Spring Boot Auto-Configuration and Starters try these resources:
 
-- [Spring Docs - Spring Boot Auto-Configuration](http://docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#using-boot-auto-configuration)
-- [Spring Docs - Developing Auto-Configuration](http://docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-developing-auto-configuration)
-- [GitHub Tutorial - Master Spring Boot Auto-Configuration](https://github.com/snicoll-demos/spring-boot-master-auto-configuration)
+- [Spring Docs - Spring Boot Auto-Configuration](//docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#using-boot-auto-configuration)
+- [Spring Docs - Developing Auto-Configuration](//docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-developing-auto-configuration)
+- [GitHub Tutorial - Master Spring Boot Auto-Configuration](//github.com/snicoll-demos/spring-boot-master-auto-configuration)
 
 For more information about Solace technology in general please visit these resources:
 
-- The Solace Developer Portal website at: http://dev.solace.com
-- Understanding [Solace technology.](http://dev.solace.com/tech/)
-- Ask the [Solace community](http://dev.solace.com/community/).
+- The [Solace Developer Portal](//dev.solace.com)
+- Understanding [Solace technology.](//dev.solace.com/tech/)
+- Ask the [Solace community](//dev.solace.com/community/).

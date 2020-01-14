@@ -1,6 +1,6 @@
 # Spring Boot Auto-Configuration for the Solace JMS
 
-This project provides Spring Boot Auto-Configuration and an associated Spring Boot Started for the Solace JMS API. The goal of this project is to make it easy to use Solace JMS within a Spring application so you can take advantage of all the benefits of Spring Boot auto-configuration.
+This project provides Spring Boot Auto-Configuration and an associated Spring Boot Starter for the Solace JMS API. The goal of this project is to make it easy to use Solace JMS within a Spring application so you can take advantage of all the benefits of Spring Boot auto-configuration.
 
 For a high level introduction and explanation, you can also refer to the following blog post: https://solace.com/blog/devops/solace-jms-meet-spring-boot-starters
 
@@ -8,7 +8,6 @@ For a high level introduction and explanation, you can also refer to the followi
 
 * [Overview](#overview)
 * [Using Auto-Configuration in your App](#using-auto-configuration-in-your-app)
-* [Running the Sample](#running-the-sample)
 * [Resources](#resources)
 
 ---
@@ -26,7 +25,7 @@ Spring Boot Auto-Configuration for the Solace JMS supports both programmatic cre
 
 #### Programmatic creation of JMS objects
 
-See the associated [`solace-jms-sample-app`](../solace-spring-boot-samples/solace-jms-sample-app) for an example of how this is all put together in a simple application. To use Solace JMS you need to do these steps:
+See the associated [`solace-jms-sample-app`](../../solace-spring-boot-samples/solace-jms-sample-app) for an example of how this is all put together in a simple application. To use Solace JMS you need to do these steps:
 
 1. [Update your build](#1-updating-your-build).
 2. [Autowire](#2-autowiring-connection-objects) the `ConnectionFactory`:
@@ -34,7 +33,7 @@ See the associated [`solace-jms-sample-app`](../solace-spring-boot-samples/solac
 
 #### JNDI lookup of JMS objects
 
-See the associated [`solace-jms-sample-app-jndi`](../solace-spring-boot-samples/solace-jms-sample-app-jndi) for an example. To use JNDI with Solace JMS you need to do these steps:
+See the associated [`solace-jms-sample-app-jndi`](../../solace-spring-boot-samples/solace-jms-sample-app-jndi) for an example. To use JNDI with Solace JMS you need to do these steps:
 
 1. [Update your build](#1-updating-your-build).
 2. [Autowire](#2-autowiring-connection-objects) the `JndiTemplate` for further use e.g.: in a `JndiObjectFactoryBean`.
@@ -43,9 +42,9 @@ See the associated [`solace-jms-sample-app-jndi`](../solace-spring-boot-samples/
 
 ### 1. Updating your build
 
-The releases from this project are hosted in [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-jms-spring-boot-starter )
+The releases from this project are hosted in [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-jms-spring-boot-starter).
 
-The easiest way to get started is to include the `solace-jms-spring-boot-starter` in your application. For an example see the [JMS Sample App](../solace-spring-boot-samples/solace-jms-sample-app) in this project.
+The easiest way to get started is to include the `solace-jms-spring-boot-starter` in your application. For an example see the [JMS Sample App](../../solace-spring-boot-samples/solace-jms-sample-app) in this project.
 
 Here is how to include the latest spring boot starter in your project using Gradle and Maven. You can also add a specific version from [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-jms-spring-boot-starter ).
 Note that you'll need to include version 3.1.0 or later to use Spring Boot release 2.x.
@@ -87,7 +86,7 @@ Note that if there are multiple services available, e.g. in a cloud deployment o
 
 By using [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/), this library can automatically configure a `ConnectionFactory` and/or a `JndiTemplate` using the detected Solace PubSub+ services when deployed on a Cloud Platform such as Cloud Foundry.
 
-Currently, the [Solace Cloud Foundry Cloud Connector](//github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector) is the only connector that is supported by default in this library, but could easily be augmented by adding your own Solace Spring Cloud Connectors as dependencies to the [auto-configuration's POM](../solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/pom.xml).
+Currently, the [Solace Cloud Foundry Cloud Connector](//github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector) is the only connector that is supported by default in this library, but could easily be augmented by adding your own Solace Spring Cloud Connectors as dependencies to the [auto-configuration's POM](../../solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/pom.xml).
 
 For example:
 
@@ -125,7 +124,7 @@ solace.jms.directTransport
 
 Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.jms.host`. When using JNDI, the configured connection factory properties on the Solace message broker are taken as a starting point, including the `clientName` and `directTransport` configurations.
 
-See [`SolaceJmsProperties`](../solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJmsProperties.java) for the most up to date list of directly configurable properties.
+See [`SolaceJmsProperties`](../../solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/src/main/java/com/solace/spring/boot/autoconfigure/SolaceJmsProperties.java) for the most up to date list of directly configurable properties.
 
 Any additional supported Solace JMS API properties can be set through configuring `solace.jms.apiProperties.<Property>` where `<Property>` is the "Value" of the property in the ["com.solacesystems.jms.SupportedProperty" table as defined in the Solace JMS API documentation](//docs.solace.com/API-Developer-Online-Ref-Documentation/jms/constant-values.html#com.solacesystems.jms.SupportedProperty.SOLACE_JMS_SSL_TRUST_STORE ), for example:
 
@@ -134,31 +133,6 @@ solace.jms.apiProperties.Solace_JMS_SSL_TrustStore=ABC
 ```
 
 Note that the direct configuration of `solace.jms.` properties takes precedence over the `solace.jms.apiProperties.`.
-
-## Running the Sample
-
-The simplest way to run the sample is from the project root folder using maven. For example:
-
-	cd solace-spring-boot-samples/solace-jms-sample-app
-    mvn spring-boot:run
-
-or
-
-	cd solace-spring-boot-samples/solace-jms-sample-app-jndi
-    mvn spring-boot:run
-
-Note: the JMS sample will automatically provision the queue used for testing on the message broker. The JNDI sample requires manual configuration of the required settings. Refer to the comments in the `application.properties` file in the `src/main/resources` folder.
-
-### Troubleshooting tips
-
-The sample is logging to the console by default. This can be adjusted in the log4j2.xml log file provided in the `src/main/resources` folder.
-
-Solace API logging can be enabled and configured in the `application.properties` file located in the same folder, by adding:
-
-```
-# Solace logging example:
-logging.level.com.solacesystems=INFO
-```
 
 ## Resources
 
@@ -170,6 +144,6 @@ For more information about Spring Boot Auto-Configuration and Starters try these
 
 For more information about Solace technology in general please visit these resources:
 
-- The Solace Developer Portal website at: //dev.solace.com
+- The [Solace Developer Portal](//dev.solace.com)
 - Understanding [Solace technology.](//dev.solace.com/tech/)
 - Ask the [Solace community](//dev.solace.com/community/).

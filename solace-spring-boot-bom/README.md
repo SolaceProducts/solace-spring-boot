@@ -1,4 +1,4 @@
-# Solace Spring Boot BOM (Bill of Materials)
+# Solace Spring Boot Bill of Materials (BOM)
 
 ## Contents
 
@@ -8,7 +8,7 @@
 
 ## Overview
 
-The BOM (Bill of Materials) is a POM file which defines the versions of Solace Spring Boot projects that are compatible to a particular version of Spring Boot.
+The Solace Spring Boot Bill of Materials (BOM) is a POM file which defines the versions of Solace Spring Boot projects that are compatible to a particular version of Spring Boot.
 
 ## Spring Boot Version Compatibility
 
@@ -22,7 +22,7 @@ Consult the table below to determine which version of the BOM you need to use:
 
 ## Including the BOM
 
-In addition to showing how to include the BOM, the following snippets also shows how to use "versionless" Solace dependencies (`solace-spring-boot-starer` in this case) when using the BOM.
+In addition to showing how to include the BOM, the following snippets also shows how to use "version-less" Solace dependencies (`solace-spring-boot-starer` in this case) when using the BOM.
 
 ### Using it with Maven
 ```xml
