@@ -11,12 +11,6 @@
     <description>Solace sample applications for Spring Boot</description>
     <url>https://github.com/SolaceProducts/solace-spring-boot</url>
 
-    <modules>
-        <module>solace-java-sample-app</module>
-        <module>solace-jms-sample-app</module>
-        <module>solace-jms-sample-app-jndi</module>
-    </modules>
-
     <build>
         <plugins>
             <plugin>
@@ -26,6 +20,33 @@
                 <configuration>
                     <skip>true</skip>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>set-version</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>update-properties</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>com.solace.spring.*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>commit-version</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>commit</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
