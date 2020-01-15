@@ -89,15 +89,15 @@ All sub-projects are included as modules of solace-spring-boot-build. Running `m
 
 ## Release Process
 
-1. Update Versions
+1. Update Versions (Optional)
     ```shell script
-    mvn -DversionBump=minor # versionBump options: major, minor, or patch
+    mvn -DupdateVersion=minor # updateVersion options: major, minor, or patch
     ```
 1. Update Internal Version Properties (only if 1 was done)
     ```shell script
-    mvn -DupdateProperties
+    mvn -DupdateProperties # Do not use this together with updateVersion. It will not work.
     ```
-1. Validate Diff and Commit (if 1 and 2 were done)
+1. Validate Diff and Commit (only if 1 and 2 were done)
 1. Release
     ```shell script
     mvn -B release:prepare

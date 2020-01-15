@@ -214,10 +214,10 @@
         </profile>
 
         <profile>
-            <id>versionBumpCommon</id>
+            <id>updateVersionCommon</id>
             <activation>
                 <property>
-                    <name>versionBump</name>
+                    <name>updateVersion</name>
                 </property>
             </activation>
             <build>
@@ -262,10 +262,10 @@
         </profile>
 
         <profile>
-            <id>versionBumpMajor</id>
+            <id>updateVersionMajor</id>
             <activation>
                 <property>
-                    <name>versionBump</name>
+                    <name>updateVersion</name>
                     <value>major</value>
                 </property>
             </activation>
@@ -283,10 +283,10 @@
         </profile>
 
         <profile>
-            <id>versionBumpMinor</id>
+            <id>updateVersionMinor</id>
             <activation>
                 <property>
-                    <name>versionBump</name>
+                    <name>updateVersion</name>
                     <value>minor</value>
                 </property>
             </activation>
@@ -304,10 +304,10 @@
         </profile>
 
         <profile>
-            <id>versionBumpPatch</id>
+            <id>updateVersionPatch</id>
             <activation>
                 <property>
-                    <name>versionBump</name>
+                    <name>updateVersion</name>
                     <value>patch</value>
                 </property>
             </activation>
