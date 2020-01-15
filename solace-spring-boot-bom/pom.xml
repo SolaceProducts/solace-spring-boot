@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>solace-spring-boot-bom</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot BOM</name>
