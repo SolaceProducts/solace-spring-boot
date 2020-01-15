@@ -9,6 +9,7 @@ An umbrella project containing all Solace projects for Spring Boot.
 ## Table of Contents
 * [Repository Contents](#repository-contents)
 * [Building Locally](#building-locally)
+* [Release Process](#release-process)
 * [Contributing](#contributing)
 * [Authors](#authors)
 * [License](#license)
@@ -85,6 +86,22 @@ Where:
 ```
 
 All sub-projects are included as modules of solace-spring-boot-build. Running `mvn package` or `mvn install` at the root of the project will package/install all sub-projects.
+
+## Release Process
+
+1. Update Versions
+    ```shell script
+    mvn -DversionBump=minor # versionBump options: major, minor, or patch
+    ```
+1. Update Internal Version Properties (only if 1 was done)
+    ```shell script
+    mvn -DupdateProperties
+    ```
+1. Validate Diff and Commit (if 1 and 2 were done)
+1. Release
+    ```shell script
+    mvn -B release:prepare
+    ```
 
 ## Contributing
 
