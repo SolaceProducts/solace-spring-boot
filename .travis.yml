@@ -1,0 +1,14 @@
+language: java
+dist: trusty
+sudo: false
+script: mvn clean package
+jdk:
+  - oraclejdk8
+deploy:
+  provider: script
+  script: mvn deploy -DreleaseCentral=true
+  skip_cleanup: true
+  on:
+    repo: SolaceProducts/solace-spring-boot
+    branch: master
+    tags: true
