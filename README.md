@@ -141,6 +141,7 @@ For more information about Cloud Foundry and the Solace PubSub+ service these re
 
 For more information about Spring Cloud try these resources:
 - [Spring Cloud](//projects.spring.io/spring-cloud/)
+- [Pivotal CFEnv](//github.com/pivotal-cf/java-cfenv)
 - [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/)
 - [Spring Cloud Connectors Docs](//cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
 - [Spring Cloud Connectors GitHub](//github.com/spring-cloud/spring-cloud-connectors)

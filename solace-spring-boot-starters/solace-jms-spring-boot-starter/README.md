@@ -84,19 +84,7 @@ Note that if there are multiple services available, e.g. in a cloud deployment o
 
 #### Deploying your Application to a Cloud Platform
 
-By using [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/), this library can automatically configure a `ConnectionFactory` and/or a `JndiTemplate` using the detected Solace PubSub+ services when deployed on a Cloud Platform such as Cloud Foundry.
-
-Currently, the [Solace Cloud Foundry Cloud Connector](//github.com/SolaceProducts/solace-spring-cloud/tree/master/solace-spring-cloud-connector) is the only connector that is supported by default in this library, but could easily be augmented by adding your own Solace Spring Cloud Connectors as dependencies to the [auto-configuration's POM](../../solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure/pom.xml).
-
-For example:
-
-```xml
-<dependency>
-	<groupId>com.solace.cloud.cloudfoundry</groupId>
-	<artifactId>solace-spring-cloud-connector</artifactId>
-	<version>4.0.0</version>
-</dependency>
-```
+By using [Solace Java CFEnv](../../solace-java-cfenv), this library can automatically configure a `ConnectionFactory` and/or a `JndiTemplate` using the detected Solace PubSub+ services when deployed on Cloud Foundry.
 
 #### Exposing a Solace PubSub+ Service Manifest in the Application's Environment
 

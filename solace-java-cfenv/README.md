@@ -50,3 +50,8 @@ Note: If no Solace PubSub+ services are found, the list will be empty (not null)
 ## Functionality
 
 Any CF service with either the Solace label or tag (defined in [SolaceServiceCredentialsFactory.java](./src/main/java/com/solace/spring/cloud/core/SolaceServiceCredentialsFactory.java)), or both the label and tag, is considered to be a Solace PubSub+ service. These services will be auto-detected by Java CFEnv.
+
+## Resources
+
+For more information about Pivotal Java CFEnv try these resources:
+- [Github Source - Java CFEnv](//github.com/pivotal-cf/java-cfenv)
