@@ -6,6 +6,8 @@
 
 An umbrella project containing all Solace projects for Spring Boot.
 
+For Solace projects on Spring Cloud, please visit the [Solace Spring Cloud](//github.com/SolaceProducts/solace-spring-cloud) project.
+
 ## Table of Contents
 * [Repository Contents](#repository-contents)
 * [Building Locally](#building-locally)
@@ -37,21 +39,6 @@ These are the projects contained within this repository:
 ### Solace Spring Boot Sample Applications
 
 The sample applications for all Solace Spring Boot projects can be found under [solace-spring-boot-samples](./solace-spring-boot-samples).
-
-### solace-spring-boot-build
-
-*DO NOT USE THIS IN YOUR APPLICATION.*
-
-This POM defines build-related plugins and profiles that are inherited by the BOM as well as for each of the sub-projects.
-
-Please do not put non-Solace-Spring-Boot dependencies here - they belong in solace-spring-boot-parent. The exception to this is naturally the version of Spring Boot that this build targets.
-If it shouldn't be inherited by the BOM, it doesn't go here.
-
-### solace-spring-boot-parent
-
-*DO NOT USE THIS IN YOUR APPLICATION.*
-
-This POM defines common properties and dependencies for the Solace Spring Boot projects.
 
 ## Building Locally
 
@@ -85,7 +72,18 @@ Where:
     --> indicates a sub-module of the project
 ```
 
-All sub-projects are included as modules of solace-spring-boot-build. Running `mvn package` or `mvn install` at the root of the project will package/install all sub-projects.
+All sub-projects are included as modules of `solace-spring-boot-build`. Running `mvn package` or `mvn install` at the root of the project will package/install all sub-projects.
+
+#### Build Projects
+
+These projects are used to build the `solace-spring-boot` repository. They should not be used in your actual application.
+
+- solace-spring-boot-build  
+This POM defines build-related plugins and profiles that are inherited by the BOM as well as for each of the sub-projects.  
+Please do not put non-Solace-Spring-Boot dependencies here - they belong in solace-spring-boot-parent. The exception to this is naturally the version of Spring Boot that this build targets.
+If it shouldn't be inherited by the BOM, it doesn't go here.
+- solace-spring-boot-parent  
+This POM defines common properties and dependencies for the Solace Spring Boot projects.
 
 ## Release Process
 
@@ -121,11 +119,7 @@ Please note that this project is released with a Contributor Code of Conduct. By
 
 ## Support
 
-### Support Email
-support@solace.com
-
-### Solace Developer Community
-https://solace.community
+https://solace.com/support
 
 ## Resources
 
@@ -139,16 +133,17 @@ For more information about Cloud Foundry and the Solace PubSub+ service these re
 - [Cloud Foundry Documentation](//docs.cloudfoundry.org/)
 - For an introduction to Cloud Foundry: https://www.cloudfoundry.org/
 
-For more information about Spring Cloud try these resources:
-- [Spring Cloud](//projects.spring.io/spring-cloud/)
+For more information about Pivotal CFEnv try these resources:
 - [Pivotal CFEnv](//github.com/pivotal-cf/java-cfenv)
-- [Spring Cloud Connectors](//cloud.spring.io/spring-cloud-connectors/)
-- [Spring Cloud Connectors Docs](//cloud.spring.io/spring-cloud-connectors/spring-cloud-connectors.html)
-- [Spring Cloud Connectors GitHub](//github.com/spring-cloud/spring-cloud-connectors)
+
+For more information about Solace technology for Spring Cloud please visit these resources:
+- [Solace Spring Cloud](//github.com/SolaceProducts/solace-spring-cloud)
 
 For more information about Solace technology in general please visit these resources:
 
 - The [Solace Developer Portal](//dev.solace.com)
+- Understanding [Solace technology](http://dev.solace.com/tech/)
+- Ask the [Solace community](http://dev.solace.com/community/)
 
 ```
 .......................HELLO FROM THE OTTER SIDE...........
