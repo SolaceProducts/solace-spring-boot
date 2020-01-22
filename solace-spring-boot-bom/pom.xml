@@ -43,9 +43,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.solace.spring.boot</groupId>
+                <groupId>com.solace.cloud.cloudfoundry</groupId>
                 <artifactId>solace-java-cfenv</artifactId>
-                <version>${solace.spring.boot.java-cfenv.version}</version>
+                <version>${solace.cloud.cloudfoundry.java-cfenv.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

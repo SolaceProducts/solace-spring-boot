@@ -24,7 +24,7 @@ If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the
 ```xml
 <!-- Solace Java CFEnv -->
 <dependency>
-    <groupId>com.solace.spring.boot</groupId>
+    <groupId>com.solace.cloud.cloudfoundry</groupId>
     <artifactId>solace-java-cfenv</artifactId>
     <version>1.0.0</version>    
 </dependency>
@@ -33,7 +33,7 @@ If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the
 ### Getting Started - Gradle
 ```groovy
 /* Solace Java CFEnv */
-compile("com.solace.spring.boot:solace-java-cfenv:1.0.0")
+compile("com.solace.cloud.cloudfoundry:solace-java-cfenv:1.0.0")
 ```
 
 ## Usage

@@ -59,7 +59,7 @@
 			<version>${solace.jms.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.solace.spring.boot</groupId>
+			<groupId>com.solace.cloud.cloudfoundry</groupId>
 			<artifactId>solace-java-cfenv</artifactId>
 		</dependency>
 

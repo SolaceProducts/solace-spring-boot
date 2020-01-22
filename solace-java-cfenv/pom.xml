@@ -26,6 +26,7 @@
 		<relativePath>../solace-spring-boot-parent/pom.xml</relativePath>
 	</parent>
 
+	<groupId>com.solace.cloud.cloudfoundry</groupId>
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>solace-java-cfenv</artifactId>
 	<packaging>jar</packaging>
@@ -54,7 +55,7 @@
 		<dependency>
 			<groupId>io.pivotal.cfenv</groupId>
 			<artifactId>java-cfenv-boot</artifactId>
-			<version>1.0.1.RELEASE</version>
+			<version>${pivotal.cfenv.version}</version>
 		</dependency>
 
 		<!-- Test Dependencies -->

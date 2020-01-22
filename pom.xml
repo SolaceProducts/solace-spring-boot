@@ -16,11 +16,12 @@
 
         <!-- This is the version of Spring Boot we have targeted for this build -->
         <spring.boot.version>2.2.4.RELEASE</spring.boot.version>
+        <pivotal.cfenv.version>2.1.0.RELEASE</pivotal.cfenv.version>
 
         <solace.spring.boot.java-starter.version>4.0.0-SNAPSHOT</solace.spring.boot.java-starter.version>
         <solace.spring.boot.jms-starter.version>4.0.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
         <solace.spring.boot.starter.version>1.0.0-SNAPSHOT</solace.spring.boot.starter.version>
-        <solace.spring.boot.java-cfenv.version>1.0.0-SNAPSHOT</solace.spring.boot.java-cfenv.version>
+        <solace.cloud.cloudfoundry.java-cfenv.version>1.0.0-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
     </properties>
 
     <licenses>
@@ -88,9 +89,9 @@
             </dependency>
 
             <dependency>
-                <groupId>com.solace.spring.boot</groupId>
+                <groupId>com.solace.cloud.cloudfoundry</groupId>
                 <artifactId>solace-java-cfenv</artifactId>
-                <version>${solace.spring.boot.java-cfenv.version}</version>
+                <version>${solace.cloud.cloudfoundry.java-cfenv.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -197,6 +198,7 @@
                                 </goals>
                                 <configuration>
                                     <includes>
+                                        <include>com.solace.cloud.*</include>
                                         <include>com.solace.spring.*</include>
                                     </includes>
                                 </configuration>
