@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
 		<artifactId>solace-spring-boot-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 		<relativePath>../../solace-spring-boot-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>solace-jms-spring-boot-autoconfigure</artifactId>
-	<version>4.0.0-SNAPSHOT</version>
+	<version>4.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>Solace Spring Boot Autoconfiguration - JMS</name>
