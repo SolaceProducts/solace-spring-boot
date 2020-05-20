@@ -17,6 +17,7 @@ Consult the table below to determine which version of the BOM you need to use:
 |Spring Boot       | Solace Spring Boot BOM |
 |----------------- |------------------------|
 | 2.2.4            | 1.0.0                  |
+| 2.3.0            | 1.1.0                  |
 
 ## Including the BOM
 
@@ -29,7 +30,7 @@ In addition to showing how to include the BOM, the following snippets also shows
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-spring-boot-bom</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -57,7 +58,7 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom "com.solace.spring.boot:solace-spring-boot-bom:1.0.0"
+        mavenBom "com.solace.spring.boot:solace-spring-boot-bom:1.1.0"
     }
 }
 
@@ -69,7 +70,7 @@ dependencies {
 ### Using it with Gradle 5
 ```groovy
 dependencies {
-    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:1.0.0"))
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:1.1.0"))
     implementation("com.solace.spring.boot:solace-spring-boot-starter")
 }
 ```
