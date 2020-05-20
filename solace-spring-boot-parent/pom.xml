@@ -27,8 +27,8 @@
         <solace.spring.boot.java-autoconf.version>4.0.1-SNAPSHOT</solace.spring.boot.java-autoconf.version>
         <solace.spring.boot.jms-autoconf.version>4.0.1-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <solace.jcsmp.version>10.6.3</solace.jcsmp.version>
-        <solace.jms.version>10.6.3</solace.jms.version>
+        <solace.jcsmp.version>10.8.1</solace.jcsmp.version>
+        <solace.jms.version>10.8.1</solace.jms.version>
         <solace.services-info.version>0.4.0</solace.services-info.version>
     </properties>
 
