@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/SolaceProducts/solace-spring-boot.svg?branch=master)](https://travis-ci.org/SolaceProducts/solace-spring-boot)
+[![build](https://github.com/SolaceProducts/solace-spring-boot/actions/workflows/build-test.yml/badge.svg)](https://github.com/SolaceProducts/solace-spring-boot/actions/workflows/build-test.yml)
 
 # Solace Spring Boot
 
