@@ -20,7 +20,6 @@
 package com.solace.spring.boot.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -98,7 +97,6 @@ public class SolaceJavaProperties {
      *
      * Example: solace.java.apiProperties.reapply_subscriptions=true
      */
-    @NestedConfigurationProperty
     private final Map<String,String> apiProperties = new ConcurrentHashMap<>();
 
 
