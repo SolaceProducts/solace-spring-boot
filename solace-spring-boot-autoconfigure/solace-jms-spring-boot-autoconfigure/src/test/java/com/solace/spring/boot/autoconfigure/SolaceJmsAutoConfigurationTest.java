@@ -23,13 +23,13 @@ import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolConnectionFactoryImpl;
 import com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.jms.core.JmsTemplate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class SolaceJmsAutoConfigurationTest extends SolaceJmsAutoConfigurationTestBase {
@@ -97,10 +97,8 @@ public class SolaceJmsAutoConfigurationTest extends SolaceJmsAutoConfigurationTe
 
 		assertNotNull(this.context.getBean(SolConnectionFactory.class));
 		assertNotNull(this.context.getBean(SpringSolJmsConnectionFactoryCloudFactory.class));
-		try {
-			assertNull(this.context.getBean(SolaceServiceCredentials.class));
-		} catch (BeanNotOfRequiredTypeException e) {
-			assert(e.getMessage().contains("was actually of type 'org.springframework.beans.factory.support.NullBean'"));
-		}
+		NoSuchBeanDefinitionException thrown = assertThrows(NoSuchBeanDefinitionException.class, () ->
+				this.context.getBean(SolaceServiceCredentials.class));
+		assertEquals(SolaceServiceCredentials.class, thrown.getBeanType());
 	}
 }
