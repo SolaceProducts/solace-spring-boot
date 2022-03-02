@@ -18,7 +18,7 @@ Consult the table below to determine which version of the BOM you need to use:
 |----------------- |------------------------|
 | 2.2.4            | 1.0.0                  |
 | 2.3.0            | 1.1.0                  |
-| 2.6.2            | 1.2.0                  |
+| 2.6.4            | 1.2.0                  |
 
 ## Including the BOM
 
