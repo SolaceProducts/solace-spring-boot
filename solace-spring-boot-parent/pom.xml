@@ -27,8 +27,8 @@
         <solace.spring.boot.java-autoconf.version>4.2.0-SNAPSHOT</solace.spring.boot.java-autoconf.version>
         <solace.spring.boot.jms-autoconf.version>4.2.0-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <solace.jcsmp.version>10.8.1</solace.jcsmp.version>
-        <solace.jms.version>10.8.1</solace.jms.version>
+        <solace.jcsmp.version>10.13.1</solace.jcsmp.version>
+        <solace.jms.version>10.13.1</solace.jms.version>
         <solace.services-info.version>0.4.3</solace.services-info.version>
     </properties>
 
@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-bom</artifactId>
-                <version>2.17.1</version>
+                <version>2.17.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
