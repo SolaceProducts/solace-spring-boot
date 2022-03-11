@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>1.1.2-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
@@ -15,13 +15,13 @@
         <repoName>SolaceProducts</repoName>
 
         <!-- This is the version of Spring Boot we have targeted for this build -->
-        <spring.boot.version>2.3.0.RELEASE</spring.boot.version>
-        <pivotal.cfenv.version>2.1.2.RELEASE</pivotal.cfenv.version>
+        <spring.boot.version>2.6.4</spring.boot.version>
+        <pivotal.cfenv.version>2.4.0</pivotal.cfenv.version>
 
-        <solace.spring.boot.java-starter.version>4.1.2-SNAPSHOT</solace.spring.boot.java-starter.version>
-        <solace.spring.boot.jms-starter.version>4.1.2-SNAPSHOT</solace.spring.boot.jms-starter.version>
-        <solace.spring.boot.starter.version>1.1.2-SNAPSHOT</solace.spring.boot.starter.version>
-        <solace.cloud.cloudfoundry.java-cfenv.version>1.1.2-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
+        <solace.spring.boot.java-starter.version>4.2.0-SNAPSHOT</solace.spring.boot.java-starter.version>
+        <solace.spring.boot.jms-starter.version>4.2.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
+        <solace.spring.boot.starter.version>1.2.0-SNAPSHOT</solace.spring.boot.starter.version>
+        <solace.cloud.cloudfoundry.java-cfenv.version>1.2.0-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
     </properties>
 
     <licenses>
@@ -93,23 +93,6 @@
                 <artifactId>solace-java-cfenv</artifactId>
                 <version>${solace.cloud.cloudfoundry.java-cfenv.version}</version>
             </dependency>
-
-            <!-- Addressing log4j CVE-2021-44228 - Can be removed when we upgrade to spring-boot 2.6.2 -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>2.16.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>2.16.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-to-slf4j</artifactId>
-                <version>2.16.0</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -129,7 +112,7 @@
             <distributionManagement>
                 <snapshotRepository>
                     <id>ossrh</id>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
                 </snapshotRepository>
             </distributionManagement>
             <build>
@@ -149,7 +132,7 @@
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
                             <!--<stagingProfileId>1d86d96a0b6bce</stagingProfileId> -->
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>

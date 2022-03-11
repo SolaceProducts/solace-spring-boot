@@ -18,24 +18,22 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import com.solace.services.core.model.SolaceServiceCredentials;
-import com.solacesystems.jcsmp.SpringJCSMPFactoryCloudFactory;
-import org.junit.Test;
-
 import com.solacesystems.jcsmp.InvalidPropertiesException;
 import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPProperties;
 import com.solacesystems.jcsmp.JCSMPSession;
 import com.solacesystems.jcsmp.SpringJCSMPFactory;
-
+import com.solacesystems.jcsmp.SpringJCSMPFactoryCloudFactory;
+import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.BeanNotOfRequiredTypeException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class SolaceJavaAutoConfigurationTest extends SolaceJavaAutoConfigurationTestBase {
@@ -131,11 +129,9 @@ public class SolaceJavaAutoConfigurationTest extends SolaceJavaAutoConfiguration
 		assertNotNull(this.context.getBean(SpringJCSMPFactoryCloudFactory.class));
 		assertNotNull(this.context.getBean(SpringJCSMPFactory.class));
 		assertNotNull(this.context.getBean(JCSMPProperties.class));
-                try {
-                    assertNull(this.context.getBean(SolaceServiceCredentials.class));
-                } catch (BeanNotOfRequiredTypeException e) {
-                    assert(e.getMessage().contains("was actually of type 'org.springframework.beans.factory.support.NullBean'"));
-                }
+		NoSuchBeanDefinitionException thrown = assertThrows(NoSuchBeanDefinitionException.class, () ->
+				this.context.getBean(SolaceServiceCredentials.class));
+		assertEquals(SolaceServiceCredentials.class, thrown.getBeanType());
 	}
 
 	@Test
@@ -144,11 +140,9 @@ public class SolaceJavaAutoConfigurationTest extends SolaceJavaAutoConfiguration
 		assertNotNull(this.context.getBean(SpringJCSMPFactoryCloudFactory.class));
 		assertNotNull(this.context.getBean(SpringJCSMPFactory.class));
 		assertNotNull(this.context.getBean(JCSMPProperties.class));
-                try {
-                    assertNull(this.context.getBean(SolaceServiceCredentials.class));
-                } catch (BeanNotOfRequiredTypeException e) {
-                    assert(e.getMessage().contains("was actually of type 'org.springframework.beans.factory.support.NullBean'"));
-                }
+		NoSuchBeanDefinitionException thrown = assertThrows(NoSuchBeanDefinitionException.class, () ->
+				this.context.getBean(SolaceServiceCredentials.class));
+		assertEquals(SolaceServiceCredentials.class, thrown.getBeanType());
 	}
 
 }

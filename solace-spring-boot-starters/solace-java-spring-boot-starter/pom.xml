@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
 		<artifactId>solace-spring-boot-parent</artifactId>
-		<version>1.1.2-SNAPSHOT</version>
+		<version>1.2.0-SNAPSHOT</version>
 		<relativePath>../../solace-spring-boot-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>solace-java-spring-boot-starter</artifactId>
-	<version>4.1.2-SNAPSHOT</version>
+	<version>4.2.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Solace Spring Boot Starter - Java</name>
