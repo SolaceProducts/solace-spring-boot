@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
 		<artifactId>solace-spring-boot-parent</artifactId>
-		<version>1.2.0</version>
+		<version>1.2.1-SNAPSHOT</version>
 		<relativePath>../solace-spring-boot-parent/pom.xml</relativePath>
 	</parent>
 
@@ -30,7 +30,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>solace-java-cfenv</artifactId>
 	<packaging>jar</packaging>
-	<version>1.2.0</version>
+	<version>1.2.1-SNAPSHOT</version>
 
 	<name>Solace Spring Java CFEnv</name>
 	<description>Java CFEnv for Solace services</description>
