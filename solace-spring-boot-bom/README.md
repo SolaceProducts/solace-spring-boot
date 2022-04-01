@@ -31,7 +31,7 @@ In addition to showing how to include the BOM, the following snippets also shows
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-spring-boot-bom</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -59,7 +59,7 @@ apply plugin: 'io.spring.dependency-management'
 
 dependencyManagement {
     imports {
-        mavenBom "com.solace.spring.boot:solace-spring-boot-bom:1.2.1"
+        mavenBom "com.solace.spring.boot:solace-spring-boot-bom:1.2.2"
     }
 }
 
@@ -71,7 +71,7 @@ dependencies {
 ### Using it with Gradle 5
 ```groovy
 dependencies {
-    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:1.2.1"))
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:1.2.2"))
     implementation("com.solace.spring.boot:solace-spring-boot-starter")
 }
 ```
