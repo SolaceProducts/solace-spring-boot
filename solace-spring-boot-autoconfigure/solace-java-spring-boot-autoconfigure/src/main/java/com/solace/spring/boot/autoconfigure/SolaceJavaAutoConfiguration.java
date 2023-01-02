@@ -20,6 +20,8 @@ package com.solace.spring.boot.autoconfigure;
 
 import com.solace.services.core.loader.SolaceCredentialsLoader;
 import com.solace.services.core.model.SolaceServiceCredentials;
+import com.solacesystems.jcsmp.JCSMPProperties;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -29,20 +31,17 @@ import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import com.solacesystems.jcsmp.JCSMPProperties;
-import com.solacesystems.jcsmp.SpringJCSMPFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 @AutoConfigureBefore(JmsAutoConfiguration.class)
 @AutoConfigureAfter(SolaceJavaAutoCloudConfiguration.class)
-@ConditionalOnClass({JCSMPProperties.class})
+@ConditionalOnClass(JCSMPProperties.class)
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)
 public class SolaceJavaAutoConfiguration extends SolaceJavaAutoConfigurationBase {
-    private SolaceCredentialsLoader solaceServicesInfoLoader = new SolaceCredentialsLoader();
+    private final SolaceCredentialsLoader solaceServicesInfoLoader = new SolaceCredentialsLoader();
 
     @Autowired
     public SolaceJavaAutoConfiguration(SolaceJavaProperties properties) {

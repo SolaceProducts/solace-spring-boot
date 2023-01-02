@@ -24,7 +24,7 @@ package com.solacesystems.jcsmp;
  */
 public class SpringJCSMPFactory {
     
-    protected JCSMPProperties jcsmpProperties;
+    protected final JCSMPProperties jcsmpProperties;
 
     public SpringJCSMPFactory(JCSMPProperties properties) {
         this.jcsmpProperties = (JCSMPProperties)properties.clone();

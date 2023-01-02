@@ -18,8 +18,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
+import static javax.naming.Context.*;
 
 abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionFactoryCloudFactory, SpringSolJmsJndiTemplateCloudFactory {
     private static final Logger logger = LoggerFactory.getLogger(SolaceJmsAutoConfigurationBase.class);
@@ -31,9 +30,6 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
     }
 
     abstract SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl();
-
-    @Override
-    public abstract List<SolaceServiceCredentials> getSolaceServiceCredentials();
 
     @Bean
     @ConditionalOnMissingBean
@@ -111,15 +107,15 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
 
             Properties env = new Properties();
             env.putAll(properties.getApiProperties());
-            env.put(InitialContext.INITIAL_CONTEXT_FACTORY, "com.solacesystems.jndi.SolJNDIInitialContextFactory");
-            env.put(InitialContext.PROVIDER_URL, credentials.getJmsJndiUri() != null ?
+            env.put(INITIAL_CONTEXT_FACTORY, "com.solacesystems.jndi.SolJNDIInitialContextFactory");
+            env.put(PROVIDER_URL, credentials.getJmsJndiUri() != null ?
                     credentials.getJmsJndiUri() : properties.getHost());
-            env.put(Context.SECURITY_PRINCIPAL,
+            env.put(SECURITY_PRINCIPAL,
                     credentials.getClientUsername() != null && credentials.getMsgVpnName() != null ?
                             credentials.getClientUsername() + '@' + credentials.getMsgVpnName() :
                             properties.getClientUsername() + '@' + properties.getMsgVpn());
 
-            env.put(Context.SECURITY_CREDENTIALS, credentials.getClientPassword() != null ?
+            env.put(SECURITY_CREDENTIALS, credentials.getClientPassword() != null ?
                     credentials.getClientPassword() : properties.getClientPassword());
 
             JndiTemplate jndiTemplate = new JndiTemplate();
@@ -135,6 +131,6 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
     @Override
     public JndiTemplate getJndiTemplate(String id) {
         List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-        return credentials.size() == 0 ? null : getJndiTemplate(credentials.get(0));
+        return credentials.isEmpty() ? null : getJndiTemplate(credentials.get(0));
     }
 }

@@ -18,24 +18,23 @@
  */
 package demo;
 
-import java.util.concurrent.CountDownLatch;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.solacesystems.jcsmp.BytesXMLMessage;
 import com.solacesystems.jcsmp.JCSMPException;
 import com.solacesystems.jcsmp.TextMessage;
 import com.solacesystems.jcsmp.XMLMessageListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.CountDownLatch;
 
 public class DemoMessageConsumer implements XMLMessageListener {
 
-    private CountDownLatch latch = new CountDownLatch(1);
+    private final CountDownLatch latch = new CountDownLatch(1);
     private static final Logger logger = LoggerFactory.getLogger(DemoMessageConsumer.class);
 
     public void onReceive(BytesXMLMessage msg) {
-        if (msg instanceof TextMessage) {
-            logger.info("============= TextMessage received: " + ((TextMessage) msg).getText());
+        if (msg instanceof TextMessage tm) {
+            logger.info("============= TextMessage received: " + tm.getText());
         } else {
             logger.info("============= Message received.");
         }

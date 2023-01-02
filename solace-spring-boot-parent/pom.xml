@@ -21,32 +21,22 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <solace.spring.boot.java-autoconf.version>4.2.3-SNAPSHOT</solace.spring.boot.java-autoconf.version>
         <solace.spring.boot.jms-autoconf.version>4.2.3-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <solace.jcsmp.version>10.13.1</solace.jcsmp.version>
-        <solace.jms.version>10.13.1</solace.jms.version>
+        <solace.jcsmp.version>10.17.0</solace.jcsmp.version>
+        <solace.jms.version>10.17.0</solace.jms.version>
         <solace.services-info.version>0.4.4</solace.services-info.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!--
-			Workaround for CVE-2021-45046
-			Remove after upgrading to Spring Boot >= 2.6.3
-			 -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-bom</artifactId>
-                <version>2.17.2</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
+             <dependency>
                 <!-- Import Spring Boot dependency management -->
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>

@@ -18,11 +18,12 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import javax.jms.ConnectionFactory;
-
 import com.solace.services.core.loader.SolaceCredentialsLoader;
 import com.solace.services.core.model.SolaceServiceCredentials;
+import com.solacesystems.jms.SolConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -31,19 +32,18 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiTemplate;
 
-import com.solacesystems.jms.SolConnectionFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 @AutoConfigureBefore(JmsAutoConfiguration.class)
-@ConditionalOnClass({ ConnectionFactory.class, SolConnectionFactory.class })
-@ConditionalOnMissingBean({ ConnectionFactory.class, JndiTemplate.class })
+@AutoConfigureAfter(SolaceJmsAutoCloudConfiguration.class)
+@ConditionalOnClass({ConnectionFactory.class, SolConnectionFactory.class})
+@ConditionalOnMissingBean({ConnectionFactory.class, JndiTemplate.class})
 @EnableConfigurationProperties(SolaceJmsProperties.class)
 public class SolaceJmsAutoConfiguration extends SolaceJmsAutoConfigurationBase {
 
-    private SolaceCredentialsLoader solaceServicesInfoLoader = new SolaceCredentialsLoader();
+    private final SolaceCredentialsLoader solaceServicesInfoLoader = new SolaceCredentialsLoader();
 
     @Autowired
     public SolaceJmsAutoConfiguration(SolaceJmsProperties properties) {

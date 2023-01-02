@@ -1,12 +1,6 @@
 package jndidemo;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
-
-import javax.jms.ConnectionFactory;
-import javax.naming.NamingException;
-
+import jakarta.jms.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +14,11 @@ import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.jndi.JndiTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ErrorHandler;
+
+import javax.naming.NamingException;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 @EnableJms
 @Configuration
@@ -39,26 +38,24 @@ public class JndiConsumerConfiguration {
         factoryBean.setJndiName(connectionFactoryJndiName);
         // following ensures all the properties are injected before returning
         try {
-			factoryBean.afterPropertiesSet();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
-			e.printStackTrace();
-		}
+            factoryBean.afterPropertiesSet();
+        } catch (IllegalArgumentException | NamingException e) {
+            e.printStackTrace();
+        }
         return factoryBean;
     }
-    
+
     // Configure the destination resolver for the consumer:
     // Here we are using JndiDestinationResolver for JNDI destinations
     // Other options include using DynamicDestinationResolver for non-JNDI destinations
     private JndiDestinationResolver consumerJndiDestinationResolver() {
-    	JndiDestinationResolver jdr = new JndiDestinationResolver();
+        JndiDestinationResolver jdr = new JndiDestinationResolver();
         jdr.setCache(true);
         jdr.setJndiTemplate(jndiTemplate);
         return jdr;
     }
-    
-	// Example configuration of the JmsListenerContainerFactory
+
+    // Example configuration of the JmsListenerContainerFactory
     @Bean
     public DefaultJmsListenerContainerFactory cFactory(DemoErrorHandler errorHandler) {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
@@ -66,23 +63,19 @@ public class JndiConsumerConfiguration {
         factory.setDestinationResolver(consumerJndiDestinationResolver());
         factory.setErrorHandler(errorHandler);
         factory.setConcurrency("3-10");
-       return factory;
+        return factory;
     }
 
     @Service
-    public class DemoErrorHandler implements ErrorHandler{   
+    public static class DemoErrorHandler implements ErrorHandler {
 
         public void handleError(Throwable t) {
-        	ByteArrayOutputStream os = new ByteArrayOutputStream();
-        	PrintStream ps = new PrintStream(os);
-        	t.printStackTrace(ps);
-        	try {
-				String output = os.toString("UTF8");
-	            logger.error("============= Error processing message: " + t.getMessage()+"\n"+output);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
- 
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            PrintStream ps = new PrintStream(os);
+            t.printStackTrace(ps);
+            String output = os.toString(StandardCharsets.UTF_8);
+            logger.error("============= Error processing message: " + t.getMessage() + "\n" + output);
+
         }
     }
 

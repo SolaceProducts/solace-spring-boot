@@ -18,11 +18,8 @@
  */
 package demo;
 
-import java.util.concurrent.TimeUnit;
-
 import com.solace.services.core.model.SolaceServiceCredentials;
-import com.solacesystems.jcsmp.JCSMPProperties;
-import com.solacesystems.jcsmp.SpringJCSMPFactoryCloudFactory;
+import com.solacesystems.jcsmp.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +28,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
-import com.solacesystems.jcsmp.DeliveryMode;
-import com.solacesystems.jcsmp.JCSMPFactory;
-import com.solacesystems.jcsmp.JCSMPSession;
-import com.solacesystems.jcsmp.SpringJCSMPFactory;
-import com.solacesystems.jcsmp.TextMessage;
-import com.solacesystems.jcsmp.Topic;
-import com.solacesystems.jcsmp.XMLMessageConsumer;
-import com.solacesystems.jcsmp.XMLMessageProducer;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -61,8 +51,8 @@ public class DemoApplication {
         @Autowired(required=false) private SolaceServiceCredentials solaceServiceCredentials;
         @Autowired(required=false) private JCSMPProperties jcsmpProperties;
 
-        private DemoMessageConsumer msgConsumer = new DemoMessageConsumer();
-        private DemoPublishEventHandler pubEventHandler = new DemoPublishEventHandler();
+        private final DemoMessageConsumer msgConsumer = new DemoMessageConsumer();
+        private final DemoPublishEventHandler pubEventHandler = new DemoPublishEventHandler();
 
         public void run(String... strings) throws Exception {
             final String msg = "Hello World";

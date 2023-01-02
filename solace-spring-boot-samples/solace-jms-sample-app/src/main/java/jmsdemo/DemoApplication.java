@@ -1,6 +1,5 @@
 package jmsdemo;
 
-import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,8 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -41,7 +42,7 @@ public class DemoApplication {
         @Value("${solace.jms.demoQueueName}")
         private String queueName;
 
-        public void run(String... strings) throws Exception {
+        public void run(String... strings) {
             String msg = "Hello World";
             logger.info("============= Sending " + msg);
             this.jmsTemplate.convertAndSend(queueName, msg);
@@ -56,17 +57,17 @@ public class DemoApplication {
         // Retrieve the name of the queue from the application.properties file
         @JmsListener(destination = "${solace.jms.demoQueueName}", containerFactory = "cFactory", concurrency = "2")
         public void processMsg(Message<?> msg) {
-        	StringBuffer msgAsStr = new StringBuffer("============= Received \nHeaders:");
-        	MessageHeaders hdrs = msg.getHeaders();
-        	msgAsStr.append("\nUUID: "+hdrs.getId());
-        	msgAsStr.append("\nTimestamp: "+hdrs.getTimestamp());
-        	Iterator<String> keyIter = hdrs.keySet().iterator();
-        	while (keyIter.hasNext()) {
-        		String key = keyIter.next();
-            	msgAsStr.append("\n"+key+": "+hdrs.get(key));
-        	}
-        	msgAsStr.append("\nPayload: "+msg.getPayload());
-            logger.info(msgAsStr.toString());
+            StringBuilder msgAsStr = new StringBuilder("============= Received \nHeaders:");
+            MessageHeaders hdrs = msg.getHeaders();
+            msgAsStr.append("\nUUID: ").append(hdrs.getId());
+            msgAsStr.append("\nTimestamp: ").append(hdrs.getTimestamp());
+            for (Map.Entry<String, Object> entry : hdrs.entrySet()) {
+                msgAsStr.append("\n").append(entry.getKey()).append(": ").append(entry.getValue());
+            }
+            msgAsStr.append("\nPayload: ").append(msg.getPayload());
+            if (!msgAsStr.isEmpty()) {
+                logger.info(msgAsStr.toString());
+            }
         }
     }
 
