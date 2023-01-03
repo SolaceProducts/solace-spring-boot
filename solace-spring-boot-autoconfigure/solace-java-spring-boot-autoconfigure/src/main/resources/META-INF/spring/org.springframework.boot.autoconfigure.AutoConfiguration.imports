@@ -1,0 +1,2 @@
+com.solace.spring.boot.autoconfigure.SolaceJavaAutoConfiguration
+com.solace.spring.boot.autoconfigure.SolaceJavaAutoCloudConfiguration
