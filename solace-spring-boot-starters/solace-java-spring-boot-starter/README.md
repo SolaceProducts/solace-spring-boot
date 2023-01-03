@@ -30,7 +30,7 @@ See the associated [`solace-java-sample-app`](../../solace-spring-boot-samples/s
 
 The releases from this project are hosted in [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter).
 
-The easiest way to get started is to include the `solace-java-spring-boot-starter` (or `solace-spring-boot-starter`) in your application. For an examples see the [Java Sample App](../../solace-spring-boot-samples/solace-java-sample-app) in this project.
+The easiest way to get started is to include the `solace-java-spring-boot-starter` in your application. For an examples see the [Java Sample App](../../solace-spring-boot-samples/solace-java-sample-app) in this project.
 
 Here is how to include the latest spring boot starter in your project using Gradle and Maven. You can also add a specific version from [Maven Central](//mvnrepository.com/artifact/com.solace.spring.boot/solace-java-spring-boot-starter ).
 Note that you'll need to include version 3.1.0 or later to use Spring Boot release 2.x.
@@ -39,7 +39,7 @@ Note that you'll need to include version 3.1.0 or later to use Spring Boot relea
 
 ```groovy
 // Solace Java API & auto-configuration
-compile("com.solace.spring.boot:solace-java-spring-boot-starter:4.1.0")
+compile("com.solace.spring.boot:solace-java-spring-boot-starter:4.2.3")
 ```
 
 #### Using it with Maven
@@ -49,7 +49,7 @@ compile("com.solace.spring.boot:solace-java-spring-boot-starter:4.1.0")
 <dependency>
 	<groupId>com.solace.spring.boot</groupId>
 	<artifactId>solace-java-spring-boot-starter</artifactId>
-	<version>4.1.0</version>
+	<version>4.2.3</version>
 </dependency>
 ```
 

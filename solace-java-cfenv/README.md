@@ -16,7 +16,7 @@ This project loads Cloud Foundry (CF) environment information to autodetect loca
 
 ## Getting Started
 
-If you depend on `solace-spring-boot-starter`, `solace-java-spring-boot-starter` or `solace-jms-spring-boot-starter`, this dependency will be included transitively by default.
+If you depend on `solace-java-spring-boot-starter` or `solace-jms-spring-boot-starter`, this dependency will be included transitively by default.
 
 If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the dependency by itself.
 

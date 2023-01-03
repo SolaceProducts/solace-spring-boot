@@ -21,7 +21,6 @@ package com.solace.spring.boot.autoconfigure;
 import com.solace.services.core.loader.SolaceCredentialsLoader;
 import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solacesystems.jms.SolConnectionFactory;
-import jakarta.jms.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -32,6 +31,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiTemplate;
 
+import javax.jms.ConnectionFactory;
 import java.util.ArrayList;
 import java.util.List;
 

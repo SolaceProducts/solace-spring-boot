@@ -1,6 +1,5 @@
 package jndidemo;
 
-import jakarta.jms.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,7 @@ import org.springframework.jndi.JndiTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ErrorHandler;
 
+import javax.jms.ConnectionFactory;
 import javax.naming.NamingException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

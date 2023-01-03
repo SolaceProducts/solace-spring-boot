@@ -4,9 +4,9 @@
 
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
-		<artifactId>solace-spring-boot-parent</artifactId>
+		<artifactId>solace-spring-boot-java-parent</artifactId>
 		<version>1.2.3-SNAPSHOT</version>
-		<relativePath>../../solace-spring-boot-parent/pom.xml</relativePath>
+		<relativePath>../../solace-spring-boot-parents/solace-spring-boot-java-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>solace-java-spring-boot-autoconfigure</artifactId>

@@ -1,6 +1,5 @@
 package jndidemo;
 
-import jakarta.jms.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,7 @@ import org.springframework.jms.support.destination.JndiDestinationResolver;
 import org.springframework.jndi.JndiObjectFactoryBean;
 import org.springframework.jndi.JndiTemplate;
 
+import javax.jms.ConnectionFactory;
 import javax.naming.NamingException;
 
 @Configuration

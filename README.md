@@ -33,7 +33,6 @@ Please consult the [Spring Boot Compatibility Table](./solace-spring-boot-bom/RE
 These are the projects contained within this repository:
 * [Solace Java Spring Boot Starter](./solace-spring-boot-starters/solace-java-spring-boot-starter)
 * [Solace JMS Spring Boot Starter](./solace-spring-boot-starters/solace-jms-spring-boot-starter)
-* [Solace Spring Boot Starter](./solace-spring-boot-starters/solace-spring-boot-starter)
 * [Solace Java CF-Env](./solace-java-cfenv)
 
 ### Solace Spring Boot Sample Applications
@@ -56,10 +55,10 @@ mvn package # or mvn install to install them locally
 ```
 solace-spring-boot-build (root)
     <-> solace-spring-boot-bom
-    <-> solace-spring-boot-parent
+    <-> solace-spring-boot-java-parent
+    <-> solace-spring-boot-jms-parent
         <-> solace-spring-boot-java-starter
         <-> solace-spring-boot-jms-starter
-        <-> solace-spring-boot-starter
         <-> solace-java-spring-boot-autoconfigure
         <-> solace-jms-spring-boot-autoconfigure
         <-> solace-java-cfenv
