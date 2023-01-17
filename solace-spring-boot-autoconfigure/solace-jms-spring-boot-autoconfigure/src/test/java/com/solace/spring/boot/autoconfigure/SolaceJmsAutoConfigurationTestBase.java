@@ -2,9 +2,7 @@ package com.solace.spring.boot.autoconfigure;
 
 import com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Rule;
-import org.junit.contrib.java.lang.system.EnvironmentVariables;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -12,24 +10,26 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ResolvableType;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static java.util.Collections.singletonList;
+
 public abstract class SolaceJmsAutoConfigurationTestBase {
-    @Configuration public static class EmptyConfiguration {}
-    @Rule public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
+    @Configuration
+    public static class EmptyConfiguration {
+    }
 
     AnnotationConfigApplicationContext context;
-    private Class<? extends SpringSolJmsConnectionFactoryCloudFactory> configClass;
+    private final Class<? extends SpringSolJmsConnectionFactoryCloudFactory> configClass;
 
     SolaceJmsAutoConfigurationTestBase(Class<? extends SpringSolJmsConnectionFactoryCloudFactory> configClass) {
         this.configClass = configClass;
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         if (this.context != null) {
             this.context.close();
@@ -44,22 +44,22 @@ public abstract class SolaceJmsAutoConfigurationTestBase {
         exCred.put("clientUsername", "sample-client-username");
         exCred.put("clientPassword", "sample-client-password");
         exCred.put("msgVpnName", "sample-msg-vpn");
-        exCred.put("smfHosts", Collections.singletonList("tcp://192.168.1.50:7000"));
+        exCred.put("smfHosts", singletonList("tcp://192.168.1.50:7000"));
         exCred.put("smfTlsHosts", Arrays.asList("tcps://192.168.1.50:7003", "tcps://192.168.1.51:7003"));
-        exCred.put("smfZipHosts", Collections.singletonList("tcp://192.168.1.50:7001"));
-        exCred.put("webMessagingUris", Collections.singletonList("http://192.168.1.50:80"));
-        exCred.put("webMessagingTlsUris", Collections.singletonList("https://192.168.1.50:80"));
-        exCred.put("jmsJndiUris", Collections.singletonList("smf://192.168.1.50:7000"));
+        exCred.put("smfZipHosts", singletonList("tcp://192.168.1.50:7001"));
+        exCred.put("webMessagingUris", singletonList("http://192.168.1.50:80"));
+        exCred.put("webMessagingTlsUris", singletonList("https://192.168.1.50:80"));
+        exCred.put("jmsJndiUris", singletonList("smf://192.168.1.50:7000"));
         exCred.put("jmsJndiTlsUris", Arrays.asList("smfs://192.168.1.50:7003", "smfs://192.168.1.51:7003"));
-        exCred.put("mqttUris", Collections.singletonList("tcp://192.168.1.50:7020"));
+        exCred.put("mqttUris", singletonList("tcp://192.168.1.50:7020"));
         exCred.put("mqttTlsUris", Arrays.asList("ssl://192.168.1.50:7021", "ssl://192.168.1.51:7021"));
-        exCred.put("mqttWsUris", Collections.singletonList("ws://192.168.1.50:7022"));
+        exCred.put("mqttWsUris", singletonList("ws://192.168.1.50:7022"));
         exCred.put("mqttWssUris", Arrays.asList("wss://192.168.1.50:7023", "wss://192.168.1.51:7023"));
-        exCred.put("restUris", Collections.singletonList("http://192.168.1.50:7018"));
-        exCred.put("restTlsUris", Collections.singletonList("https://192.168.1.50:7019"));
-        exCred.put("amqpUris", Collections.singletonList("amqp://192.168.1.50:7016"));
-        exCred.put("amqpTlsUris", Collections.singletonList("amqps://192.168.1.50:7017"));
-        exCred.put("managementHostnames", Collections.singletonList("vmr-Medium-VMR-0"));
+        exCred.put("restUris", singletonList("http://192.168.1.50:7018"));
+        exCred.put("restTlsUris", singletonList("https://192.168.1.50:7019"));
+        exCred.put("amqpUris", singletonList("amqp://192.168.1.50:7016"));
+        exCred.put("amqpTlsUris", singletonList("amqps://192.168.1.50:7017"));
+        exCred.put("managementHostnames", singletonList("vmr-Medium-VMR-0"));
         exCred.put("managementUsername", "sample-mgmt-username");
         exCred.put("managementPassword", "sample-mgmt-password");
         exCred.put("activeManagementHostname", "vmr-medium-web");
@@ -76,15 +76,11 @@ public abstract class SolaceJmsAutoConfigurationTestBase {
         return exVcapServices;
     }
 
-    String addOneSolaceService(String envName) {
-        // Make a service visible to the Cloud Connector, will end up using the
-        // SolaceMessagingInfoCreator
-
+    EnvConfig getOneSolaceService(String envName) {
         Map<String, Object> services = createOneService();
         JSONObject jsonMapObject = new JSONObject(services);
         String JSONString = jsonMapObject.toString();
-        environmentVariables.set(envName, "{ \"solace-pubsub\": [" + JSONString + "] }");
-        return JSONString;
+        return new EnvConfig(envName, "{ \"solace-pubsub\": [" + JSONString + "] }");
     }
 
     Map<String, Object> createOneUserProvidedService() {
@@ -95,22 +91,22 @@ public abstract class SolaceJmsAutoConfigurationTestBase {
         exCred.put("clientUsername", "sample-client-username2");
         exCred.put("clientPassword", "sample-client-password2");
         exCred.put("msgVpnName", "sample-msg-vpn2");
-        exCred.put("smfHosts", Collections.singletonList("tcp://192.168.1.51:7000"));
+        exCred.put("smfHosts", singletonList("tcp://192.168.1.51:7000"));
         exCred.put("smfTlsHosts", Arrays.asList("tcps://192.168.1.51:7003", "tcps://192.168.1.51:7003"));
-        exCred.put("smfZipHosts", Collections.singletonList("tcp://192.168.1.51:7001"));
-        exCred.put("webMessagingUris", Collections.singletonList("http://192.168.1.51:80"));
-        exCred.put("webMessagingTlsUris", Collections.singletonList("https://192.168.1.51:80"));
-        exCred.put("jmsJndiUris", Collections.singletonList("smf://192.168.1.51:7000"));
+        exCred.put("smfZipHosts", singletonList("tcp://192.168.1.51:7001"));
+        exCred.put("webMessagingUris", singletonList("http://192.168.1.51:80"));
+        exCred.put("webMessagingTlsUris", singletonList("https://192.168.1.51:80"));
+        exCred.put("jmsJndiUris", singletonList("smf://192.168.1.51:7000"));
         exCred.put("jmsJndiTlsUris", Arrays.asList("smfs://192.168.1.51:7003", "smfs://192.168.1.51:7003"));
-        exCred.put("mqttUris", Collections.singletonList("tcp://192.168.1.51:7020"));
+        exCred.put("mqttUris", singletonList("tcp://192.168.1.51:7020"));
         exCred.put("mqttTlsUris", Arrays.asList("ssl://192.168.1.51:7021", "ssl://192.168.1.51:7021"));
-        exCred.put("mqttWsUris", Collections.singletonList("ws://192.168.1.51:7022"));
+        exCred.put("mqttWsUris", singletonList("ws://192.168.1.51:7022"));
         exCred.put("mqttWssUris", Arrays.asList("wss://192.168.1.51:7023", "wss://192.168.1.51:7023"));
-        exCred.put("restUris", Collections.singletonList("http://192.168.1.51:7018"));
-        exCred.put("restTlsUris", Collections.singletonList("https://192.168.1.51:7019"));
-        exCred.put("amqpUris", Collections.singletonList("amqp://192.168.1.51:7016"));
-        exCred.put("amqpTlsUris", Collections.singletonList("amqps://192.168.1.51:7017"));
-        exCred.put("managementHostnames", Collections.singletonList("vmr-Medium-VMR-02"));
+        exCred.put("restUris", singletonList("http://192.168.1.51:7018"));
+        exCred.put("restTlsUris", singletonList("https://192.168.1.51:7019"));
+        exCred.put("amqpUris", singletonList("amqp://192.168.1.51:7016"));
+        exCred.put("amqpTlsUris", singletonList("amqps://192.168.1.51:7017"));
+        exCred.put("managementHostnames", singletonList("vmr-Medium-VMR-02"));
         exCred.put("managementUsername", "sample-mgmt-username2");
         exCred.put("managementPassword", "sample-mgmt-password2");
         exCred.put("activeManagementHostname", "vmr-medium-web2");
@@ -120,20 +116,17 @@ public abstract class SolaceJmsAutoConfigurationTestBase {
         exVcapServices.put("name", "internal-solace-pubsub");
         exVcapServices.put("binding_name", null);
         // no need to check for tags in terms of validation. It's more for
-        exVcapServices.put("tags",
-                Arrays.asList("solace-pubsub"));
-
+        exVcapServices.put("tags", singletonList("solace-pubsub"));
         return exVcapServices;
     }
 
-    String addOneUserProvidedSolaceService(String envName) {
+    EnvConfig getOneUserProvidedSolaceService(String envName) {
         Map<String, Object> services = createOneUserProvidedService();
         JSONObject jsonMapObject = new JSONObject(services);
         String JSONString = jsonMapObject.toString();
-        environmentVariables.set(envName, "{ \"user-provided\": [" + JSONString + "] }");
-        return JSONString;
+        return new EnvConfig(envName, "{ \"user-provided\": [" + JSONString + "] }");
     }
-    
+
     void load(String... environment) {
         load(EmptyConfiguration.class, environment);
     }
@@ -156,9 +149,11 @@ public abstract class SolaceJmsAutoConfigurationTestBase {
                 Class<?> genericClass = resolvableGeneric.getRawClass();
                 if (genericClass != null) testName = testName.append('—').append(genericClass.getSimpleName());
             }
-
             parameters.add(new Object[]{testName.toString(), rawClass});
         }
         return parameters;
+    }
+
+    public record EnvConfig(String envName, String envValue) {
     }
 }

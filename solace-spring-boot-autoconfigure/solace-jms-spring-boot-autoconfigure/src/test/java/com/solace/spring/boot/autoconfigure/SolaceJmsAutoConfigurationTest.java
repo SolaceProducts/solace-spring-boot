@@ -22,83 +22,88 @@ import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolConnectionFactoryImpl;
 import com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.jms.core.JmsTemplate;
+import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
+import uk.org.webcompere.systemstubs.jupiter.SystemStub;
+import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SystemStubsExtension.class)
 public class SolaceJmsAutoConfigurationTest extends SolaceJmsAutoConfigurationTestBase {
-	public SolaceJmsAutoConfigurationTest() {
-		super(SolaceJmsAutoConfiguration.class);
-	}
 
-	@Test
-	public void defaultNativeConnectionFactory() {
-		load("");
-		JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
-		SolConnectionFactoryImpl connectionFactory = this.context
-				.getBean(SolConnectionFactoryImpl.class);
-		assertEquals(jmsTemplate.getConnectionFactory(), connectionFactory);
+    @SystemStub
+    private EnvironmentVariables environmentVariables;
+
+    public SolaceJmsAutoConfigurationTest() {
+        super(SolaceJmsAutoConfiguration.class);
+    }
+
+    @Test
+    void defaultNativeConnectionFactory() {
+        load("");
+        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+        SolConnectionFactoryImpl connectionFactory = context.getBean(SolConnectionFactoryImpl.class);
+        assertEquals(jmsTemplate.getConnectionFactory(), connectionFactory);
         assertEquals("tcp://localhost", connectionFactory.getHost());
         assertEquals("default", connectionFactory.getVPN());
         assertEquals("spring-default-client-username", connectionFactory.getUsername());
         assertEquals("", connectionFactory.getPassword());
         assertFalse(connectionFactory.getDirectTransport());
-	}
+    }
 
-	@Test
-	public void customNativeConnectionFactory() {
-		load("solace.jms.host=192.168.1.80:55500",
-				"solace.jms.clientUsername=bob", "solace.jms.clientPassword=password",
-				"solace.jms.msgVpn=newVpn");
-		JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
-		SolConnectionFactoryImpl connectionFactory = this.context.getBean(SolConnectionFactoryImpl.class);
-		assertEquals(jmsTemplate.getConnectionFactory(), connectionFactory);
-		assertEquals("tcp://192.168.1.80:55500", connectionFactory.getHost());
+    @Test
+    void customNativeConnectionFactory() {
+        load("solace.jms.host=192.168.1.80:55500",
+                "solace.jms.clientUsername=bob", "solace.jms.clientPassword=password",
+                "solace.jms.msgVpn=newVpn");
+        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+        SolConnectionFactoryImpl connectionFactory = context.getBean(SolConnectionFactoryImpl.class);
+        assertEquals(jmsTemplate.getConnectionFactory(), connectionFactory);
+        assertEquals("tcp://192.168.1.80:55500", connectionFactory.getHost());
         assertEquals("newVpn", connectionFactory.getVPN());
         assertEquals("bob", connectionFactory.getUsername());
         assertEquals("password", connectionFactory.getPassword());
         assertFalse(connectionFactory.getDirectTransport());
-	}
+    }
 
     @Test
-    public void externallyLoadedServiceProperties() {
+    void externallyLoadedServiceProperties() {
         // Testing one type of externally loaded service is good enough
         // The loader has its own tests for the other scenarios
         String ENV_SOLCAP_SERVICES = "SOLCAP_SERVICES";
 
-        load(String.format("%s={ \"solace-pubsub\": [%s] }",
-                ENV_SOLCAP_SERVICES, addOneSolaceService(ENV_SOLCAP_SERVICES)));
+        EnvConfig configuration = getOneSolaceService(ENV_SOLCAP_SERVICES);
+        environmentVariables.set(configuration.envName(), configuration.envValue());
+        load(String.format("%s=%s", ENV_SOLCAP_SERVICES, configuration.envValue()));
 
         String solaceManifest = context.getEnvironment().getProperty(ENV_SOLCAP_SERVICES);
         assertNotNull(solaceManifest);
         assertTrue(solaceManifest.contains("solace-pubsub"));
 
-        assertNotNull(this.context.getBean(SolConnectionFactory.class));
-        assertNotNull(this.context.getBean(SpringSolJmsConnectionFactoryCloudFactory.class));
-        assertNotNull(this.context.getBean(SolaceServiceCredentials.class));
+        assertNotNull(context.getBean(SolConnectionFactory.class));
+        assertNotNull(context.getBean(SpringSolJmsConnectionFactoryCloudFactory.class));
+        assertNotNull(context.getBean(SolaceServiceCredentials.class));
     }
 
-	@Test
-	public void noExternallyLoadedServiceProperties() {
-		// Testing one type of externally loaded service is good enough
-		// The loader has its own tests for the other scenarios
-		String ENV_SOLCAP_SERVICES = "SOLCAP_SERVICES";
-		load(String.format("%s={ \"solace-pubsub\": [] }", ENV_SOLCAP_SERVICES));
+    @Test
+    void noExternallyLoadedServiceProperties() {
+        // Testing one type of externally loaded service is good enough
+        // The loader has its own tests for the other scenarios
+        String ENV_SOLCAP_SERVICES = "SOLCAP_SERVICES";
+        load(String.format("%s={ \"solace-pubsub\": [] }", ENV_SOLCAP_SERVICES));
 
-		String solaceManifest = context.getEnvironment().getProperty(ENV_SOLCAP_SERVICES);
-		assertNotNull(solaceManifest);
-		assertTrue(solaceManifest.contains("solace-pubsub"));
+        String solaceManifest = context.getEnvironment().getProperty(ENV_SOLCAP_SERVICES);
+        assertNotNull(solaceManifest);
+        assertTrue(solaceManifest.contains("solace-pubsub"));
 
-		assertNotNull(this.context.getBean(SolConnectionFactory.class));
-		assertNotNull(this.context.getBean(SpringSolJmsConnectionFactoryCloudFactory.class));
-		NoSuchBeanDefinitionException thrown = assertThrows(NoSuchBeanDefinitionException.class, () ->
-				this.context.getBean(SolaceServiceCredentials.class));
-		assertEquals(SolaceServiceCredentials.class, thrown.getBeanType());
-	}
+        assertNotNull(context.getBean(SolConnectionFactory.class));
+        assertNotNull(context.getBean(SpringSolJmsConnectionFactoryCloudFactory.class));
+        NoSuchBeanDefinitionException thrown = assertThrows(NoSuchBeanDefinitionException.class, () ->
+                context.getBean(SolaceServiceCredentials.class));
+        assertEquals(SolaceServiceCredentials.class, thrown.getBeanType());
+    }
 }

@@ -18,10 +18,10 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import java.util.List;
-
 import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solace.spring.cloud.core.SolaceServiceCredentialsFactory;
+import com.solacesystems.jcsmp.JCSMPProperties;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -30,30 +30,29 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
-import com.solacesystems.jcsmp.JCSMPProperties;
-import com.solacesystems.jcsmp.SpringJCSMPFactory;
+import java.util.List;
 
 @Configuration
 @AutoConfigureBefore(SolaceJavaAutoConfiguration.class)
-@ConditionalOnClass({ JCSMPProperties.class})
+@ConditionalOnClass(JCSMPProperties.class)
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)
 @Conditional(CloudCondition.class)
 public class SolaceJavaAutoCloudConfiguration extends SolaceJavaAutoConfigurationBase {
 
-	@Autowired
-	public SolaceJavaAutoCloudConfiguration(SolaceJavaProperties properties) {
-		super(properties);
-	}
+    @Autowired
+    public SolaceJavaAutoCloudConfiguration(SolaceJavaProperties properties) {
+        super(properties);
+    }
 
-	@Override
-	public List<SolaceServiceCredentials> getSolaceServiceCredentials() {
-		return SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-	}
+    @Override
+    public List<SolaceServiceCredentials> getSolaceServiceCredentials() {
+        return SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
+    }
 
-	@Override
-	SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl() {
-		List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-		return credentials.size() == 0 ? null : credentials.get(0);
-	}
+    @Override
+    SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl() {
+        List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
+        return credentials.isEmpty() ? null : credentials.get(0);
+    }
 }

@@ -1,6 +1,6 @@
 # Solace Spring Boot Sample - Java
 
-This is a simple sample project to demonstrate the autoconfiguration of the Solace Java API using the `solace-spring-boot-starter` (or the `solace-java-spring-boot-starter` in particular).
+This is a simple sample project to demonstrate the autoconfiguration of the Solace Java API using the `solace-java-spring-boot-starter`.
 
 Please refer to the [Spring Boot Auto-Configuration for the Solace Java API](../../solace-spring-boot-starters/solace-java-spring-boot-starter) project for more detail.
 

@@ -8,8 +8,8 @@ import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPProperties;
 import com.solacesystems.jcsmp.JCSMPSession;
 import com.solacesystems.jcsmp.SpringJCSMPFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
@@ -17,21 +17,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SolaceJavaAutoConfigurationBaseTest extends SolaceJavaAutoConfigurationTestBase {
-    private SolaceJavaProperties solaceJavaProperties = getSolaceJavaProperties();
+    private final SolaceJavaProperties solaceJavaProperties = getSolaceJavaProperties();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private SolaceJavaAutoConfigurationBase jcsmpAutoConfBase;
     private SolaceServiceCredentials solaceServiceCredentials;
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     public SolaceJavaAutoConfigurationBaseTest() {
         super(SolaceJavaAutoConfigurationBase.class);
     }
 
-    @Before
+    @BeforeEach
     public void setup() {
         SolaceServiceCredentialsImpl solaceServiceCredentialsImpl = objectMapper
                 .convertValue(createOneService().get("credentials"), SolaceServiceCredentialsImpl.class);
@@ -46,52 +44,52 @@ public class SolaceJavaAutoConfigurationBaseTest extends SolaceJavaAutoConfigura
     }
 
     @Test
-    public void testFindFirstSolaceServiceCredentials() {
+    void testFindFirstSolaceServiceCredentials() {
         assertEquals(solaceServiceCredentials, jcsmpAutoConfBase.findFirstSolaceServiceCredentials());
     }
 
     @Test
-    public void testGetSolaceServiceCredentials() {
+    void testGetSolaceServiceCredentials() {
         assertEquals(Collections.singletonList(solaceServiceCredentials), jcsmpAutoConfBase.getSolaceServiceCredentials());
     }
 
     @Test
-    public void testGetSpringJCSMPFactory() throws InvalidPropertiesException {
+    void testGetSpringJCSMPFactory() throws InvalidPropertiesException {
         validateJCSMPFactory(jcsmpAutoConfBase.getSpringJCSMPFactory().createSession(), false);
         disableSolaceServiceCredentials();
         validateJCSMPFactory(jcsmpAutoConfBase.getSpringJCSMPFactory().createSession(), true);
     }
 
     @Test
-    public void testGetSpringJCSMPFactoryByCreds() throws InvalidPropertiesException {
+    void testGetSpringJCSMPFactoryByCreds() throws InvalidPropertiesException {
         validateJCSMPFactory(jcsmpAutoConfBase.getSpringJCSMPFactory(solaceServiceCredentials).createSession(), false);
         disableSolaceServiceCredentials();
         validateJCSMPFactory(jcsmpAutoConfBase.getSpringJCSMPFactory(solaceServiceCredentials).createSession(), false);
     }
 
     @Test
-    public void testGetSpringJCSMPFactoryById() throws InvalidPropertiesException {
+    void testGetSpringJCSMPFactoryById() throws InvalidPropertiesException {
         validateJCSMPFactory(jcsmpAutoConfBase.getSpringJCSMPFactory(solaceServiceCredentials.getId()).createSession(), false);
         disableSolaceServiceCredentials();
         assertNull(jcsmpAutoConfBase.getSpringJCSMPFactory(solaceServiceCredentials.getId()));
     }
 
     @Test
-    public void testGetJCSMPProperties() throws InvalidPropertiesException {
+    void testGetJCSMPProperties() throws InvalidPropertiesException {
         validateJCSMPProperties(jcsmpAutoConfBase.getJCSMPProperties(), false);
         disableSolaceServiceCredentials();
         validateJCSMPProperties(jcsmpAutoConfBase.getJCSMPProperties(), true);
     }
 
     @Test
-    public void testGetJCSMPPropertiesByCreds() throws InvalidPropertiesException {
+    void testGetJCSMPPropertiesByCreds() throws InvalidPropertiesException {
         validateJCSMPProperties(jcsmpAutoConfBase.getJCSMPProperties(solaceServiceCredentials), false);
         disableSolaceServiceCredentials();
         validateJCSMPProperties(jcsmpAutoConfBase.getJCSMPProperties(solaceServiceCredentials), false);
     }
 
     @Test
-    public void testGetJCSMPPropertiesById() throws InvalidPropertiesException {
+    void testGetJCSMPPropertiesById() throws InvalidPropertiesException {
         validateJCSMPProperties(jcsmpAutoConfBase.getJCSMPProperties(solaceServiceCredentials.getId()), false);
         disableSolaceServiceCredentials();
         assertNull(jcsmpAutoConfBase.getJCSMPProperties(solaceServiceCredentials.getId()));
@@ -140,7 +138,7 @@ public class SolaceJavaAutoConfigurationBaseTest extends SolaceJavaAutoConfigura
     }
 
     private void validateApiProperties(JCSMPSession session) {
-        for (Map.Entry<String,String> entry : solaceJavaProperties.getApiProperties().entrySet()) {
+        for (Map.Entry<String, String> entry : solaceJavaProperties.getApiProperties().entrySet()) {
             assertNotNull(session.getProperty("jcsmp." + entry.getKey()));
             assertEquals(session.getProperty("jcsmp." + entry.getKey()), entry.getValue());
         }

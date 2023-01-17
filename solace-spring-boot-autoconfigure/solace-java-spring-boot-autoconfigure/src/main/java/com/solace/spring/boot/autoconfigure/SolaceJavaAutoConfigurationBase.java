@@ -9,7 +9,6 @@ import com.solacesystems.jcsmp.SpringJCSMPFactoryCloudFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -23,9 +22,6 @@ abstract class SolaceJavaAutoConfigurationBase implements SpringJCSMPFactoryClou
     }
 
     abstract SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl();
-
-    @Override
-    public abstract List<SolaceServiceCredentials> getSolaceServiceCredentials();
 
     @Bean
     @ConditionalOnMissingBean
@@ -66,8 +62,8 @@ abstract class SolaceJavaAutoConfigurationBase implements SpringJCSMPFactoryClou
     @Override
     public JCSMPProperties getJCSMPProperties(SolaceServiceCredentials solaceServiceCredentials) {
         Properties p = new Properties();
-        Set<Map.Entry<String,String>> set = properties.getApiProperties().entrySet();
-        for (Map.Entry<String,String> entry : set) {
+        Set<Map.Entry<String, String>> set = properties.getApiProperties().entrySet();
+        for (Map.Entry<String, String> entry : set) {
             p.put("jcsmp." + entry.getKey(), entry.getValue());
         }
 

@@ -1,6 +1,6 @@
 # Solace Spring Boot Sample - JMS
 
-This is a simple sample project to demonstrate the autoconfiguration of the Solace JMS API using the `solace-spring-boot-starter` (or the `solace-jms-spring-boot-starter` in particular).
+This is a simple sample project to demonstrate the autoconfiguration of the Solace JMS API using the `solace-jms-spring-boot-starter`.
 
 Please refer to the [Spring Boot Auto-Configuration for the Solace JMS API](../../solace-spring-boot-starters/solace-jms-spring-boot-starter) project for more detail.
 

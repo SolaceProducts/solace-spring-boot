@@ -4,29 +4,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solace.services.core.model.SolaceServiceCredentialsImpl;
 import com.solacesystems.jms.SolConnectionFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SolaceJmsAutoConfigurationBaseTest extends SolaceJmsAutoConfigurationTestBase {
-    private SolaceJmsProperties solaceJmsProperties = getSolaceJmsProperties();
+    private final SolaceJmsProperties solaceJmsProperties = getSolaceJmsProperties();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private SolaceJmsAutoConfigurationBase jmsAutoConfBase;
     private SolaceServiceCredentials solaceServiceCredentials;
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     public SolaceJmsAutoConfigurationBaseTest() {
         super(SolaceJmsAutoConfigurationBase.class);
     }
 
-    @Before
+    @BeforeEach
     public void setup() {
         SolaceServiceCredentialsImpl solaceServiceCredentialsImpl = objectMapper
                 .convertValue(createOneService().get("credentials"), SolaceServiceCredentialsImpl.class);
@@ -41,31 +39,31 @@ public class SolaceJmsAutoConfigurationBaseTest extends SolaceJmsAutoConfigurati
     }
 
     @Test
-    public void testFindFirstSolaceServiceCredentials() {
+    void testFindFirstSolaceServiceCredentials() {
         assertEquals(solaceServiceCredentials, jmsAutoConfBase.findFirstSolaceServiceCredentials());
     }
 
     @Test
-    public void testGetSolaceServiceCredentials() {
+    void testGetSolaceServiceCredentials() {
         assertEquals(Collections.singletonList(solaceServiceCredentials), jmsAutoConfBase.getSolaceServiceCredentials());
     }
 
     @Test
-    public void testGetSolConnectionFactory() {
+    void testGetSolConnectionFactory() {
         validateSolConnectionFactory(jmsAutoConfBase.getSolConnectionFactory(), false);
         disableSolaceServiceCredentials();
         validateSolConnectionFactory(jmsAutoConfBase.getSolConnectionFactory(), true);
     }
 
     @Test
-    public void testGetSolConnectionFactoryByCreds() {
+    void testGetSolConnectionFactoryByCreds() {
         validateSolConnectionFactory(jmsAutoConfBase.getSolConnectionFactory(solaceServiceCredentials), false);
         disableSolaceServiceCredentials();
         validateSolConnectionFactory(jmsAutoConfBase.getSolConnectionFactory(solaceServiceCredentials), false);
     }
 
     @Test
-    public void testGetSolConnectionFactoryById() {
+    void testGetSolConnectionFactoryById() {
         validateSolConnectionFactory(jmsAutoConfBase.getSolConnectionFactory(solaceServiceCredentials.getId()), false);
         disableSolaceServiceCredentials();
         assertNull((jmsAutoConfBase.getSolConnectionFactory(solaceServiceCredentials.getId())));

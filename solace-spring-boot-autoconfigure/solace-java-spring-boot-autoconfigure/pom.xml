@@ -4,9 +4,9 @@
 
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
-		<artifactId>solace-spring-boot-parent</artifactId>
+		<artifactId>solace-spring-boot-java-parent</artifactId>
 		<version>1.2.3-SNAPSHOT</version>
-		<relativePath>../../solace-spring-boot-parent/pom.xml</relativePath>
+		<relativePath>../../solace-spring-boot-parents/solace-spring-boot-java-parent/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>solace-java-spring-boot-autoconfigure</artifactId>
@@ -48,11 +48,16 @@
 			<groupId>com.solace.cloud.cloudfoundry</groupId>
 			<artifactId>solace-java-cfenv</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>com.github.stefanbirkner</groupId>
-			<artifactId>system-rules</artifactId>
-			<version>1.16.0</version>
+			<groupId>jakarta.jms</groupId>
+			<artifactId>jakarta.jms-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<!-- Environment variable stubs -->
+		<dependency>
+			<groupId>uk.org.webcompere</groupId>
+			<artifactId>system-stubs-jupiter</artifactId>
+			<version>2.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

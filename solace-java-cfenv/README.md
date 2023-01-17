@@ -16,7 +16,7 @@ This project loads Cloud Foundry (CF) environment information to autodetect loca
 
 ## Getting Started
 
-If you depend on `solace-spring-boot-starter`, `solace-java-spring-boot-starter` or `solace-jms-spring-boot-starter`, this dependency will be included transitively by default.
+If you depend on `solace-java-spring-boot-starter` or `solace-jms-spring-boot-starter`, this dependency will be included transitively by default.
 
 If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the dependency by itself.
 
@@ -26,14 +26,14 @@ If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the
 <dependency>
     <groupId>com.solace.cloud.cloudfoundry</groupId>
     <artifactId>solace-java-cfenv</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
 ### Getting Started - Gradle
 ```groovy
 /* Solace Java CFEnv */
-compile("com.solace.cloud.cloudfoundry:solace-java-cfenv:1.2.2")
+compile("com.solace.cloud.cloudfoundry:solace-java-cfenv:1.2.3")
 ```
 
 ## Usage
