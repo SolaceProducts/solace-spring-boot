@@ -56,11 +56,16 @@
 			<groupId>com.solace.cloud.cloudfoundry</groupId>
 			<artifactId>solace-java-cfenv</artifactId>
 		</dependency>
-
 		<dependency>
-			<groupId>com.github.stefanbirkner</groupId>
-			<artifactId>system-rules</artifactId>
-			<version>1.16.0</version>
+			<groupId>jakarta.jms</groupId>
+			<artifactId>jakarta.jms-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<!-- Environment variable stubs -->
+		<dependency>
+			<groupId>uk.org.webcompere</groupId>
+			<artifactId>system-stubs-jupiter</artifactId>
+			<version>2.0.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

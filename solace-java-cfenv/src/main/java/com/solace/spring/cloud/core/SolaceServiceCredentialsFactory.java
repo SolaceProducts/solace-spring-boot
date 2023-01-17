@@ -80,73 +80,29 @@ public class SolaceServiceCredentialsFactory {
 		for (Map.Entry<String, Object> entry : service.getCredentials().getMap().entrySet()) {
 			String key = entry.getKey();
 			Object value = entry.getValue();
-
 			switch (key) {
-				case "clientUsername":
-					credentials.setClientUsername((String) value);
-					break;
-				case "clientPassword":
-					credentials.setClientPassword((String) value);
-					break;
-				case "msgVpnName":
-					credentials.setMsgVpnName((String) value);
-					break;
-				case "smfHosts":
-					credentials.setSmfHosts((List<String>) value);
-					break;
-				case "smfTlsHosts":
-					credentials.setSmfTlsHosts((List<String>) value);
-					break;
-				case "smfZipHosts":
-					credentials.setSmfZipHosts((List<String>) value);
-					break;
-				case "jmsJndiUris":
-					credentials.setJmsJndiUris((List<String>) value);
-					break;
-				case "jmsJndiTlsUris":
-					credentials.setJmsJndiTlsUris((List<String>) value);
-					break;
-				case "managementUsername":
-					credentials.setManagementUsername((String) value);
-					break;
-				case "managementPassword":
-					credentials.setManagementPassword((String) value);
-					break;
-				case "activeManagementHostname":
-					credentials.setActiveManagementHostname((String) value);
-					break;
-				case "restUris":
-					credentials.setRestUris((List<String>) value);
-					break;
-				case "restTlsUris":
-					credentials.setRestTlsUris((List<String>) value);
-					break;
-				case "mqttUris":
-					credentials.setMqttUris((List<String>) value);
-					break;
-				case "mqttTlsUris":
-					credentials.setMqttTlsUris((List<String>) value);
-					break;
-				case "mqttWsUris":
-					credentials.setMqttWsUris((List<String>) value);
-					break;
-				case "mqttWssUris":
-					credentials.setMqttWssUris((List<String>) value);
-					break;
-				case "amqpUris":
-					credentials.setAmqpUris((List<String>) value);
-					break;
-				case "amqpTlsUris":
-					credentials.setAmqpTlsUris((List<String>) value);
-					break;
-				case "managementHostnames":
-					credentials.setManagementHostnames((List<String>) value);
-					break;
-				case "dmrClusterName":
-					credentials.setDmrClusterName((String) value);
-					break;
-				case "dmrClusterPassword":
-					credentials.setDmrClusterPassword((String) value);
+				case "clientUsername" -> credentials.setClientUsername((String) value);
+				case "clientPassword" -> credentials.setClientPassword((String) value);
+				case "msgVpnName" -> credentials.setMsgVpnName((String) value);
+				case "smfHosts" -> credentials.setSmfHosts((List<String>) value);
+				case "smfTlsHosts" -> credentials.setSmfTlsHosts((List<String>) value);
+				case "smfZipHosts" -> credentials.setSmfZipHosts((List<String>) value);
+				case "jmsJndiUris" -> credentials.setJmsJndiUris((List<String>) value);
+				case "jmsJndiTlsUris" -> credentials.setJmsJndiTlsUris((List<String>) value);
+				case "managementUsername" -> credentials.setManagementUsername((String) value);
+				case "managementPassword" -> credentials.setManagementPassword((String) value);
+				case "activeManagementHostname" -> credentials.setActiveManagementHostname((String) value);
+				case "restUris" -> credentials.setRestUris((List<String>) value);
+				case "restTlsUris" -> credentials.setRestTlsUris((List<String>) value);
+				case "mqttUris" -> credentials.setMqttUris((List<String>) value);
+				case "mqttTlsUris" -> credentials.setMqttTlsUris((List<String>) value);
+				case "mqttWsUris" -> credentials.setMqttWsUris((List<String>) value);
+				case "mqttWssUris" -> credentials.setMqttWssUris((List<String>) value);
+				case "amqpUris" -> credentials.setAmqpUris((List<String>) value);
+				case "amqpTlsUris" -> credentials.setAmqpTlsUris((List<String>) value);
+				case "managementHostnames" -> credentials.setManagementHostnames((List<String>) value);
+				case "dmrClusterName" -> credentials.setDmrClusterName((String) value);
+				case "dmrClusterPassword" -> credentials.setDmrClusterPassword((String) value);
 			}
 		}
 

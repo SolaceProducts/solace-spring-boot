@@ -18,49 +18,47 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import javax.jms.ConnectionFactory;
-
 import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solace.spring.cloud.core.SolaceServiceCredentialsFactory;
+import com.solacesystems.jms.SolConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import com.solacesystems.jms.SolConnectionFactory;
 import org.springframework.jndi.JndiTemplate;
 
 import java.util.List;
 
 @Configuration
-@AutoConfigureBefore(JmsAutoConfiguration.class)
-@ConditionalOnClass({ ConnectionFactory.class, SolConnectionFactory.class })
-@ConditionalOnMissingBean({ ConnectionFactory.class, JndiTemplate.class })
-@Conditional(CloudCondition.class)
+@AutoConfigureBefore(SolaceJmsAutoConfiguration.class)
+@ConditionalOnClass({ConnectionFactory.class, SolConnectionFactory.class})
+@ConditionalOnMissingBean({ConnectionFactory.class, JndiTemplate.class})
 @EnableConfigurationProperties(SolaceJmsProperties.class)
+@Conditional(CloudCondition.class)
 public class SolaceJmsAutoCloudConfiguration extends SolaceJmsAutoConfigurationBase {
 
-	@SuppressWarnings("unused")
-	private static final Logger logger = LoggerFactory.getLogger(SolaceJmsAutoCloudConfiguration.class);
+    @SuppressWarnings("unused")
+    private static final Logger logger = LoggerFactory.getLogger(SolaceJmsAutoCloudConfiguration.class);
 
-	@Autowired
-	public SolaceJmsAutoCloudConfiguration(SolaceJmsProperties properties) {
-		super(properties);
-	}
+    @Autowired
+    public SolaceJmsAutoCloudConfiguration(SolaceJmsProperties properties) {
+        super(properties);
+    }
 
-	@Override
-	SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl() {
-		List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-		return credentials.size() == 0 ? null : credentials.get(0);
-	}
+    @Override
+    SolaceServiceCredentials findFirstSolaceServiceCredentialsImpl() {
+        List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
+        return credentials.isEmpty() ? null : credentials.get(0);
+    }
 
-	@Override
-	public List<SolaceServiceCredentials> getSolaceServiceCredentials() {
-		return SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-	}
+    @Override
+    public List<SolaceServiceCredentials> getSolaceServiceCredentials() {
+        return SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
+    }
 }

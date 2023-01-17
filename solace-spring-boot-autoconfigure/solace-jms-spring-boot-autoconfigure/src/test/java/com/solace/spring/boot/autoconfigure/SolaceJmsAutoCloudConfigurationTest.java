@@ -22,13 +22,18 @@ import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory;
 import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.env.Environment;
 import org.springframework.jms.core.JmsTemplate;
+import uk.org.webcompere.systemstubs.environment.EnvironmentVariables;
+import uk.org.webcompere.systemstubs.jupiter.SystemStub;
+import uk.org.webcompere.systemstubs.jupiter.SystemStubsExtension;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -36,31 +41,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import org.junit.runners.Parameterized.Parameters;
-import org.junit.runners.Parameterized.Parameter;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(Parameterized.class)
+@ExtendWith(SystemStubsExtension.class)
 public class SolaceJmsAutoCloudConfigurationTest<T> extends SolaceJmsAutoConfigurationTestBase {
 
-	// Just enough to satisfy the Cloud Condition we need
-	private static String CF_CLOUD_APP_ENV = "VCAP_APPLICATION={}";
+    @SystemStub
+    private EnvironmentVariables environmentVariables;
 
-	// Some other Service
-	private static String CF_VCAP_SERVICES_OTHER = "VCAP_SERVICES={ otherService: [ { id: '1' } , { id: '2' } ]}";
+    private static final String VCAP_SVC_ENV = "VCAP_SERVICES";
+    private static final String VCAP_APP_ENV = "VCAP_APPLICATION";
 
-    @Parameter(0) public String beanClassName;
-    @Parameter(1) public Class<T> beanClass;
+    // Just enough to satisfy the Cloud Condition we need
+    private static final String CF_CLOUD_APP_ENV = VCAP_APP_ENV + "={}";
+
+    // Some other Service
+    private static final String CF_VCAP_SERVICES_OTHER = VCAP_SVC_ENV + "={ otherService: [ { id: '1' } , { id: '2' } ]}";
 
     public SolaceJmsAutoCloudConfigurationTest() {
         super(SolaceJmsAutoCloudConfiguration.class);
     }
 
-    @Parameters(name = "{0}")
     public static Collection<Object[]> parameterData() {
         Set<ResolvableType> classes = new HashSet<>();
         classes.add(ResolvableType.forClass(SpringSolJmsConnectionFactoryCloudFactory.class));
@@ -69,225 +70,209 @@ public class SolaceJmsAutoCloudConfigurationTest<T> extends SolaceJmsAutoConfigu
         return getTestParameters(classes);
     }
 
-	@Test(expected = NoSuchBeanDefinitionException.class)
-	public void noBeanNotCloud() throws NoSuchBeanDefinitionException {
-		try {
-			load("");
-			this.context.getBean(beanClass);
-		} catch (NoSuchBeanDefinitionException e) {
-			assertTrue(e.getBeanType().isAssignableFrom(beanClass));
-			throw e;
-		}
-	}
+    @ParameterizedTest
+    @MethodSource("parameterData")
+    void noBeanNotCloud(String beanClassName, Class<?> beanClass) {
+        load("");
+        verifyNoSuchBeanDefinitionOnGetBean(beanClass);
+    }
 
-	@Test(expected = NoSuchBeanDefinitionException.class)
-	public void noBeanIsCloudNoService() throws NoSuchBeanDefinitionException {
-		load(CF_CLOUD_APP_ENV);
+    private void verifyNoSuchBeanDefinitionOnGetBean(Class<?> beanClass) {
+        NoSuchBeanDefinitionException exception = assertThrows(NoSuchBeanDefinitionException.class, () -> context.getBean(beanClass));
+        Assertions.assertTrue(exception.getBeanType().isAssignableFrom(beanClass));
+    }
 
-		Environment env = context.getEnvironment();
-		String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
-		assertNotNull(VCAP_APPLICATION);
-		assertEquals("{}", VCAP_APPLICATION);
+    @ParameterizedTest
+    @MethodSource("parameterData")
+    void noBeanIsCloudNoService(String beanClassName, Class<?> beanClass) {
+        load(CF_CLOUD_APP_ENV);
 
-		String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
-		assertNull(VCAP_SERVICES);
+        Environment env = context.getEnvironment();
+        String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
+        assertNotNull(VCAP_APPLICATION);
+        assertEquals("{}", VCAP_APPLICATION);
 
-		try {
-			this.context.getBean(beanClass);
-		} catch (NoSuchBeanDefinitionException e) {
-			assertTrue(e.getBeanType().isAssignableFrom(beanClass));
-			throw e;
-		}
-	}
+        String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
+        assertNull(VCAP_SERVICES);
 
-	@Test(expected = NoSuchBeanDefinitionException.class)
-	public void noBeanIsCloudWrongService() throws NoSuchBeanDefinitionException {
-		load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES_OTHER);
+        verifyNoSuchBeanDefinitionOnGetBean(beanClass);
+    }
 
-		Environment env = context.getEnvironment();
-		String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
-		assertNotNull(VCAP_APPLICATION);
-		assertEquals("{}", VCAP_APPLICATION);
+    @ParameterizedTest
+    @MethodSource("parameterData")
+    void noBeanIsCloudWrongService(String beanClassName, Class<?> beanClass) {
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES_OTHER);
 
-		String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
-		assertNotNull(VCAP_SERVICES);
-		assertFalse(VCAP_SERVICES.contains("solace-pubsub"));
+        Environment env = context.getEnvironment();
+        String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
+        assertNotNull(VCAP_APPLICATION);
+        assertEquals("{}", VCAP_APPLICATION);
 
-		try {
-			this.context.getBean(beanClass);
-		} catch (NoSuchBeanDefinitionException e) {
-			assertTrue(e.getBeanType().isAssignableFrom(beanClass));
-			throw e;
-		}
-	}
+        String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
+        assertNotNull(VCAP_SERVICES);
+        assertFalse(VCAP_SERVICES.contains("solace-pubsub"));
 
-	private void makeCloudEnv() {
-		// To force the detection of spring cloud connector which uses
-		// EnvironmentAccessor
-		environmentVariables.set("VCAP_APPLICATION", "{}");
-		assertEquals("{}", System.getenv("VCAP_APPLICATION"));
-	}
+        verifyNoSuchBeanDefinitionOnGetBean(beanClass);
+    }
 
-	@Test
-	public void hasBeanIsCloudHasService() throws NoSuchBeanDefinitionException {
+    private void makeCloudEnv(String vcapService) {
+        environmentVariables.set(VCAP_APP_ENV, "{}");
+        assertEquals("{}", System.getenv(VCAP_APP_ENV));
+        environmentVariables.set(VCAP_SVC_ENV, vcapService);
+        assertEquals(vcapService, System.getenv(VCAP_SVC_ENV));
+    }
 
-		makeCloudEnv();
+    @ParameterizedTest
+    @MethodSource("parameterData")
+    void hasBeanIsCloudHasService(String beanClassName, Class<T> beanClass) {
+        EnvConfig configuration = getOneSolaceService(VCAP_SVC_ENV);
+        makeCloudEnv(configuration.envValue());
+        String CF_VCAP_SERVICES = configuration.envName() + "=" + configuration.envValue();
 
-		String JSONString = addOneSolaceService("VCAP_SERVICES");
-		String CF_VCAP_SERVICES = "VCAP_SERVICES={ \"solace-pubsub\": [" + JSONString + "] }";
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
 
-		load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
+        Environment env = context.getEnvironment();
 
-		Environment env = context.getEnvironment();
+        String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
+        assertNotNull(VCAP_APPLICATION);
+        assertEquals("{}", VCAP_APPLICATION);
 
-		String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
-		assertNotNull(VCAP_APPLICATION);
-		assertEquals("{}", VCAP_APPLICATION);
+        String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
+        assertNotNull(VCAP_SERVICES);
+        assertTrue(VCAP_SERVICES.contains("solace-pubsub"));
 
-		String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
-		assertNotNull(VCAP_SERVICES);
-		assertTrue(VCAP_SERVICES.contains("solace-pubsub"));
+        T bean = context.getBean(beanClass);
+        assertNotNull(bean);
 
-		T bean = this.context.getBean(beanClass);
-		assertNotNull(bean);
-
-		if (beanClass.equals(SpringSolJmsConnectionFactoryCloudFactory.class)) {
-                    SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory =
-                            (SpringSolJmsConnectionFactoryCloudFactory) bean;
-                    assertNotNull(springSolConnectionFactoryCloudFactory.getSolConnectionFactory());
-                    List<SolaceServiceCredentials> availableServices = springSolConnectionFactoryCloudFactory
-                            .getSolaceServiceCredentials();
-                    assertNotNull(availableServices);
-                    assertEquals(1,availableServices.size());
-                }
-	}
-
-	@Test
-	public void isCloudConfiguredBySolaceMessagingInfoAndDefaultsForOtherProperties() {
-
-		makeCloudEnv();
-
-		String JSONString = addOneSolaceService("VCAP_SERVICES");
-		String CF_VCAP_SERVICES = "VCAP_SERVICES={ \"solace-pubsub\": [" + JSONString + "] }";
-
-		load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
-
-		SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = this.context
-				.getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
-		assertNotNull(springSolConnectionFactoryCloudFactory);
-
-		SolConnectionFactory solConnectionFactory = this.context.getBean(SolConnectionFactory.class);
-		assertNotNull(solConnectionFactory);
-
-		JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
-
-		assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
-		assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
-		assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
-		assertEquals("sample-client-username", solConnectionFactory.getUsername());
-		assertEquals("sample-client-password", solConnectionFactory.getPassword());
-		assertFalse(solConnectionFactory.getDirectTransport());
-
-	}
-
-        @Test
-        public void isCloudConfiguredByUserProvidedServices() {
-
-                makeCloudEnv();
-
-                String JSONString = addOneUserProvidedSolaceService("VCAP_SERVICES");
-                String CF_VCAP_SERVICES = "VCAP_SERVICES={ \"user-provided\": [" + JSONString + "] }";
-
-                load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
-
-                Environment env = context.getEnvironment();
-
-                String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
-                assertNotNull(VCAP_APPLICATION);
-                assertEquals("{}", VCAP_APPLICATION);
-
-                String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
-                assertNotNull(VCAP_SERVICES);
-                assertTrue(VCAP_SERVICES.contains("solace-pubsub"));
-
-                T bean = this.context.getBean(beanClass);
-                assertNotNull(bean);
-
-                if (beanClass.equals(SpringSolJmsConnectionFactoryCloudFactory.class)) {
-                    SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = (SpringSolJmsConnectionFactoryCloudFactory) bean;
-                    assertNotNull(springSolConnectionFactoryCloudFactory.getSolConnectionFactory());
-                    List<SolaceServiceCredentials> availableServices = springSolConnectionFactoryCloudFactory
-                            .getSolaceServiceCredentials();
-                    assertNotNull(availableServices);
-                    assertEquals(1, availableServices.size());
-                }
+        if (beanClass.equals(SpringSolJmsConnectionFactoryCloudFactory.class)) {
+            SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory =
+                    (SpringSolJmsConnectionFactoryCloudFactory) bean;
+            assertNotNull(springSolConnectionFactoryCloudFactory.getSolConnectionFactory());
+            List<SolaceServiceCredentials> availableServices = springSolConnectionFactoryCloudFactory
+                    .getSolaceServiceCredentials();
+            assertNotNull(availableServices);
+            assertEquals(1, availableServices.size());
         }
+    }
 
-        @Test
-	public void isCloudConfiguredBySolaceMessagingInfoAndOtherProperties() {
-		makeCloudEnv();
+    @Test
+    void isCloudConfiguredBySolaceMessagingInfoAndDefaultsForOtherProperties() {
+        EnvConfig configuration = getOneSolaceService(VCAP_SVC_ENV);
+        makeCloudEnv(configuration.envValue());
+        String CF_VCAP_SERVICES = configuration.envName() + "=" + configuration.envValue();
 
-		String JSONString = addOneSolaceService("VCAP_SERVICES");
-		String CF_VCAP_SERVICES = "VCAP_SERVICES={ \"solace-pubsub\": [" + JSONString + "] }";
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
 
-		load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES, "solace.jms.host=192.168.1.80:55500",
-				"solace.jms.clientUsername=bob", "solace.jms.clientPassword=password", "solace.jms.msgVpn=newVpn");
+        SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = context
+                .getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
+        assertNotNull(springSolConnectionFactoryCloudFactory);
 
-		SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = this.context
-				.getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
-		assertNotNull(springSolConnectionFactoryCloudFactory);
+        SolConnectionFactory solConnectionFactory = context.getBean(SolConnectionFactory.class);
+        assertNotNull(solConnectionFactory);
 
-		SolConnectionFactory solConnectionFactory = this.context.getBean(SolConnectionFactory.class);
-		assertNotNull(solConnectionFactory);
+        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
 
-		JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
+        assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
+        assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
+        assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
+        assertEquals("sample-client-username", solConnectionFactory.getUsername());
+        assertEquals("sample-client-password", solConnectionFactory.getPassword());
+        assertFalse(solConnectionFactory.getDirectTransport());
+    }
 
-		// Notice that the other properties where ineffective
-		assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
-		assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
-		assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
-		assertEquals("sample-client-username", solConnectionFactory.getUsername());
-		assertEquals("sample-client-password", solConnectionFactory.getPassword());
-		assertFalse(solConnectionFactory.getDirectTransport());
+    @ParameterizedTest
+    @MethodSource("parameterData")
+    void isCloudConfiguredByUserProvidedServices(String beanClassName, Class<T> beanClass) {
+        EnvConfig configuration = getOneUserProvidedSolaceService(VCAP_SVC_ENV);
+        makeCloudEnv(configuration.envValue());
+        String CF_VCAP_SERVICES = configuration.envName() + "=" + configuration.envValue();
 
-	}
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES);
 
-	@Test
-	public void isCloudConfiguredBySolaceMessagingInfoAndOtherPropertiesWhenMissingCredentials() {
+        Environment env = context.getEnvironment();
 
-		makeCloudEnv();
+        String VCAP_APPLICATION = env.getProperty("VCAP_APPLICATION");
+        assertNotNull(VCAP_APPLICATION);
+        assertEquals("{}", VCAP_APPLICATION);
 
-		Map<String, Object> services = createOneService();
-		@SuppressWarnings("unchecked")
-		Map<String, Object> credentials = (Map<String, Object>) services.get("credentials");
-		credentials.remove("clientUsername");
-		credentials.remove("clientPassword");
+        String VCAP_SERVICES = env.getProperty("VCAP_SERVICES");
+        assertNotNull(VCAP_SERVICES);
+        assertTrue(VCAP_SERVICES.contains("solace-pubsub"));
 
-		JSONObject jsonMapObject = new JSONObject(services);
-		String JSONString = jsonMapObject.toString();
-		environmentVariables.set("VCAP_SERVICES", "{ \"solace-pubsub\": [" + JSONString + "] }");
+        T bean = context.getBean(beanClass);
+        assertNotNull(bean);
 
-		String CF_VCAP_SERVICES = "VCAP_SERVICES={ \"solace-pubsub\": [" + JSONString + "] }";
+        if (beanClass.equals(SpringSolJmsConnectionFactoryCloudFactory.class)) {
+            SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = (SpringSolJmsConnectionFactoryCloudFactory) bean;
+            assertNotNull(springSolConnectionFactoryCloudFactory.getSolConnectionFactory());
+            List<SolaceServiceCredentials> availableServices = springSolConnectionFactoryCloudFactory
+                    .getSolaceServiceCredentials();
+            assertNotNull(availableServices);
+            assertEquals(1, availableServices.size());
+        }
+    }
 
-		load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES, "solace.jms.host=192.168.1.80:55500",
-				"solace.jms.clientUsername=bob", "solace.jms.clientPassword=password", "solace.jms.msgVpn=newVpn");
+    @Test
+    void isCloudConfiguredBySolaceMessagingInfoAndOtherProperties() {
+        EnvConfig configuration = getOneSolaceService(VCAP_SVC_ENV);
+        makeCloudEnv(configuration.envValue());
+        String CF_VCAP_SERVICES = configuration.envName() + "=" + configuration.envValue();
 
-		SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = this.context
-				.getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
-		assertNotNull(springSolConnectionFactoryCloudFactory);
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES, "solace.jms.host=192.168.1.80:55500",
+                "solace.jms.clientUsername=bob", "solace.jms.clientPassword=password", "solace.jms.msgVpn=newVpn");
 
-		SolConnectionFactory solConnectionFactory = this.context.getBean(SolConnectionFactory.class);
-		assertNotNull(solConnectionFactory);
+        SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = context
+                .getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
+        assertNotNull(springSolConnectionFactoryCloudFactory);
 
-		JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
+        SolConnectionFactory solConnectionFactory = context.getBean(SolConnectionFactory.class);
+        assertNotNull(solConnectionFactory);
 
-		// Notice that the other properties where ineffective, only the username
-		// and password where effective in this case.
-		assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
-		assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
-		assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
-		assertEquals("bob", solConnectionFactory.getUsername());
-		assertEquals("password", solConnectionFactory.getPassword());
-		assertFalse(solConnectionFactory.getDirectTransport());
-	}
+        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+
+        // Notice that the other properties where ineffective
+        assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
+        assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
+        assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
+        assertEquals("sample-client-username", solConnectionFactory.getUsername());
+        assertEquals("sample-client-password", solConnectionFactory.getPassword());
+        assertFalse(solConnectionFactory.getDirectTransport());
+    }
+
+    @Test
+    void isCloudConfiguredBySolaceMessagingInfoAndOtherPropertiesWhenMissingCredentials() {
+        Map<String, Object> services = createOneService();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> credentials = (Map<String, Object>) services.get("credentials");
+        credentials.remove("clientUsername");
+        credentials.remove("clientPassword");
+
+        JSONObject jsonMapObject = new JSONObject(services);
+        String JSONString = jsonMapObject.toString();
+        String vcapServices = "{ \"solace-pubsub\": [" + JSONString + "] }";
+
+        makeCloudEnv(vcapServices);
+        String CF_VCAP_SERVICES = VCAP_SVC_ENV + "=" + vcapServices;
+
+        load(CF_CLOUD_APP_ENV, CF_VCAP_SERVICES, "solace.jms.host=192.168.1.80:55500",
+                "solace.jms.clientUsername=bob", "solace.jms.clientPassword=password", "solace.jms.msgVpn=newVpn");
+
+        SpringSolJmsConnectionFactoryCloudFactory springSolConnectionFactoryCloudFactory = context
+                .getBean(SpringSolJmsConnectionFactoryCloudFactory.class);
+        assertNotNull(springSolConnectionFactoryCloudFactory);
+
+        SolConnectionFactory solConnectionFactory = context.getBean(SolConnectionFactory.class);
+        assertNotNull(solConnectionFactory);
+
+        JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
+
+        // Notice that the other properties where ineffective, only the username
+        // and password where effective in this case.
+        assertEquals(jmsTemplate.getConnectionFactory(), solConnectionFactory);
+        assertEquals("tcp://192.168.1.50:7000", solConnectionFactory.getHost());
+        assertEquals("sample-msg-vpn", solConnectionFactory.getVPN());
+        assertEquals("bob", solConnectionFactory.getUsername());
+        assertEquals("password", solConnectionFactory.getPassword());
+        assertFalse(solConnectionFactory.getDirectTransport());
+    }
 }
