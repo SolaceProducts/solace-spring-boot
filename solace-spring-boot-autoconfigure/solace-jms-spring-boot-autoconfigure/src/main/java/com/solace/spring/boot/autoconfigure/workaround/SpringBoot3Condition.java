@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
+/**
+ * Condition that matches for Spring Boot version 3.0.
+ */
 public class SpringBoot3Condition implements Condition {
 
 	@Override

@@ -18,6 +18,7 @@ package com.solace.spring.boot.autoconfigure.workaround;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -43,7 +44,20 @@ import javax.jms.Message;
 import java.time.Duration;
 
 /**
- * This is a Spring Boot 3 patch when downgrading a Spring Boot 3 application to use javax JMS libraries.
+ * <p>This is a Spring Boot 3 patch when downgrading a Spring Boot 3 application to use javax JMS libraries.
+ * <p>Original source from https://github.com/spring-projects/spring-boot/tree/v2.7.7 with some modifications.
+ * <p>This patch is only intended for temporary use.
+ * <p>
+ * <p>Copyright (c) 2012-2023 VMware, Inc.
+ * <p>https://github.com/spring-projects/spring-boot/blob/v2.7.7/buildSrc/src/main/resources/NOTICE.txt
+ *
+ * <hr>
+ *
+ * <p>{@link EnableAutoConfiguration Auto-configuration} for Spring JMS.
+ *
+ * @author Greg Turnquist
+ * @author Stephane Nicoll
+ * @since 1.0.0
  */
 @AutoConfiguration(before = org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration.class)
 @Conditional(SpringBoot3Condition.class)

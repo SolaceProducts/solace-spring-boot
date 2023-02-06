@@ -36,7 +36,16 @@ import javax.naming.NamingException;
 import java.util.Arrays;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for JMS provided from JNDI.
+ * <p>This is a Spring Boot 3 patch when downgrading a Spring Boot 3 application to use javax JMS libraries.
+ * <p>Original source from https://github.com/spring-projects/spring-boot/tree/v2.7.7 with some modifications.
+ * <p>This patch is only intended for temporary use.
+ * <p>
+ * <p>Copyright (c) 2012-2023 VMware, Inc.
+ * <p>https://github.com/spring-projects/spring-boot/blob/v2.7.7/buildSrc/src/main/resources/NOTICE.txt
+ *
+ * <hr>
+ *
+ * <p>{@link EnableAutoConfiguration Auto-configuration} for JMS provided from JNDI.
  *
  * @author Phillip Webb
  * @since 1.2.0
