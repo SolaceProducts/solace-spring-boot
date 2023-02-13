@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-samples</artifactId>
-    <version>1.3.0-SNAPSHOT</version>
+    <version>1.3.0</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Samples Parent</name>
