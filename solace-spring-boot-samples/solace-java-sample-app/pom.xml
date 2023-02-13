@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
 		<artifactId>solace-spring-boot-samples</artifactId>
-		<version>1.3.0</version>
+		<version>1.3.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>solace-java-sample-app</artifactId>
-	<version>1.3.0</version>
+	<version>1.3.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Solace Spring Boot Sample - Java</name>
@@ -21,7 +21,7 @@
 		<start-class>demo.DemoApplication</start-class>
 		<java.version>1.8</java.version>
 		<spring.boot.version>2.7.7</spring.boot.version>
-		<solace.spring.boot.version>1.3.0</solace.spring.boot.version>
+		<solace.spring.boot.version>1.3.1-SNAPSHOT</solace.spring.boot.version>
 	</properties>
 
 	<dependencyManagement>

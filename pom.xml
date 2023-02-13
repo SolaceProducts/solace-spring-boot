@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
@@ -18,10 +18,10 @@
         <spring.boot.version>2.7.7</spring.boot.version>
         <pivotal.cfenv.version>2.4.1</pivotal.cfenv.version>
 
-        <solace.spring.boot.java-starter.version>4.3.0</solace.spring.boot.java-starter.version>
-        <solace.spring.boot.jms-starter.version>4.3.0</solace.spring.boot.jms-starter.version>
-        <solace.spring.boot.starter.version>1.3.0</solace.spring.boot.starter.version>
-        <solace.cloud.cloudfoundry.java-cfenv.version>1.3.0</solace.cloud.cloudfoundry.java-cfenv.version>
+        <solace.spring.boot.java-starter.version>4.3.1-SNAPSHOT</solace.spring.boot.java-starter.version>
+        <solace.spring.boot.jms-starter.version>4.3.1-SNAPSHOT</solace.spring.boot.jms-starter.version>
+        <solace.spring.boot.starter.version>1.3.1-SNAPSHOT</solace.spring.boot.starter.version>
+        <solace.cloud.cloudfoundry.java-cfenv.version>1.3.1-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
     </properties>
 
     <licenses>
@@ -65,7 +65,7 @@
         <url>https://github.com/${repoName}/solace-spring-boot.git</url>
         <connection>scm:git:git://github.com/${repoName}/solace-spring-boot.git</connection>
         <developerConnection>scm:git:git@github.com:${repoName}/solace-spring-boot.git</developerConnection>
-        <tag>1.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
