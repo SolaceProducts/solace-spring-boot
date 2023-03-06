@@ -15,7 +15,7 @@
         <repoName>SolaceProducts</repoName>
 
         <!-- This is the version of Spring Boot we have targeted for this build -->
-        <spring.boot.version>2.7.7</spring.boot.version>
+        <spring.boot.version>3.0.4</spring.boot.version>
         <pivotal.cfenv.version>2.4.1</pivotal.cfenv.version>
 
         <solace.spring.boot.java-starter.version>4.3.1-SNAPSHOT</solace.spring.boot.java-starter.version>
