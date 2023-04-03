@@ -1,4 +1,2 @@
 com.solace.spring.boot.autoconfigure.SolaceJmsAutoCloudConfiguration
 com.solace.spring.boot.autoconfigure.SolaceJmsAutoConfiguration
-com.solace.spring.boot.autoconfigure.workaround.JmsAutoConfiguration
-com.solace.spring.boot.autoconfigure.workaround.JndiConnectionFactoryAutoConfiguration
