@@ -22,6 +22,13 @@ For Solace projects on Spring Cloud, please visit the [Solace Spring Cloud](//gi
 
 ## Repository Contents
 
+> Note:
+> 
+> The [master](//github.com/SolaceProducts/solace-spring-boot/tree/master) branch dependencies have been updated to the **Spring Boot 3.x** which requires **JDK 17** or higher.
+>
+> The [master-spring-boot-2.x](//github.com/SolaceProducts/solace-spring-boot/tree/master-spring-boot-2.x) branch will act as master branch for solace-spring-boot compatible with **Spring Boot 2.x**.
+
+
 ### Solace Spring Boot Bill of Materials (BOM)
 
 The [Solace Spring Boot BOM](./solace-spring-boot-bom) is a POM file which defines the versions of [Solace Spring Boot projects](#solace-spring-boot-projects) that are compatible to a particular version of Spring Boot.
