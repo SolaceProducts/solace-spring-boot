@@ -11,18 +11,20 @@
     <description>Build for Solace Spring Boot support</description>
     <url>https://github.com/${repoName}/solace-spring-boot/tree/${project.scm.tag}</url>
 
-    <properties>
-        <repoName>SolaceProducts</repoName>
+  <properties>
+    <repoName>SolaceProducts</repoName>
 
-        <!-- This is the version of Spring Boot we have targeted for this build -->
-        <spring.boot.version>3.0.5</spring.boot.version>
-        <pivotal.cfenv.version>2.4.1</pivotal.cfenv.version>
+    <!-- This is the version of Spring Boot we have targeted for this build -->
+    <spring.boot.version>3.0.5</spring.boot.version>
+    <pivotal.cfenv.version>2.4.1</pivotal.cfenv.version>
 
-        <solace.spring.boot.java-starter.version>5.0.0-SNAPSHOT</solace.spring.boot.java-starter.version>
-        <solace.spring.boot.jms-starter.version>5.0.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
-        <solace.spring.boot.starter.version>2.0.0-SNAPSHOT</solace.spring.boot.starter.version>
-        <solace.cloud.cloudfoundry.java-cfenv.version>2.0.0-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
-    </properties>
+    <solace.spring.boot.java-starter.version>5.0.0-SNAPSHOT
+    </solace.spring.boot.java-starter.version>
+    <solace.spring.boot.jms-starter.version>5.0.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
+    <solace.spring.boot.starter.version>2.0.0-SNAPSHOT</solace.spring.boot.starter.version>
+    <solace.cloud.cloudfoundry.java-cfenv.version>2.0.0-SNAPSHOT
+    </solace.cloud.cloudfoundry.java-cfenv.version>
+  </properties>
 
     <licenses>
         <license>
