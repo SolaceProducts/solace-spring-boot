@@ -49,7 +49,6 @@
     <modules>
         <module>solace-spring-boot-bom</module>
         <module>solace-spring-boot-parent</module>
-        <!--<module>solace-java-cfenv</module>-->
         <module>solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-samples</module>
@@ -87,12 +86,6 @@
                 <artifactId>solace-java-spring-boot-starter</artifactId>
                 <version>${solace.spring.boot.java-starter.version}</version>
             </dependency>
-
-            <!--<dependency>
-                <groupId>com.solace.cloud.cloudfoundry</groupId>
-                <artifactId>solace-java-cfenv</artifactId>
-                <version>${solace.cloud.cloudfoundry.java-cfenv.version}</version>
-            </dependency>-->
         </dependencies>
     </dependencyManagement>
 

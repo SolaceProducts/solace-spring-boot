@@ -36,11 +36,6 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.solace.cloud.core</groupId>
-			<artifactId>solace-services-info</artifactId>
-			<version>${solace.services-info.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>com.solacesystems</groupId>
 			<artifactId>sol-jms-jakarta</artifactId>
 			<version>${solace.jms-jakarta.version}</version>
