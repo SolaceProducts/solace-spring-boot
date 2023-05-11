@@ -37,7 +37,6 @@ import java.util.List;
 
 @Configuration
 @AutoConfigureBefore(JmsAutoConfiguration.class)
-@AutoConfigureAfter(SolaceJavaAutoCloudConfiguration.class)
 @ConditionalOnClass({JCSMPProperties.class})
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)

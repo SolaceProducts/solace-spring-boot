@@ -2,7 +2,6 @@ package com.solace.spring.boot.autoconfigure;
 
 import com.solace.services.core.model.SolaceServiceCredentials;
 import com.solace.services.core.model.SolaceServiceCredentialsImpl;
-import com.solace.spring.cloud.core.SolaceServiceCredentialsFactory;
 import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolConnectionFactoryImpl;
 import com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory;
@@ -134,7 +133,8 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
 
     @Override
     public JndiTemplate getJndiTemplate(String id) {
-        List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
-        return credentials.size() == 0 ? null : getJndiTemplate(credentials.get(0));
+        //List<SolaceServiceCredentials> credentials = SolaceServiceCredentialsFactory.getAllFromCloudFoundry();
+        //return credentials.size() == 0 ? null : getJndiTemplate(credentials.get(0));
+        return null;
     }
 }
