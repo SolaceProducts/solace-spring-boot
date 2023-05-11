@@ -26,14 +26,14 @@ If, however, you want ONLY the `solace-java-cfenv` artifact, you can declare the
 <dependency>
     <groupId>com.solace.cloud.cloudfoundry</groupId>
     <artifactId>solace-java-cfenv</artifactId>
-    <version>1.3.0</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ### Getting Started - Gradle
 ```groovy
 /* Solace Java CFEnv */
-compile("com.solace.cloud.cloudfoundry:solace-java-cfenv:1.3.0")
+compile("com.solace.cloud.cloudfoundry:solace-java-cfenv:2.0.0")
 ```
 
 ## Usage

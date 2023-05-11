@@ -81,7 +81,7 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
         } catch (Exception ex) {
             logger.error("Exception found during Solace Connection Factory creation.", ex);
             throw new IllegalStateException("Unable to create Solace "
-                    + "connection factory, ensure that the sol-jms-<version>.jar " + "is the classpath", ex);
+                    + "connection factory, ensure that the sol-jms-jakarta-<version>.jar " + "is the classpath", ex);
         }
     }
 
@@ -128,7 +128,7 @@ abstract class SolaceJmsAutoConfigurationBase implements SpringSolJmsConnectionF
         } catch (Exception ex) {
             logger.error("Exception found during Solace JNDI Initial Context creation.", ex);
             throw new IllegalStateException("Unable to create Solace "
-                    + "JNDI Initial Context, ensure that the sol-jms-<version>.jar " + "is the classpath", ex);
+                    + "JNDI Initial Context, ensure that the sol-jms-jakarta-<version>.jar " + "is the classpath", ex);
         }
     }
 

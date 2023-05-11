@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/*
+/**
  * This class provides easy access to all of the information in the VCAP_SERVICES environment variable without
  * extra dependencies on any Solace Enterprise APIs.
  *

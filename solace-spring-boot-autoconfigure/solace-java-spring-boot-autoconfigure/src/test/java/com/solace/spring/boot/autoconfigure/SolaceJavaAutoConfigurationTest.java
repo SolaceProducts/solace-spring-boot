@@ -62,7 +62,7 @@ public class SolaceJavaAutoConfigurationTest extends SolaceJavaAutoConfiguration
         JCSMPChannelProperties cp = (JCSMPChannelProperties) session
                 .getProperty(JCSMPProperties.CLIENT_CHANNEL_PROPERTIES);
         assertEquals(1, (int)cp.getConnectRetries());
-        assertEquals(5, (int)cp.getReconnectRetries());
+        assertEquals(-1, (int)cp.getReconnectRetries());
         assertEquals(20, (int)cp.getConnectRetriesPerHost());
         assertEquals(3000, (int)cp.getReconnectRetryWaitInMillis());
     }

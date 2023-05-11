@@ -1,6 +1,6 @@
 package jndidemo;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import javax.naming.NamingException;
 
 import org.springframework.beans.factory.annotation.Autowired;

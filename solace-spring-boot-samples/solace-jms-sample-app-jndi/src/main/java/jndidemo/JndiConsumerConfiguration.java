@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 import javax.naming.NamingException;
 
 import org.slf4j.Logger;

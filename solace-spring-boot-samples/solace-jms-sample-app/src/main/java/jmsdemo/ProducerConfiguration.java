@@ -1,6 +1,6 @@
 package jmsdemo;
 
-import javax.jms.ConnectionFactory;
+import jakarta.jms.ConnectionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
