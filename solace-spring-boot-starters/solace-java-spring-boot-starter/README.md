@@ -70,6 +70,14 @@ final JCSMPSession session = solaceFactory.createSession();
 
 The `SpringJCSMPFactory` is a wrapper of the singleton `JCSMPFactory` which contains an associated `JCSMPProperties`. This facilitates auto-wiring by Spring but otherwise maintains the familiar `JCSMPFactory` interface known to users of the Solace Java API.
 
+Alternatively, you could autowire JCSMPProperties to create your own customized `SpringJCSMPFactory`:
+
+```java
+/* The properties of a JCSMP connection */
+@Autowired
+private JCSMPProperties jcsmpProperties;
+```
+
 ### Configure the Application to use your Solace PubSub+ Service Credentials
 
 The configuration of the `SpringJCSMPFactory` can be done through the [`application.properties` file](../../solace-spring-boot-samples/solace-java-sample-app/src/main/resources/application.properties). This is where users can control the Solace Java API properties. Currently this project supports direct configuration of the following properties:
