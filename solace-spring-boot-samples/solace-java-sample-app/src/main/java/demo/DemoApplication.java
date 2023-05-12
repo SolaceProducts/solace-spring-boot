@@ -18,11 +18,16 @@
  */
 package demo;
 
-import java.util.concurrent.TimeUnit;
-
-import com.solace.services.core.model.SolaceServiceCredentials;
+import com.solacesystems.jcsmp.DeliveryMode;
+import com.solacesystems.jcsmp.JCSMPFactory;
 import com.solacesystems.jcsmp.JCSMPProperties;
-import com.solacesystems.jcsmp.SpringJCSMPFactoryCloudFactory;
+import com.solacesystems.jcsmp.JCSMPSession;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
+import com.solacesystems.jcsmp.TextMessage;
+import com.solacesystems.jcsmp.Topic;
+import com.solacesystems.jcsmp.XMLMessageConsumer;
+import com.solacesystems.jcsmp.XMLMessageProducer;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +35,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
-
-import com.solacesystems.jcsmp.DeliveryMode;
-import com.solacesystems.jcsmp.JCSMPFactory;
-import com.solacesystems.jcsmp.JCSMPSession;
-import com.solacesystems.jcsmp.SpringJCSMPFactory;
-import com.solacesystems.jcsmp.TextMessage;
-import com.solacesystems.jcsmp.Topic;
-import com.solacesystems.jcsmp.XMLMessageConsumer;
-import com.solacesystems.jcsmp.XMLMessageProducer;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -57,8 +53,6 @@ public class DemoApplication {
         @Autowired private SpringJCSMPFactory solaceFactory;
 
         // Examples of other beans that can be used together to generate a customized SpringJCSMPFactory
-        @Autowired(required=false) private SpringJCSMPFactoryCloudFactory springJCSMPFactoryCloudFactory;
-        @Autowired(required=false) private SolaceServiceCredentials solaceServiceCredentials;
         @Autowired(required=false) private JCSMPProperties jcsmpProperties;
 
         private DemoMessageConsumer msgConsumer = new DemoMessageConsumer();
@@ -84,7 +78,7 @@ public class DemoApplication {
             jcsmpMsg.setText(msg);
             jcsmpMsg.setDeliveryMode(DeliveryMode.PERSISTENT);
 
-            logger.info("============= Sending " + msg);
+            logger.info("============= Sending {}", msg);
             prod.send(jcsmpMsg, topic);
 
             try {

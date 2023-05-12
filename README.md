@@ -41,7 +41,6 @@ These are the projects contained within this repository:
 * [Solace Java Spring Boot Starter](./solace-spring-boot-starters/solace-java-spring-boot-starter)
 * [Solace JMS Spring Boot Starter](./solace-spring-boot-starters/solace-jms-spring-boot-starter)
 * [Solace Spring Boot Starter](./solace-spring-boot-starters/solace-spring-boot-starter)
-* [Solace Java CF-Env](./solace-java-cfenv)
 
 ### Solace Spring Boot Sample Applications
 
@@ -69,7 +68,6 @@ solace-spring-boot-build (root)
         <-> solace-spring-boot-starter
         <-> solace-java-spring-boot-autoconfigure
         <-> solace-jms-spring-boot-autoconfigure
-        <-> solace-java-cfenv
     --> solace-java-sample-app
     --> solace-jms-sample-app
     --> solace-jms-sample-app-jndi
@@ -135,13 +133,7 @@ For more information about Spring Boot Auto-Configuration and Starters try these
 - [Spring Docs - Developing Auto-Configuration](//docs.spring.io/autorepo/docs/spring-boot/current/reference/htmlsingle/#boot-features-developing-auto-configuration)
 - [GitHub Tutorial - Master Spring Boot Auto-Configuration](//github.com/snicoll-demos/spring-boot-master-auto-configuration)
 
-For more information about Cloud Foundry and the Solace PubSub+ service these resources:
-- [Solace PubSub+ for Pivotal Cloud Foundry](//docs.pivotal.io/solace-messaging/)
-- [Cloud Foundry Documentation](//docs.cloudfoundry.org/)
-- For an introduction to Cloud Foundry: https://www.cloudfoundry.org/
 
-For more information about Pivotal CFEnv try these resources:
-- [Pivotal CFEnv](//github.com/pivotal-cf/java-cfenv)
 
 For more information about Solace technology for Spring Cloud please visit these resources:
 - [Solace Spring Cloud](//github.com/SolaceProducts/solace-spring-cloud)

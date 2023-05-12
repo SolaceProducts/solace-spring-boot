@@ -28,10 +28,10 @@ public class DemoPublishEventHandler implements JCSMPStreamingPublishEventHandle
     private static final Logger logger = LoggerFactory.getLogger(DemoPublishEventHandler.class);
 
     public void responseReceived(String messageID) {
-        logger.info("Producer received response for msg: " + messageID);
+        logger.info("Producer received response for msg: {}", messageID);
     }
 
     public void handleError(String messageID, JCSMPException e, long timestamp) {
-        logger.info("Producer received error for msg: %s@%s - %s%n", messageID, timestamp, e);
+        logger.info("Producer received error for msg: {}@{} - {}%n", messageID, timestamp, e);
     }
 }
