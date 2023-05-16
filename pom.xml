@@ -16,7 +16,6 @@
 
     <!-- This is the version of Spring Boot we have targeted for this build -->
     <spring.boot.version>3.0.6</spring.boot.version>
-    <pivotal.cfenv.version>2.4.2</pivotal.cfenv.version>
 
     <solace.spring.boot.java-starter.version>5.0.3-SNAPSHOT
     </solace.spring.boot.java-starter.version>
