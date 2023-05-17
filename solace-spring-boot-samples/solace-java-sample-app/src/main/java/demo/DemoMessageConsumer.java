@@ -35,7 +35,7 @@ public class DemoMessageConsumer implements XMLMessageListener {
 
     public void onReceive(BytesXMLMessage msg) {
         if (msg instanceof TextMessage) {
-            logger.info("============= TextMessage received: " + ((TextMessage) msg).getText());
+            logger.info("============= TextMessage received: {}", ((TextMessage) msg).getText());
         } else {
             logger.info("============= Message received.");
         }

@@ -52,7 +52,7 @@ Note that you'll need to include version 3.1.0 or later to use Spring Boot relea
 #### Using it with Gradle
 
 ```groovy
-compile("com.solace.spring.boot:solace-jms-spring-boot-starter:4.3.0")
+compile("com.solace.spring.boot:solace-jms-spring-boot-starter:5.0.0")
 ```
 
 #### Using it with Maven
@@ -61,7 +61,7 @@ compile("com.solace.spring.boot:solace-jms-spring-boot-starter:4.3.0")
 <dependency>
 	<groupId>com.solace.spring.boot</groupId>
 	<artifactId>solace-jms-spring-boot-starter</artifactId>
-	<version>4.3.0</version>
+	<version>5.0.0</version>
 </dependency>
 ```
 
@@ -78,27 +78,9 @@ To access the Solace message routing service, autowire the following connection 
     private JndiTemplate jndiTemplate;              // for JNDI
 ```
 
-Note that if there are multiple services available, e.g. in a cloud deployment or if the application is configured by exposure of a [Solace PubSub+ service manifest](#exposing-a-solace-pubsub-service-manifest-in-the-applications-environment), one of the services will be picked automatically. You can control service selection by autowiring `com.solacesystems.jms.SpringSolJmsConnectionFactoryCloudFactory` or `com.solacesystems.jms.SpringSolJmsJndiTemplateCloudFactory`, which enable getting the list of all services and use the Factory pattern to create a connection object.
-
 ### 3. Configure the Application to use your Solace PubSub+ Service Credentials
 
-#### Deploying your Application to a Cloud Platform
-
-By using [Solace Java CFEnv](../../solace-java-cfenv), this library can automatically configure a `ConnectionFactory` and/or a `JndiTemplate` using the detected Solace PubSub+ services when deployed on Cloud Foundry.
-
-#### Exposing a Solace PubSub+ Service Manifest in the Application's Environment
-
-Configuration of the `ConnectionFactory` and/or the `JndiTemplate` can be done through exposing a Solace PubSub+ service manifest to the application's JVM properties or OS environment.
-
-For example, you can set a `SOLCAP_SERVICES` variable in either your JVM properties or OS's environment to directly contain a `VCAP_SERVICES`-formatted manifest file. In which case, the autoconfigure will pick up any Solace PubSub+ services in it and use them to accordingly configure your `JmsTemplate`.
-
-The properties provided by this externally-provided manifest can also be augmented using the values from the [application's properties file](#updating-your-application-properties).
-
-For details on valid manifest formats and other ways of exposing Solace service manifests to your application, see the [Manifest Load Order and Expected Formats](//github.com/SolaceProducts/solace-services-info#manifest-load-order-and-expected-formats) section in the [Solace Services Info](//github.com/SolaceProducts/solace-services-info) project.
-
-#### Updating your Application Properties
-
-Alternatively, configuration of the `JmsTemplate` can also be entirely done through the `application.properties` file located in the `src/main/resources` folder. This is where users can control the Solace JMS API properties. Currently this project supports direct configuration of the following properties:
+The, configuration of the `JmsTemplate` can be entirely done through the `application.properties` file located in the `src/main/resources` folder. This is where users can control the Solace JMS API properties. Currently this project supports direct configuration of the following properties:
 
 ```
 solace.jms.host

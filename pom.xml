@@ -4,25 +4,24 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
     <description>Build for Solace Spring Boot support</description>
     <url>https://github.com/${repoName}/solace-spring-boot/tree/${project.scm.tag}</url>
 
-    <properties>
-        <repoName>SolaceProducts</repoName>
+  <properties>
+    <repoName>SolaceProducts</repoName>
 
-        <!-- This is the version of Spring Boot we have targeted for this build -->
-        <spring.boot.version>2.7.7</spring.boot.version>
-        <pivotal.cfenv.version>2.4.1</pivotal.cfenv.version>
+    <!-- This is the version of Spring Boot we have targeted for this build -->
+    <spring.boot.version>3.0.6</spring.boot.version>
 
-        <solace.spring.boot.java-starter.version>4.3.1-SNAPSHOT</solace.spring.boot.java-starter.version>
-        <solace.spring.boot.jms-starter.version>4.3.1-SNAPSHOT</solace.spring.boot.jms-starter.version>
-        <solace.spring.boot.starter.version>1.3.1-SNAPSHOT</solace.spring.boot.starter.version>
-        <solace.cloud.cloudfoundry.java-cfenv.version>1.3.1-SNAPSHOT</solace.cloud.cloudfoundry.java-cfenv.version>
-    </properties>
+    <solace.spring.boot.java-starter.version>5.0.0-SNAPSHOT
+    </solace.spring.boot.java-starter.version>
+    <solace.spring.boot.jms-starter.version>5.0.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
+    <solace.spring.boot.starter.version>2.0.0-SNAPSHOT</solace.spring.boot.starter.version>
+  </properties>
 
     <licenses>
         <license>
@@ -49,7 +48,6 @@
     <modules>
         <module>solace-spring-boot-bom</module>
         <module>solace-spring-boot-parent</module>
-        <module>solace-java-cfenv</module>
         <module>solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure</module>
         <module>solace-spring-boot-samples</module>
@@ -87,12 +85,6 @@
                 <artifactId>solace-java-spring-boot-starter</artifactId>
                 <version>${solace.spring.boot.java-starter.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>com.solace.cloud.cloudfoundry</groupId>
-                <artifactId>solace-java-cfenv</artifactId>
-                <version>${solace.cloud.cloudfoundry.java-cfenv.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -107,7 +99,6 @@
             </activation>
             <properties>
                 <gpg.executable>gpg2</gpg.executable>
-                <gpg.passphrase>Solace1!</gpg.passphrase>
             </properties>
             <distributionManagement>
                 <snapshotRepository>
@@ -120,7 +111,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
-                        <version>2.8.2</version>
+                        <version>3.1.1</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -128,19 +119,18 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.3</version>
+                        <version>1.6.13</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
                             <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <!--<stagingProfileId>1d86d96a0b6bce</stagingProfileId> -->
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -334,13 +324,13 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.3.0</version>
                 </plugin>
 
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>2.15.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -349,7 +339,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>2.5.3</version>
                 <configuration>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
@@ -364,7 +354,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.0</version>
             </plugin>
 
             <plugin>
@@ -378,7 +368,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.5.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -391,7 +381,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -404,7 +394,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.1.0</version>
+                <version>1.4.1</version>
                 <configuration>
                     <updatePomFile>true</updatePomFile>
                     <flattenMode>oss</flattenMode>

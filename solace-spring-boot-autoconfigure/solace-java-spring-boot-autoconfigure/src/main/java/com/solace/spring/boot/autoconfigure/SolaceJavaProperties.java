@@ -68,7 +68,7 @@ public class SolaceJavaProperties {
      *
      * This property is optional and defaults to the suggested value when using HA redundant router pairs as documented in the Solace PubSub+ API Developer Guide.
      */
-    private int reconnectRetries = 5;
+    private int reconnectRetries = -1;
 
     /**
      * When using a host list for the HOST property, this property defines how many times to try
