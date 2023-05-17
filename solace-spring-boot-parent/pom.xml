@@ -30,7 +30,7 @@
         <solace.jcsmp.version>10.20.0</solace.jcsmp.version>
         <solace.jms-jakarta.version>10.20.0</solace.jms-jakarta.version>
 
-        <surefire.plugin.version>2.22.2</surefire.plugin.version>
+        <surefire.plugin.version>2.12.4</surefire.plugin.version> <!-- Can upgrade after updating tests to JUnit 5 -->
     </properties>
 
     <dependencyManagement>
@@ -70,18 +70,20 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.plugin.version}</version>
-                <configuration>
-                    <argLine>
-                        --add-opens java.base/java.lang=ALL-UNNAMED
-                        --add-opens java.base/java.util=ALL-UNNAMED
-                    </argLine>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${surefire.plugin.version}</version>
+                    <configuration>
+                        <argLine>
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.util=ALL-UNNAMED
+                        </argLine>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
