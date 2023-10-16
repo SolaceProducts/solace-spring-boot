@@ -35,6 +35,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- snakeyaml vulnerabilites -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.2</version>
+            </dependency>
             <!--
 			Workaround for CVE-2021-45046
 			Remove after upgrading to Spring Boot >= 2.6.3
