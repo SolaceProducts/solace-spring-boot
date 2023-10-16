@@ -42,7 +42,7 @@ public class SolaceHealthIndicator implements HealthIndicator {
 	protected <T> void healthReconnecting(@Nullable T eventArgs) {
 		try {
 			writeLock.lock();
-			health = addSessionEventDetails(Health.status(STATUS_RECONNECTING), eventArgs).build();
+			health = addEventDetails(Health.status(STATUS_RECONNECTING), eventArgs).build();
 			logDebugStatus(STATUS_RECONNECTING);
 		} finally {
 			writeLock.unlock();
@@ -52,14 +52,14 @@ public class SolaceHealthIndicator implements HealthIndicator {
 	protected <T> void healthDown(@Nullable T eventArgs) {
 		try {
 			writeLock.lock();
-			health = addSessionEventDetails(Health.down(), eventArgs).build();
+			health = addEventDetails(Health.down(), eventArgs).build();
 			logDebugStatus(String.valueOf(Status.DOWN));
 		} finally {
 			writeLock.unlock();
 		}
 	}
 
-	public <T> Health.Builder addSessionEventDetails(Health.Builder builder, @Nullable T eventArgs) {
+	public <T> Health.Builder addEventDetails(Health.Builder builder, @Nullable T eventArgs) {
 		if (eventArgs == null) {
 			return builder;
 		}
