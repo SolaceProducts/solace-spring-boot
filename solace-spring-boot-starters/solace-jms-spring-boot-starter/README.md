@@ -52,7 +52,7 @@ Note that you'll need to include version 3.1.0 or later to use Spring Boot relea
 #### Using it with Gradle
 
 ```groovy
-compile("com.solace.spring.boot:solace-jms-spring-boot-starter:5.0.0")
+compile("com.solace.spring.boot:solace-jms-spring-boot-starter:5.1.0")
 ```
 
 #### Using it with Maven
@@ -61,7 +61,7 @@ compile("com.solace.spring.boot:solace-jms-spring-boot-starter:5.0.0")
 <dependency>
 	<groupId>com.solace.spring.boot</groupId>
 	<artifactId>solace-jms-spring-boot-starter</artifactId>
-	<version>5.0.0</version>
+	<version>5.1.0</version>
 </dependency>
 ```
 
