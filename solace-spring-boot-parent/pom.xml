@@ -27,7 +27,7 @@
         <solace.spring.boot.java-autoconf.version>5.0.1-SNAPSHOT</solace.spring.boot.java-autoconf.version>
         <solace.spring.boot.jms-autoconf.version>5.0.1-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <solace.jcsmp.version>10.20.0</solace.jcsmp.version>
+        <solace.jcsmp.version>10.21.0</solace.jcsmp.version>
         <solace.jms-jakarta.version>10.21.0</solace.jms-jakarta.version>
 
         <surefire.plugin.version>2.12.4</surefire.plugin.version> <!-- Can upgrade after updating tests to JUnit 5 -->
