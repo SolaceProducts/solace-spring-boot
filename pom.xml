@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
@@ -15,12 +15,16 @@
     <repoName>SolaceProducts</repoName>
 
     <!-- This is the version of Spring Boot we have targeted for this build -->
-    <spring.boot.version>3.0.6</spring.boot.version>
+    <spring.boot.version>3.3.1</spring.boot.version>
 
-    <solace.spring.boot.java-starter.version>5.0.1-SNAPSHOT
+    <solace.spring.boot.java-starter.version>5.1.0-SNAPSHOT
     </solace.spring.boot.java-starter.version>
-    <solace.spring.boot.jms-starter.version>5.0.1-SNAPSHOT</solace.spring.boot.jms-starter.version>
-    <solace.spring.boot.starter.version>2.0.1-SNAPSHOT</solace.spring.boot.starter.version>
+    <solace.spring.boot.jms-starter.version>5.1.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
+    <solace.spring.boot.starter.version>2.1.0-SNAPSHOT</solace.spring.boot.starter.version>
+    <testcontainers.version>1.19.8</testcontainers.version>
+    <solace.integration.test.support.version>1.1.2</solace.integration.test.support.version>
+    <solace.integration.test.support.fetch_checkout.skip>false</solace.integration.test.support.fetch_checkout.skip>
+    <solace.integration.test.support.install.skip>true</solace.integration.test.support.install.skip>
   </properties>
 
     <licenses>
@@ -54,6 +58,7 @@
         <module>solace-spring-boot-samples/solace-java-sample-app</module>
         <module>solace-spring-boot-samples/solace-jms-sample-app</module>
         <module>solace-spring-boot-samples/solace-jms-sample-app-jndi</module>
+        <module>solace-spring-boot-samples/solace-java-oauth2-sample-app</module>
         <module>solace-spring-boot-starters/solace-java-spring-boot-starter</module>
         <module>solace-spring-boot-starters/solace-jms-spring-boot-starter</module>
         <module>solace-spring-boot-starters/solace-spring-boot-starter</module>
@@ -316,6 +321,18 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>solace-integration-test-support_install</id>
+            <activation>
+                <file>
+                    <missing>${user.home}/.m2/repository/com/solace/test/integration/solace-integration-test-support/${solace.integration.test.support.version}</missing>
+                </file>
+            </activation>
+            <properties>
+                <solace.integration.test.support.install.skip>false</solace.integration.test.support.install.skip>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
@@ -419,6 +436,88 @@
                         <goals>
                             <goal>clean</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>git-submodule-update</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>git</executable>
+                            <arguments>
+                                <argument>submodule</argument>
+                                <argument>update</argument>
+                                <argument>--init</argument>
+                                <argument>--recursive</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>solace-integration-test-support_fetch</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${solace.integration.test.support.fetch_checkout.skip}</skip>
+                            <executable>git</executable>
+                            <arguments>
+                                <argument>-C</argument>
+                                <argument>${basedir}/solace-integration-test-support/</argument>
+                                <argument>fetch</argument>
+                                <argument>--depth</argument>
+                                <argument>1</argument>
+                                <argument>origin</argument>
+                                <argument>refs/tags/${solace.integration.test.support.version}:refs/tags/${solace.integration.test.support.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>solace-integration-test-support_checkout</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${solace.integration.test.support.fetch_checkout.skip}</skip>
+                            <executable>git</executable>
+                            <arguments>
+                                <argument>-C</argument>
+                                <argument>${basedir}/solace-integration-test-support/</argument>
+                                <argument>checkout</argument>
+                                <argument>${solace.integration.test.support.version}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>solace-integration-test-support_install</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${solace.integration.test.support.install.skip}</skip>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>clean</argument>
+                                <argument>install</argument>
+                                <argument>-f</argument>
+                                <argument>${basedir}/solace-integration-test-support/</argument>
+                                <argument>-DskipTests</argument>
+                                <argument>-Dchangelist=</argument>
+                                <argument>-q</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

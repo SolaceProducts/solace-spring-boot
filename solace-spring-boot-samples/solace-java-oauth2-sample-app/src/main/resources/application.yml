@@ -1,0 +1,32 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          my-oauth2-client:
+            provider: my-auth-server
+            client-id: replace-client-id-here
+            client-secret: replace-client-secret-here
+            authorization-grant-type: client_credentials
+            #scope: optional-scopes
+        provider:
+          my-auth-server:
+            token-uri: replace-token-uri-here
+
+solace:
+  java:
+    host: tcps://localhost:55443 #Solace PubSub+ Broker secure connection URL
+    msgVpn: default
+    #clientUsername: not-required_will-be-ignored
+    #clientPassword: not-required_will-be-ignored
+    connectRetries: 3
+    reconnectRetries: 3
+    connectRetriesPerHost: 1
+    reconnectRetryWaitInMillis: 3000
+    oauth2ClientRegistrationId: my-oauth2-client # The registrationId of the OAuth2 client in the Spring Security configuration above
+    apiProperties:
+      #SSL_VALIDATE_CERTIFICATE: false # Set to false in local only, if using self-signed certificates
+      AUTHENTICATION_SCHEME: AUTHENTICATION_SCHEME_OAUTH2 # The authentication scheme to be used for connecting to the Solace PubSub+ Broker
+
+server:
+  port: 8090

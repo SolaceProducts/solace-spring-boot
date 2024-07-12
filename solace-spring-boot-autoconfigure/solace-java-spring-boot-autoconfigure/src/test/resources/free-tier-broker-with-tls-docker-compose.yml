@@ -1,0 +1,26 @@
+version: '3.5'
+
+networks:
+  solace_msg_net:
+    external: false
+
+services:
+  solbroker:
+    image: solace/solace-pubsub-standard:10.4.0.23
+    hostname: solbroker
+    networks:
+      - solace_msg_net
+    env_file:
+      - ./solace_tls.env
+    shm_size: 2g
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 2448
+        hard: 42192
+    secrets:
+      - server.pem
+
+secrets:
+  server.pem:
+    file: "certs/broker/solbroker.pem"  ## The server certificate for the Solace PubSub+ broker

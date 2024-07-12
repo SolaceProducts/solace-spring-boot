@@ -71,6 +71,7 @@ solace-spring-boot-build (root)
     --> solace-java-sample-app
     --> solace-jms-sample-app
     --> solace-jms-sample-app-jndi
+    --> solace-java-oauth2-sample-app
 
 Where:
     <-- indicates the parent of the project

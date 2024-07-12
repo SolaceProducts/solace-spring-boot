@@ -1,0 +1,52 @@
+version: '3.5'
+
+networks:
+  solace_msg_net:
+    external: false
+
+services:
+  solbroker:
+    image: solace/solace-pubsub-standard:10.4.0.23
+    hostname: solbroker
+    networks:
+      - solace_msg_net
+    env_file:
+      - ./solace_tls.env
+    shm_size: 2g
+    ulimits:
+      memlock: -1
+      nofile:
+        soft: 2448
+        hard: 42192
+    secrets:
+      - server.pem
+
+  solaceoauth: # A nginx reverse proxy for enabling SSL access to Keycloak
+    image: nginx:1.21.6
+    hostname: solaceoauth
+    volumes:
+      - ./oauth/nginx.conf:/etc/nginx/nginx.conf
+      - ./oauth/www:/data/www
+      - ./certs/keycloak:/etc/sslcerts/
+    networks:
+      - solace_msg_net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:16.1.1
+    hostname: keycloak
+    networks:
+      - solace_msg_net
+    volumes:
+      - ./oauth/keycloak/:/tmp/keycloak/
+    environment:
+      - DB_VENDOR=h2
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=mysecret1!
+      - PROXY_ADDRESS_FORWARDING=true  #important for reverse proxy
+      - "KEYCLOAK_IMPORT=/tmp/keycloak/solace-oauth-resource-server-role-realm-export.json"
+    command:
+      - "-Dkeycloak.migration.strategy=IGNORE_EXISTING"
+
+secrets:
+  server.pem:
+    file: "certs/broker/solbroker.pem"  ## The server certificate for the Solace PubSub+ broker

@@ -21,21 +21,21 @@ package com.solace.spring.boot.autoconfigure;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import com.solacesystems.jms.SolConnectionFactoryImpl;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 
-public class SolaceJmsAutoConfigurationTest {
+class SolaceJmsAutoConfigurationTest {
 
   @Configuration public static class EmptyConfiguration {}
   private AnnotationConfigApplicationContext context;
   private final Class<SolaceJmsAutoConfiguration> configClass = SolaceJmsAutoConfiguration.class;
 
-  @After
+  @AfterEach
   public void tearDown() {
     if (this.context != null) {
       this.context.close();
@@ -43,7 +43,7 @@ public class SolaceJmsAutoConfigurationTest {
   }
 
   @Test
-  public void defaultNativeConnectionFactory() {
+  void defaultNativeConnectionFactory() {
     load("");
     JmsTemplate jmsTemplate = this.context.getBean(JmsTemplate.class);
     SolConnectionFactoryImpl connectionFactory = this.context
@@ -57,7 +57,7 @@ public class SolaceJmsAutoConfigurationTest {
   }
 
   @Test
-  public void customNativeConnectionFactory() {
+  void customNativeConnectionFactory() {
     load("solace.jms.host=192.168.1.80:55500",
         "solace.jms.clientUsername=bob", "solace.jms.clientPassword=password",
         "solace.jms.msgVpn=newVpn");

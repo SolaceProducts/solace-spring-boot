@@ -27,6 +27,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ConfigurationProperties("solace.java")
 public class SolaceJavaProperties {
 
+    public static final String SPRING_OAUTH2_CLIENT_REGISTRATION_ID = "SPRING_OAUTH2_CLIENT_REGISTRATION_ID";
+
     /**
      * Solace Message Router Host address. Port is optional and intelligently defaulted by the Solace Java API.
      */
@@ -99,7 +101,22 @@ public class SolaceJavaProperties {
      */
     private final Map<String,String> apiProperties = new ConcurrentHashMap<>();
 
+    /**
+     * The Spring Security OAuth2 Client Registration Id
+     * <code>spring.security.oauth2.client.registration.&lt;registration-id&gt;</code> to use for OAuth2
+     * token
+     * retrieval. This field is required when the Solace session is configured to use OAuth2 via
+     * <code>solace.java.apiProperties.authentication_scheme=AUTHENTICATION_SCHEME_OAUTH2</code>
+     */
+    private String oauth2ClientRegistrationId;
 
+    public String getOauth2ClientRegistrationId() {
+        return oauth2ClientRegistrationId;
+    }
+
+    public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
+        this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
+    }
 
     public String getHost() {
         return host;

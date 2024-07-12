@@ -1,0 +1,21 @@
+solace:
+  java:
+    host: tcps://localhost:55443
+    msgVpn: default
+    clientUsername: default
+    clientPassword: ignored
+    connectRetries: 3
+    reconnectRetries: 3
+    connectRetriesPerHost: 1
+    reconnectRetryWaitInMillis: 2000
+    apiProperties:
+      SSL_VALIDATE_CERTIFICATE: true
+      SSL_VALIDATE_CERTIFICATE_DATE: true
+      SSL_VALIDATE_CERTIFICATE_HOST: true
+      AUTHENTICATION_SCHEME: AUTHENTICATION_SCHEME_CLIENT_CERTIFICATE
+      SSL_TRUST_STORE: certs/client/client-truststore.p12 #will be replaced by absolute path in test
+      SSL_TRUST_STORE_PASSWORD: changeMe123
+      SSL_TRUST_STORE_FORMAT: PKCS12
+      SSL_KEY_STORE: certs/client/client-keystore.jks #will be replaced by absolute path in test
+      SSL_KEY_STORE_PASSWORD: changeMe123
+      SSL_KEY_STORE_FORMAT: JKS
