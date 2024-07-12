@@ -15,5 +15,14 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+      - name: Configure Git author
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
       - name: Release
         run: mvn -B release:prepare release:perform -DreleaseCentral=true --settings "${GITHUB_WORKSPACE}/maven/settings.xml"
+        env:
+          SOLACEDEV_GITHUB_USERNAME: ${{ secrets.SOLACEDEV_GITHUB_USERNAME }}
+          SOLACEDEV_GITHUB_TOKEN: ${{ secrets.SOLACEDEV_GITHUB_TOKEN }}
+          MAVEN_OSSRH_USER: ${{ secrets.MAVEN_OSSRH_USER }}
+          MAVEN_OSSRH_PASS: ${{ secrets.MAVEN_OSSRH_PASS }}
