@@ -1,3 +1,0 @@
-[submodule "solace-integration-test-support"]
-	path = solace-integration-test-support
-	url = https://github.com/SolaceDev/solace-integration-test-support

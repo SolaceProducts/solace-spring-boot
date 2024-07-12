@@ -22,6 +22,7 @@
     <solace.spring.boot.jms-starter.version>5.1.0-SNAPSHOT</solace.spring.boot.jms-starter.version>
     <solace.spring.boot.starter.version>2.1.0-SNAPSHOT</solace.spring.boot.starter.version>
     <testcontainers.version>1.19.8</testcontainers.version>
+    <solace.integration.test.support.version>1.1.2</solace.integration.test.support.version>
   </properties>
 
     <licenses>
@@ -86,6 +87,14 @@
                 <groupId>com.solace.spring.boot</groupId>
                 <artifactId>solace-java-spring-boot-starter</artifactId>
                 <version>${solace.spring.boot.java-starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.solace.test.integration</groupId>
+                <artifactId>solace-integration-test-support-bom</artifactId>
+                <version>${solace.integration.test.support.version}</version>
+                <!--<type>pom</type>-->
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
