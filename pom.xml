@@ -93,7 +93,7 @@
                 <groupId>com.solace.test.integration</groupId>
                 <artifactId>solace-integration-test-support-bom</artifactId>
                 <version>${solace.integration.test.support.version}</version>
-                <!--<type>pom</type>-->
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
