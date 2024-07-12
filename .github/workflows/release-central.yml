@@ -1,10 +1,7 @@
-# This workflow will build and test a Java project with Maven
-
-name: build
+name: Release (Sonatype)
 
 on:
-  pull_request:
-  push:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -18,5 +15,5 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
-      - name: Build and run Tests
-        run: mvn clean verify --settings "${GITHUB_WORKSPACE}/maven/settings.xml"
+      - name: Release
+        run: mvn -B release:prepare release:perform -DreleaseCentral=true --settings "${GITHUB_WORKSPACE}/maven/settings.xml"
