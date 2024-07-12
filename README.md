@@ -93,19 +93,9 @@ This POM defines common properties and dependencies for the Solace Spring Boot p
 
 ## Release Process
 
-1. Update Versions (Optional)
-    ```shell script
-    mvn -DupdateVersion=minor # updateVersion options: major, minor, or patch
-    ```
-1. Update Internal Version Properties (only if 1 was done)
-    ```shell script
-    mvn -DupdateProperties # Do not use this together with updateVersion. It will not work.
-    ```
-1. Validate Diff and Commit (only if 1 and 2 were done)
-1. Release
-    ```shell script
-    mvn -B release:prepare
-    ```
+ ```shell script
+ mvn -B release:prepare release:perform
+ ```
 
 ## Contributing
 
