@@ -18,6 +18,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          overwrite-settings: false
           cache: 'maven'
       - name: Build and run Tests
         run: mvn clean verify --settings "${GITHUB_WORKSPACE}/maven/settings.xml"

@@ -29,14 +29,5 @@
 			<username>${env.GITHUB_ACTOR}</username>
 			<password>${env.GITHUB_TOKEN}</password>
 		</server>
-		<server>
-			<id>ossrh</id>
-			<username>${env.MAVEN_OSSRH_USER}</username>
-			<password>${env.MAVEN_OSSRH_PASS}</password>
-		</server>
-		<server>
-			<id>gpg.passphrase</id>
-			<passphrase>${env.GPG_PASSPHRASE}</passphrase>
-		</server>
 	</servers>
 </settings>
