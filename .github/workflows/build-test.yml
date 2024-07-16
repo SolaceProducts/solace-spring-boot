@@ -43,7 +43,7 @@ jobs:
 
           git clone --depth 1 --branch "${version}" https://github.com/SolaceDev/solace-integration-test-support.git
           cd "${GITHUB_WORKSPACE}/solace-integration-test-support"
-          mvn install -DskipTests
+          mvn install -Dchangelist= -DskipTests
       - name: Build and run Tests
         run: mvn clean verify --settings "${GITHUB_WORKSPACE}/maven/settings.xml"
         env:
