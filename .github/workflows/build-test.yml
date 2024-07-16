@@ -5,10 +5,23 @@ name: build
 on:
   pull_request:
   push:
+  workflow_dispatch:
 
 jobs:
-  build:
+  dupe_check:
+    name: Check for Duplicate Workflow Run
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.1
+        with:
+          concurrent_skipping: same_content
+          do_not_skip: '["pull_request", "workflow_dispatch", "schedule"]'
 
+  build:
+    if: needs.dupe_check.outputs.should_skip != 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +33,17 @@ jobs:
           java-version: '17'
           overwrite-settings: false
           cache: 'maven'
+      - name: Manually Install Test Support If Necessary
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libxml2-utils
+          version="$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="properties"]/*[local-name()="solace.integration.test.support.version"]/text()' pom.xml)"
+          echo "Detected test support version: ${version}"
+
+          git clone --depth 1 --branch "${version}" https://github.com/SolaceDev/solace-integration-test-support.git
+          cd "${GITHUB_WORKSPACE}/solace-integration-test-support"
+          mvn install -DskipTests
       - name: Build and run Tests
         run: mvn clean verify --settings "${GITHUB_WORKSPACE}/maven/settings.xml"
         env:
