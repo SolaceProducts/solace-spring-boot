@@ -93,6 +93,7 @@ solace.java.connectRetries
 solace.java.reconnectRetries
 solace.java.connectRetriesPerHost
 solace.java.reconnectRetryWaitInMillis
+solace.java.oauth2ClientRegistrationId ##Set it when OAuth2 authentication scheme enabled. Reference to the Spring OAuth2 client registration-id.
 ```
 
 Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.java.host`.
