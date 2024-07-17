@@ -42,7 +42,7 @@ public class DefaultSolaceSessionOAuth2TokenProvider implements SolaceSessionOAu
   public String getAccessToken() {
     try {
       final String clientUserName = Objects.toString(
-          jcsmpProperties.getStringProperty(USERNAME), "solace-java");
+          jcsmpProperties.getStringProperty(USERNAME), "spring-default-client-username");
       final String oauth2ClientRegistrationId = jcsmpProperties
           .getStringProperty(SolaceJavaProperties.SPRING_OAUTH2_CLIENT_REGISTRATION_ID);
 
