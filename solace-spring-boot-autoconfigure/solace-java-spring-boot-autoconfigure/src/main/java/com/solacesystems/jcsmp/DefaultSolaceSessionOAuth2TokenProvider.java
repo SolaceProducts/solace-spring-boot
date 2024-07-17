@@ -3,8 +3,8 @@ package com.solacesystems.jcsmp;
 import static com.solacesystems.jcsmp.JCSMPProperties.USERNAME;
 import com.solace.spring.boot.autoconfigure.SolaceJavaProperties;
 import java.util.Objects;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.core.OAuth2AccessToken;
  */
 public class DefaultSolaceSessionOAuth2TokenProvider implements SolaceSessionOAuth2TokenProvider {
 
-  private static final Log logger = LogFactory.getLog(
+  private static final Logger logger = LoggerFactory.getLogger(
       DefaultSolaceSessionOAuth2TokenProvider.class);
 
   private final JCSMPProperties jcsmpProperties;
@@ -68,7 +68,7 @@ public class DefaultSolaceSessionOAuth2TokenProvider implements SolaceSessionOAu
       return accessToken.getTokenValue();
     } catch (Throwable t) {
       if (logger.isDebugEnabled()) {
-        logger.debug("Exception while fetching OAuth2 access token: " + t);
+        logger.debug("Exception while fetching OAuth2 access token.", t);
       }
       throw t;
     }

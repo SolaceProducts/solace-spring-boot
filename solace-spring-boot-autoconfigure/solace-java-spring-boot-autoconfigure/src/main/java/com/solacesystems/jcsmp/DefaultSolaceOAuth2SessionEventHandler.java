@@ -4,8 +4,9 @@ import static com.solacesystems.jcsmp.JCSMPProperties.AUTHENTICATION_SCHEME;
 import static com.solacesystems.jcsmp.JCSMPProperties.AUTHENTICATION_SCHEME_OAUTH2;
 import static com.solacesystems.jcsmp.SessionEvent.RECONNECTING;
 import java.util.Objects;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Default implementation of SolaceOAuth2SessionEventHandler. This class handles the OAuth2 token
@@ -13,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DefaultSolaceOAuth2SessionEventHandler implements SolaceOAuth2SessionEventHandler {
 
-  private static final Log logger = LogFactory.getLog(DefaultSolaceOAuth2SessionEventHandler.class);
+  private static final Logger logger = LoggerFactory.getLogger(DefaultSolaceOAuth2SessionEventHandler.class);
 
   protected final SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider;
   protected final JCSMPProperties jcsmpProperties;
@@ -60,7 +61,7 @@ public class DefaultSolaceOAuth2SessionEventHandler implements SolaceOAuth2Sessi
       this.jcsmpSession.setProperty(JCSMPProperties.OAUTH2_ACCESS_TOKEN, newAccessToken);
     } catch (JCSMPException e) {
       if (logger.isDebugEnabled()) {
-        logger.debug("Exception while fetching/providing refreshed access token: " + e);
+        logger.debug("Exception while fetching/providing refreshed access token: ", e);
       }
     }
   }
