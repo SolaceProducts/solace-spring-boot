@@ -6,6 +6,7 @@ This project provides Spring Boot Auto-Configuration and an associated Spring Bo
 
 * [Overview](#overview)
 * [Using Auto-Configuration in your App](#using-auto-configuration-in-your-app)
+* [Using OAuth2 Authentication Scheme](#using-oauth2-authentication-scheme)
 * [Resources](#resources)
 
 ---
@@ -39,7 +40,7 @@ Note that you'll need to include version 3.1.0 or later to use Spring Boot relea
 
 ```groovy
 // Solace Java API & auto-configuration
-compile("com.solace.spring.boot:solace-java-spring-boot-starter:5.0.0")
+compile("com.solace.spring.boot:solace-java-spring-boot-starter:5.1.0")
 ```
 
 #### Using it with Maven
@@ -49,7 +50,7 @@ compile("com.solace.spring.boot:solace-java-spring-boot-starter:5.0.0")
 <dependency>
 	<groupId>com.solace.spring.boot</groupId>
 	<artifactId>solace-java-spring-boot-starter</artifactId>
-	<version>5.0.0</version>
+	<version>5.1.0</version>
 </dependency>
 ```
 
@@ -92,6 +93,7 @@ solace.java.connectRetries
 solace.java.reconnectRetries
 solace.java.connectRetriesPerHost
 solace.java.reconnectRetryWaitInMillis
+solace.java.oauth2ClientRegistrationId ##Set it when OAuth2 authentication scheme enabled. Reference to the Spring OAuth2 client registration-id.
 ```
 
 Where reasonable, sensible defaults are always chosen. So a developer using a Solace PubSub+ message broker and wishing to use the default message-vpn may only set the `solace.java.host`.
@@ -107,6 +109,102 @@ solace.java.apiProperties.client_channel_properties.keepAliveIntervalInMillis=30
 ```
 
 Note that the direct configuration of `solace.java.` properties takes precedence over the `solace.java.apiProperties.`.
+
+## Using OAuth2 Authentication Scheme
+
+This Spring Boot starter for Solace Java API supports OAuth2 authentication scheme. It requires a version of Solace PubSub+ broker that supports OAuth2 authentication scheme. 
+
+The Solace PubSub+ Broker should be setup for OAuth2 authentication. Refer to
+the [Solace PubSub+: Configuring-OAuth-Authorization](https://docs.solace.com/Security/Configuring-OAuth-Authorization.htm)
+for more information.
+See [Azure OAuth Setup](https://solace.com/blog/azure-oauth-setup-for-solace-rest-and-smf-clients/)
+for example.
+
+You may also like to check
+the [OAuth2 Integration Test](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/test/java/com/solace/spring/boot/autoconfigure/springBootTests/MessagingWithOAuthIT.java)
+for more information.
+
+> [!NOTE]
+> The OAuth profile on Solace PubSub+ broker should be setup for Resource Server role. This Solace
+> Java API Starer OAuth2 authentication scheme supports ```client_credentials``` grant type out-of-the
+> box.
+
+> [!TIP]
+> The OAuth2 grant type ```client_credentials``` is used for machine to machine authentication, it
+> is recommended that Token expiry time is not too short as it may cause frequent token refreshes and
+> impact the performance.
+
+### Using OAuth2 Authentication Scheme with Solace Java API
+
+To use OAuth2 authentication scheme with Solace Java API, follow these steps:
+
+Firstly, add the required dependencies to your `build.gradle` file:
+
+```groovy
+compile("org.springframework.boot:spring-boot-starter-oauth2-client")
+```
+
+or `pom.xml` file:
+
+```xml
+
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-client</artifactId>
+</dependency>
+```
+
+Secondly, add `@EnableWebSecurity` annotation to your Spring Boot application class:
+
+```java
+
+@SpringBootApplication
+@EnableWebSecurity
+public class DemoApplication {
+
+}
+```
+
+Finally, configure the Spring OAuth2 Client Registration provider through following properties in
+your `application.properties` file:
+
+```
+##spring.security.oauth2.client.registration.<registration-id>.provider=<provider-id>
+spring.security.oauth2.client.registration.my-oauth2-client.provider=my-auth-server
+spring.security.oauth2.client.registration.my-oauth2-client.client-id=replace-client-id-here
+spring.security.oauth2.client.registration.my-oauth2-client.client-secret=replace-client-secret-here
+spring.security.oauth2.client.registration.my-oauth2-client.authorization-grant-type=client_credentials  ## only client_credentials grant type is supported
+
+##spring.security.oauth2.client.provider.<provider-id>.token-uri=<token-uri>
+spring.security.oauth2.client.provider.my-auth-server.token-uri=replace-token-uri-here
+
+solace.java.host=tcps://localhost:55443  ## OATUH2 authentication scheme requires a secure connection to the broker
+solace.java.msgVpn=replace-msgVpn-here
+solace.java.oauth2ClientRegistrationId=my-oauth2-client ## Refers to the Spring OAuth2 client registration-id defined above
+solace.java.apiProperties.AUTHENTICATION_SCHEME=AUTHENTICATION_SCHEME_OAUTH2
+```
+
+See
+the [Solace Java API OAuth2 Sample](../../solace-spring-boot-samples/solace-java-oauth2-sample-app)
+for an example of how to use OAuth2 authentication scheme.
+
+### Customizing OAuth2 Token Injection and Token Refresh
+
+The Solace Java API OAuth2 authentication scheme supports customizing the OAuth2 token injection and
+token refresh.
+
+Create your custom implementation of
+the [SolaceSessionOAuth2TokenProvider](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solacesystems/jcsmp/SolaceSessionOAuth2TokenProvider.java)
+interface to injection initial token.
+Refer [DefaultSolaceSessionOAuth2TokenProvider](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solacesystems/jcsmp/DefaultSolaceSessionOAuth2TokenProvider.java)
+for sample implementation.
+
+Similarly, create your custom implementation of
+the [SolaceOAuth2SessionEventHandler](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solacesystems/jcsmp/SolaceOAuth2SessionEventHandler.java)
+interface to refresh token.
+Refer [DefaultSolaceOAuth2SessionEventHandler](../../solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure/src/main/java/com/solacesystems/jcsmp/DefaultSolaceOAuth2SessionEventHandler.java)
+for sample implementation.
+
 
 ## Resources
 

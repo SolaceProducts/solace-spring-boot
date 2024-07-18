@@ -20,6 +20,7 @@ package com.solace.spring.boot.autoconfigure;
 
 import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPProperties;
+import com.solacesystems.jcsmp.SolaceSessionOAuth2TokenProvider;
 import com.solacesystems.jcsmp.SpringJCSMPFactory;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -33,12 +34,15 @@ import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.lang.Nullable;
 
 @Configuration
 @AutoConfigureBefore(JmsAutoConfiguration.class)
 @ConditionalOnClass({JCSMPProperties.class})
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)
+@Import(SolaceOAuthClientConfiguration.class)
 public class SolaceJavaAutoConfiguration {
 
   private SolaceJavaProperties properties;
@@ -54,8 +58,9 @@ public class SolaceJavaAutoConfiguration {
    * @return {@link SpringJCSMPFactory} based on {@link JCSMPProperties} bean.
    */
   @Bean
-  public SpringJCSMPFactory getSpringJCSMPFactory(JCSMPProperties jcsmpProperties) {
-    return new SpringJCSMPFactory(jcsmpProperties);
+  public SpringJCSMPFactory getSpringJCSMPFactory(JCSMPProperties jcsmpProperties,
+      @Nullable SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider) {
+    return new SpringJCSMPFactory(jcsmpProperties, solaceSessionOAuth2TokenProvider);
   }
 
   /**
@@ -87,6 +92,12 @@ public class SolaceJavaAutoConfiguration {
     cp.setReconnectRetries(properties.getReconnectRetries());
     cp.setConnectRetriesPerHost(properties.getConnectRetriesPerHost());
     cp.setReconnectRetryWaitInMillis(properties.getReconnectRetryWaitInMillis());
+
+    if (properties.getOauth2ClientRegistrationId() != null) {
+      jcsmpProps.setProperty(SolaceJavaProperties.SPRING_OAUTH2_CLIENT_REGISTRATION_ID,
+          properties.getOauth2ClientRegistrationId());
+    }
+
     return jcsmpProps;
   }
 

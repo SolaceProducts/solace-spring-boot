@@ -1,0 +1,60 @@
+folder structure
+----------------
+  - ./keycloak:       contains the realm export json files.
+  - ./certs/keycloak: contains the OAuth server private key and signed certificate
+  - ./www:            contains the index.html file to be used for the nginx server health check
+  - ./nginx.conf:     contains nginx reverse proxy configuration
+
+
+sslcerts
+--------
+  - keycloak.key
+  - keycloak.crt
+  - keycloak.pem
+
+
+nginx.conf
+----------
+  - SSL access to Keycloak can be enable either via a reverse proxy server or by configuration file changes directly on the Keycloak server container.
+  - SSL via external reverse proxy server like nginx is quite simile and a recommended way.
+  - Any traffic that comes to URL starting with https://localhost/auth is routed to the Keycloak container
+  - Any traffic that comes to http (port 80) will be redirected to https (port 443) as per the configuration
+  - nginx.conf file has additional comments where necessary
+
+
+keycloak
+---------
+The keycloak is configured with one realm, to be used as authorization server for Solace PubSub+ broker configured as resource server.
+
+  - solace-oauth-resource-server-role-realm-export.json
+      As the name suggests this realm is  for resource server role mode.
+
+  - Keycloak request for fetching the well-known URLs (like userInfoUrl, tokenUrl, discoveryUrl etc) for given realm
+      curl --location --request GET 'https://localhost:10443/auth/realms/solace-oauth-client-role/.well-known/openid-configuration'
+      curl --location --request GET 'https://localhost:10443/auth/realms/solace-oauth-resource-server-role/.well-known/openid-configuration'
+
+  - Keycloak request for fetching the Access and Id token
+     ```
+        curl --location --request POST 'https://localhost:10443/auth/realms/solace-oauth-resource-server-role/protocol/openid-connect/token' \
+        --header 'Content-Type: application/x-www-form-urlencoded' \
+        --data-urlencode 'username=admin' \
+        --data-urlencode 'password=mysecret!' \
+        --data-urlencode 'client_id=solclient_oauth' \
+        --data-urlencode 'grant_type=password' \
+        --data-urlencode 'scope=openid audience-for-solace-oauth autz-group-for-solace-oauth subject-for-solace-oauth' \
+    ```
+
+    The scope param contains the optional scope names. Depending on the required claims in the token we can add/remove scopes.
+
+High level steps in setting up the realm:
+  1. Create a realm
+  2. Optional, Change the realm access token timeout to 1 minutes
+  3. Required, Create a Client with type = "confidential" and "service accounts enabled"
+  4. Optional, Client > Scopes > remove all the existing scopes. So that unwanted claims are not included in token
+  5. Required, Realm > Scopes > Create three custom scopes and corresponding mapper with hard coded value
+     - audience-for-solace-oauth - hardcoded claim value "solclient_oauth" (same as client name) for the "aud" claim in token
+     - autz-group-for-solace-oauth - hardcoded claim value "solclient_oauth_auth_group" for the "groups" claim in token
+     - subject-for-solace-oauth - hardcoded claim value "default" for the "sub" claim in token
+  6. Required, Client > Scopes > Add the custom claims in the optional claims section
+  7. Required, Realm > Users > Add a user named "admin" with password "mysecret!"
+  8. Export a realm

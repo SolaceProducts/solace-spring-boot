@@ -25,31 +25,28 @@ import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPProperties;
 import com.solacesystems.jcsmp.JCSMPSession;
 import com.solacesystems.jcsmp.SpringJCSMPFactory;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-public class SolaceJavaAutoConfigurationTest {
+class SolaceJavaAutoConfigurationTest {
 
   @Configuration public static class EmptyConfiguration { }
 
   private AnnotationConfigApplicationContext context;
   private final Class<SolaceJavaAutoConfiguration> configClass = SolaceJavaAutoConfiguration.class;
 
-  @After
-  public void tearDown() {
+  @AfterEach
+  void tearDown() {
     if (this.context != null) {
       this.context.close();
     }
   }
 
   @Test
-  public void defaultNativeConnectionFactory() throws InvalidPropertiesException {
+  void defaultNativeConnectionFactory() throws InvalidPropertiesException {
     load("");
     SpringJCSMPFactory jcsmpFactory = this.context.getBean(SpringJCSMPFactory.class);
     assertNotNull(jcsmpFactory);
@@ -77,7 +74,7 @@ public class SolaceJavaAutoConfigurationTest {
   }
 
   @Test
-  public void customNativeConnectionFactory() throws InvalidPropertiesException {
+  void customNativeConnectionFactory() throws InvalidPropertiesException {
     load("solace.java.host=192.168.1.80:55500",
         "solace.java.clientUsername=bob", "solace.java.clientPassword=password",
         "solace.java.msgVpn=newVpn", "solace.java.clientName=client-name",
