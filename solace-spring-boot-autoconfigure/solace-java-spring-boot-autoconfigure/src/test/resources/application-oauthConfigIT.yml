@@ -21,4 +21,4 @@ solace:
     reconnectRetries: 3
     connectRetriesPerHost: 1
     reconnectRetryWaitInMillis: 2000
-    oauth2ClientRegistrationId: my-oauth2-client
+
