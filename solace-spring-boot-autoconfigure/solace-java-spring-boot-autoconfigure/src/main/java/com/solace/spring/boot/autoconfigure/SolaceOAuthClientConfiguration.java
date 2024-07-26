@@ -2,7 +2,7 @@ package com.solace.spring.boot.autoconfigure;
 
 import com.solacesystems.jcsmp.DefaultSolaceSessionOAuth2TokenProvider;
 import com.solacesystems.jcsmp.JCSMPProperties;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
  * 'AUTHENTICATION_SCHEME_OAUTH2'.
  */
 @Configuration
-@ConditionalOnProperty(prefix = "solace.java.apiProperties", name = "AUTHENTICATION_SCHEME",
-    havingValue = "AUTHENTICATION_SCHEME_OAUTH2")
+@ConditionalOnExpression("'${solace.java.api-properties.AUTHENTICATION_SCHEME}' == 'AUTHENTICATION_SCHEME_OAUTH2' OR '${solace.java.apiProperties.AUTHENTICATION_SCHEME}' == 'AUTHENTICATION_SCHEME_OAUTH2'")
 @Import(OAuth2ClientAutoConfiguration.class)
 public class SolaceOAuthClientConfiguration {
 

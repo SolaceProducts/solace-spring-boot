@@ -1,0 +1,24 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          my-oauth2-client:
+            provider: my-auth-server
+            client-id: testClientId
+            client-secret: testClientSecret
+            authorization-grant-type: client_credentials
+            scope: openid
+        provider:
+          my-auth-server:
+            token-uri: https://localhost:10443/auth/realms/solace-oauth-resource-server-role/protocol/openid-connect/token
+
+solace:
+  java:
+    host: tcps://localhost:55443
+    msgVpn: default
+    connectRetries: 3
+    reconnectRetries: 3
+    connectRetriesPerHost: 1
+    reconnectRetryWaitInMillis: 2000
+    oauth2ClientRegistrationId: my-oauth2-client
