@@ -1,12 +1,19 @@
 package com.solace.spring.boot.autoconfigure;
 
+import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.OAuth2ClientRegistrationIdCondition;
+import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.SolaceOAuth2SchemeCondition;
 import com.solacesystems.jcsmp.DefaultSolaceSessionOAuth2TokenProvider;
 import com.solacesystems.jcsmp.JCSMPProperties;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import java.util.Objects;
 import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.security.oauth2.client.AuthorizedClientServiceOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
@@ -19,7 +26,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
  * 'AUTHENTICATION_SCHEME_OAUTH2'.
  */
 @Configuration
-@ConditionalOnExpression("'${solace.java.api-properties.AUTHENTICATION_SCHEME}' == 'AUTHENTICATION_SCHEME_OAUTH2' OR '${solace.java.apiProperties.AUTHENTICATION_SCHEME}' == 'AUTHENTICATION_SCHEME_OAUTH2'")
+@Conditional({SolaceOAuth2SchemeCondition.class, OAuth2ClientRegistrationIdCondition.class})
 @Import(OAuth2ClientAutoConfiguration.class)
 public class SolaceOAuthClientConfiguration {
 
@@ -65,5 +72,38 @@ public class SolaceOAuthClientConfiguration {
       AuthorizedClientServiceOAuth2AuthorizedClientManager solaceOAuthAuthorizedClientServiceAndManager) {
     return new DefaultSolaceSessionOAuth2TokenProvider(jcsmpProperties,
         solaceOAuthAuthorizedClientServiceAndManager);
+  }
+
+
+  /**
+   * Condition class to check if the 'solace.java.apiProperties.AUTHENTICATION_SCHEME' property is
+   * set to 'AUTHENTICATION_SCHEME_OAUTH2'.
+   */
+  static class SolaceOAuth2SchemeCondition implements Condition {
+
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+      return Binder.get(context.getEnvironment())
+          .bind("solace.java", SolaceJavaProperties.class)
+          .map(SolaceJavaProperties::getApiProperties)
+          .map(p -> p.get(JCSMPProperties.AUTHENTICATION_SCHEME))
+          .map(v -> v.equals(JCSMPProperties.AUTHENTICATION_SCHEME_OAUTH2))
+          .orElse(false);
+    }
+  }
+
+  /**
+   * Condition class to check if the 'solace.java.oauth2ClientRegistrationId' property is set.
+   */
+  static class OAuth2ClientRegistrationIdCondition implements Condition {
+
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+      return Binder.get(context.getEnvironment())
+          .bind("solace.java", SolaceJavaProperties.class)
+          .map(SolaceJavaProperties::getOauth2ClientRegistrationId)
+          .map(Objects::nonNull)
+          .orElse(false);
+    }
   }
 }

@@ -21,8 +21,9 @@ class SolaceOAuthClientConfigurationTest {
   void verifyApplicationContextContainsRequiredBeans() {
     try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
         .profiles("oauthConfigIT").sources(TestApp.class)
-        .properties(String.format("%s=%s", "solace.java.api-properties.AUTHENTICATION_SCHEME",
-            "AUTHENTICATION_SCHEME_OAUTH2"))
+        .properties(
+            String.format("%s=%s", "solace.java.api-properties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"),
+            String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
       assertThat(context.getBean(SolaceSessionOAuth2TokenProvider.class)).isNotNull();
@@ -35,8 +36,9 @@ class SolaceOAuthClientConfigurationTest {
   void verifyApplicationContextContainsRequiredBeans2() {
     try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
         .profiles("oauthConfigIT").sources(TestApp.class)
-        .properties(String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME",
-            "AUTHENTICATION_SCHEME_OAUTH2"))
+        .properties(
+            String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"),
+            String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
       assertThat(context.getBean(SolaceSessionOAuth2TokenProvider.class)).isNotNull();
@@ -49,14 +51,48 @@ class SolaceOAuthClientConfigurationTest {
   void verifyApplicationContextDoesNotContainOAuth2BeansWhenAuthSchemeIsNotOAuth2() {
     try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
         .profiles("oauthConfigIT").sources(TestApp.class)
-        .properties(String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME",
-            "AUTHENTICATION_SCHEME_BASIC"))
+        .properties(
+            String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_BASIC"),
+            String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
 
       assertThatThrownBy(() -> context.getBean(SolaceSessionOAuth2TokenProvider.class))
           .isInstanceOf(NoSuchBeanDefinitionException.class);
-      assertThatThrownBy(() -> context.getBean(AuthorizedClientServiceOAuth2AuthorizedClientManager.class))
+      assertThatThrownBy(
+          () -> context.getBean(AuthorizedClientServiceOAuth2AuthorizedClientManager.class))
+          .isInstanceOf(NoSuchBeanDefinitionException.class);
+    }
+  }
+
+  @Test
+  void verifyApplicationContextDoesNotContainOAuth2BeansWhenAuthSchemePropertyNotDefined() {
+    try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
+        .profiles("oauthConfigIT").sources(TestApp.class)
+        .properties(String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"))
+        .run()) {
+      assertThat(context.isRunning()).isTrue();
+
+      assertThatThrownBy(() -> context.getBean(SolaceSessionOAuth2TokenProvider.class))
+          .isInstanceOf(NoSuchBeanDefinitionException.class);
+      assertThatThrownBy(
+          () -> context.getBean(AuthorizedClientServiceOAuth2AuthorizedClientManager.class))
+          .isInstanceOf(NoSuchBeanDefinitionException.class);
+    }
+  }
+
+  @Test
+  void verifyApplicationContextDoesNotContainOAuth2BeansWhenClientRegistrationIdNotDefined() {
+    try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
+        .profiles("oauthConfigIT").sources(TestApp.class)
+        .properties(String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
+        .run()) {
+      assertThat(context.isRunning()).isTrue();
+
+      assertThatThrownBy(() -> context.getBean(SolaceSessionOAuth2TokenProvider.class))
+          .isInstanceOf(NoSuchBeanDefinitionException.class);
+      assertThatThrownBy(
+          () -> context.getBean(AuthorizedClientServiceOAuth2AuthorizedClientManager.class))
           .isInstanceOf(NoSuchBeanDefinitionException.class);
     }
   }
