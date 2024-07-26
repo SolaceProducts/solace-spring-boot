@@ -38,7 +38,7 @@ class SolaceOAuthClientConfigurationTest {
         .profiles("oauthConfigIT").sources(TestApp.class)
         .properties(
             String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"),
-            String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
+            String.format("%s=%s", "solace.java.oauth2-client-registration-id", "my-oauth2-client"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
       assertThat(context.getBean(SolaceSessionOAuth2TokenProvider.class)).isNotNull();
@@ -69,7 +69,7 @@ class SolaceOAuthClientConfigurationTest {
   void verifyApplicationContextDoesNotContainOAuth2BeansWhenAuthSchemePropertyNotDefined() {
     try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
         .profiles("oauthConfigIT").sources(TestApp.class)
-        .properties(String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"))
+        .properties(String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
 
@@ -85,7 +85,7 @@ class SolaceOAuthClientConfigurationTest {
   void verifyApplicationContextDoesNotContainOAuth2BeansWhenClientRegistrationIdNotDefined() {
     try (ConfigurableApplicationContext context = new SpringApplicationBuilder()
         .profiles("oauthConfigIT").sources(TestApp.class)
-        .properties(String.format("%s=%s", "solace.java.oauth2ClientRegistrationId", "my-oauth2-client"))
+        .properties(String.format("%s=%s", "solace.java.apiProperties.AUTHENTICATION_SCHEME", "AUTHENTICATION_SCHEME_OAUTH2"))
         .run()) {
       assertThat(context.isRunning()).isTrue();
 

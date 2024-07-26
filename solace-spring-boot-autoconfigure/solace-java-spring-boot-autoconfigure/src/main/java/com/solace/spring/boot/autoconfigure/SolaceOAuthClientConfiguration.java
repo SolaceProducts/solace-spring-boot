@@ -102,8 +102,7 @@ public class SolaceOAuthClientConfiguration {
       return Binder.get(context.getEnvironment())
           .bind("solace.java", SolaceJavaProperties.class)
           .map(SolaceJavaProperties::getOauth2ClientRegistrationId)
-          .map(Objects::nonNull)
-          .orElse(false);
+          .isBound();
     }
   }
 }
