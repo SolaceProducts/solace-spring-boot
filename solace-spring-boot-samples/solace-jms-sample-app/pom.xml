@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>com.solace.spring.boot</groupId>
 		<artifactId>solace-spring-boot-samples</artifactId>
-		<version>2.2.0</version>
+		<version>2.2.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>solace-jms-sample-app</artifactId>
-	<version>2.2.0</version>
+	<version>2.2.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Solace Spring Boot Sample - JMS</name>
@@ -21,7 +21,7 @@
 		<start-class>jmsdemo.DemoApplication</start-class>
 		<java.version>17</java.version>
 		<spring.boot.version>3.3.3</spring.boot.version>
-		<solace.spring.boot.version>2.2.0</solace.spring.boot.version>
+		<solace.spring.boot.version>2.2.1-SNAPSHOT</solace.spring.boot.version>
 	</properties>
 
 	<dependencyManagement>
