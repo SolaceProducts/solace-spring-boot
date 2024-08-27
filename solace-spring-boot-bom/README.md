@@ -21,7 +21,8 @@ Consult the table below to determine which version of the BOM you need to use:
 | 2.6.4       | 1.2.x                  |
 | 2.7.7       | 1.3.0                  |
 | 3.0.6       | 2.0.0                  |
-| 3.3.1       | 2.1.0                  |
+| 3.3.1       | 2.1.x                  |
+| 3.3.3       | 2.2.0                  |
 
 ## Including the BOM
 
