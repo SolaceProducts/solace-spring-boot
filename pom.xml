@@ -15,7 +15,7 @@
     <repoName>SolaceProducts</repoName>
 
     <!-- This is the version of Spring Boot we have targeted for this build -->
-    <spring.boot.version>3.3.3</spring.boot.version>
+    <spring.boot.version>3.4.2</spring.boot.version>
 
     <solace.spring.boot.java-starter.version>5.2.1-SNAPSHOT
     </solace.spring.boot.java-starter.version>
