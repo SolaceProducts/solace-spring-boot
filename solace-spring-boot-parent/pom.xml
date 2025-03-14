@@ -27,7 +27,7 @@
         <solace.spring.boot.java-autoconf.version>5.2.1-SNAPSHOT</solace.spring.boot.java-autoconf.version>
         <solace.spring.boot.jms-autoconf.version>5.2.1-SNAPSHOT</solace.spring.boot.jms-autoconf.version>
 
-        <solace.jcsmp.version>10.24.1</solace.jcsmp.version>
+        <solace.jcsmp.version>10.26.0</solace.jcsmp.version>
         <solace.jms-jakarta.version>10.24.1</solace.jms-jakarta.version>
 
         <surefire.plugin.version>2.22.2</surefire.plugin.version>
