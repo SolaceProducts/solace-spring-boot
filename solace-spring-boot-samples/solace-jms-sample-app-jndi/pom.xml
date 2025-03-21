@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>jndidemo.JndiDemoApplication</start-class>
 		<java.version>17</java.version>
-		<spring.boot.version>3.3.3</spring.boot.version>
+		<spring.boot.version>3.4.4</spring.boot.version>
 		<solace.spring.boot.bom.version>2.2.1-SNAPSHOT</solace.spring.boot.bom.version>
 	</properties>
 
