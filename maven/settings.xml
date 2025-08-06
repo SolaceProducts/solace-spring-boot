@@ -11,8 +11,23 @@
 			<id>github</id>
 			<repositories>
 				<repository>
-					<id>github-solace-integration-test-support</id>
-					<url>https://maven.pkg.github.com/SolaceDev/solace-integration-test-support</url>
+					<id>central</id>
+					<url>https://repo.maven.apache.org/maven2</url>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>github-solacedev</id>
+					<url>https://maven.pkg.github.com/SolaceDev/*</url>
+					<releases>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+						<updatePolicy>always</updatePolicy>
+					</snapshots>
 				</repository>
 			</repositories>
 		</profile>
@@ -20,14 +35,23 @@
 
 	<servers>
 		<server>
-			<id>github-solace-integration-test-support</id>
-			<username>${env.SOLACEDEV_GITHUB_USERNAME}</username>
-			<password>${env.SOLACEDEV_GITHUB_TOKEN}</password>
+			<id>github-solacedev</id>
+			<username>${env.PACKAGES_ADMIN_USER}</username>
+			<password>${env.PACKAGES_ADMIN_TOKEN}</password>
 		</server>
 		<server>
 			<id>github</id>
 			<username>${env.GITHUB_ACTOR}</username>
 			<password>${env.GITHUB_TOKEN}</password>
+		</server>
+		<server>
+			<id>central</id>
+			<username>${env.MAVEN_USERNAME}</username>
+			<password>${env.MAVEN_PASSWORD}</password>
+		</server>
+		<server>
+			<id>gpg.passphrase</id>
+			<passphrase>${env.MAVEN_GPG_KEY_PASSPHRASE}</passphrase>
 		</server>
 	</servers>
 </settings>

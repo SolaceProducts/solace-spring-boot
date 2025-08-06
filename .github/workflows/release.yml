@@ -1,0 +1,65 @@
+name: Release to Maven Central
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "zulu"
+
+      - name: Retrieve secrets from Vault
+        id: secrets
+        uses: hashicorp/vault-action@v3
+        continue-on-error: true
+        with:
+          url: "${{ secrets.VAULT_ADDR }}"
+          role: "cicd-workflows-secret-read-role"
+          method: jwt
+          path: jwt-github
+          jwtGithubAudience: https://github.com/${{ github.repository_owner }}
+          exportToken: true
+          secrets:
+            secret/data/tools/githubactions PACKAGES_ADMIN_USER | PACKAGES_ADMIN_USER ;
+            secret/data/tools/githubactions PACKAGES_ADMIN_TOKEN | PACKAGES_ADMIN_TOKEN ;
+            secret/data/tools/githubactions MAVEN_GPG_KEY_PASSPHRASE | MAVEN_GPG_KEY_PASSPHRASE ;
+            secret/data/tools/githubactions MAVEN_GPG_KEY | MAVEN_GPG_KEY ;
+            secret/data/tools/githubactions MAVEN_USERNAME | MAVEN_USERNAME ;
+            secret/data/tools/githubactions MAVEN_PASSWORD | MAVEN_PASSWORD ;
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@cb9bde2e2525e640591a934b1fd28eef1dcaf5e5 #v6.2.0
+        with:
+          gpg_private_key: ${{ steps.secrets.outputs.MAVEN_GPG_KEY }}
+          passphrase: ${{ steps.secrets.outputs.MAVEN_GPG_KEY_PASSPHRASE }}
+
+      - name: Add SSH Key for write access for commits
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
+        with:
+          ssh-private-key: ${{ secrets.COMMIT_KEY }}
+          ssh-host: github.com
+
+      - name: Configure Git author
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Deploy to Maven Central
+        run: |
+          mvn -DreleaseTarget=central \
+          -P releaseCentral \
+          -s maven/settings.xml \
+          release:prepare release:perform

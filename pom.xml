@@ -155,27 +155,6 @@
                 </plugins>
             </build>
         </profile>
-
-        <profile>
-            <id>releaseInternal</id>
-            <activation>
-                <property>
-                    <name>!releaseCentral</name>
-                </property>
-            </activation>
-            <distributionManagement>
-                <repository>
-                    <id>releases</id>
-                    <name>Apps Releases Repository</name>
-                    <url>http://apps-jenkins:9090/nexus/content/repositories/releases</url>
-                </repository>
-                <snapshotRepository>
-                    <id>snapshots</id>
-                    <name>Apps Snapshots Repository</name>
-                    <url>http://apps-jenkins:9090/nexus/content/repositories/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
     </profiles>
 
     <build>
