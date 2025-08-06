@@ -34,7 +34,6 @@ jobs:
           overwrite-settings: false
           cache: 'maven'
       - name: Manually Install Test Support If Necessary
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y libxml2-utils
