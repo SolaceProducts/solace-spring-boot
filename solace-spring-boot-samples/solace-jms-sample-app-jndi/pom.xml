@@ -20,7 +20,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>jndidemo.JndiDemoApplication</start-class>
 		<java.version>17</java.version>
-		<spring.boot.version>3.5.5</spring.boot.version>
+		<spring.boot.version>4.0.2</spring.boot.version>
 		<solace.spring.boot.bom.version>2.5.1-SNAPSHOT</solace.spring.boot.bom.version>
 	</properties>
 
@@ -52,7 +52,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
 		<dependency>
@@ -67,7 +67,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>3.1.1</version>
+				<version>3.1.4</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
@@ -75,7 +75,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.11.0</version>
+				<version>3.15.0</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
@@ -86,7 +86,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring.boot.version}</version>
 				<configuration>
-					<fork>true</fork>
 					<skip>false</skip>
 				</configuration>
 				<executions>
