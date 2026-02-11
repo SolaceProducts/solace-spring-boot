@@ -50,9 +50,9 @@ The sample applications for all Solace Spring Boot projects can be found under [
 
 ### Prerequisites
 
-This project requires test dependencies published to GitHub Packages. You must configure Maven authentication before building.
+This project depends on `solace-integration-test-support-bom` which is published to GitHub Packages. You must configure Maven authentication before building.
 
-**Setup instructions:** [Adding the GitHub Packages Repository](https://github.com/SolaceDev/solace-integration-test-support#adding-the-github-packages-repository)
+**See:** [solace-integration-test-support Maven configuration](https://github.com/SolaceDev/solace-integration-test-support#configuring-maven-to-pull-the-artifacts)
 
 ### Running the Build
 
