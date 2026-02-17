@@ -4,7 +4,7 @@ import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.OAuth
 import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.SolaceOAuth2SchemeCondition;
 import com.solacesystems.jcsmp.DefaultSolaceSessionOAuth2TokenProvider;
 import com.solacesystems.jcsmp.JCSMPProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientAutoConfiguration;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
@@ -24,10 +24,10 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
  * 'solace.java.apiProperties.AUTHENTICATION_SCHEME' property is set to
  * 'AUTHENTICATION_SCHEME_OAUTH2'.
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @Conditional({SolaceOAuth2SchemeCondition.class, OAuth2ClientRegistrationIdCondition.class})
 @Import(OAuth2ClientAutoConfiguration.class)
-public class SolaceOAuthClientConfiguration {
+public final class SolaceOAuthClientConfiguration {
 
   /**
    * Creates and configures an OAuth2AuthorizedClientManager for Solace session. This manager is
@@ -38,7 +38,7 @@ public class SolaceOAuthClientConfiguration {
    * @return Configured OAuth2AuthorizedClientManager.
    */
   @Bean
-  public AuthorizedClientServiceOAuth2AuthorizedClientManager solaceOAuthAuthorizedClientServiceAndManager(
+  AuthorizedClientServiceOAuth2AuthorizedClientManager solaceOAuthAuthorizedClientServiceAndManager(
       ClientRegistrationRepository clientRegistrationRepository,
       OAuth2AuthorizedClientService oAuth2AuthorizedClientService) {
     final OAuth2AuthorizedClientProvider clientCredentialsAuthorizedClientProvider =
@@ -66,7 +66,7 @@ public class SolaceOAuthClientConfiguration {
    * @return Configured SolaceSessionOAuth2TokenProvider.
    */
   @Bean
-  public DefaultSolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider(
+  DefaultSolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider(
       JCSMPProperties jcsmpProperties,
       AuthorizedClientServiceOAuth2AuthorizedClientManager solaceOAuthAuthorizedClientServiceAndManager) {
     return new DefaultSolaceSessionOAuth2TokenProvider(jcsmpProperties,
