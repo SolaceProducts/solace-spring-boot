@@ -1,5 +1,9 @@
 package com.solace.spring.boot.autoconfigure.springBootTests;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import java.io.File;
+import java.time.Duration;
+import java.util.function.Consumer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.slf4j.Logger;
@@ -7,12 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.ComposeContainer;
 import org.testcontainers.containers.ContainerState;
 import org.testcontainers.containers.wait.strategy.Wait;
-
-import java.io.File;
-import java.time.Duration;
-import java.util.function.Consumer;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public interface MessagingServiceFreeTierBrokerTestContainerWithTlsSetup {
 

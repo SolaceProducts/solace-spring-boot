@@ -22,6 +22,10 @@ import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolConnectionFactoryImpl;
 import com.solacesystems.jms.property.JMSProperties;
 import jakarta.jms.ConnectionFactory;
+import java.util.Hashtable;
+import java.util.Properties;
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +37,6 @@ import org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiTemplate;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import java.util.Hashtable;
-import java.util.Properties;
 
 @Configuration
 @AutoConfigureBefore(JmsAutoConfiguration.class)

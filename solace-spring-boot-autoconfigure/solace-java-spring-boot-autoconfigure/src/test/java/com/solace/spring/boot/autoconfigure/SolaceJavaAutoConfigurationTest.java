@@ -18,15 +18,18 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import com.solacesystems.jcsmp.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import com.solacesystems.jcsmp.InvalidPropertiesException;
+import com.solacesystems.jcsmp.JCSMPChannelProperties;
+import com.solacesystems.jcsmp.JCSMPProperties;
+import com.solacesystems.jcsmp.JCSMPSession;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SolaceJavaAutoConfigurationTest {
 
@@ -51,23 +54,23 @@ class SolaceJavaAutoConfigurationTest {
     JCSMPSession session = jcsmpFactory.createSession();
     assertNotNull(session);
 
-    assertEquals("localhost", session.getProperty(JCSMPProperties.HOST));
-    assertEquals("default", session.getProperty(JCSMPProperties.VPN_NAME));
+    assertEquals("localhost", (String) session.getProperty(JCSMPProperties.HOST));
+    assertEquals("default", (String) session.getProperty(JCSMPProperties.VPN_NAME));
     assertEquals("spring-default-client-username",
-            session.getProperty(JCSMPProperties.USERNAME));
-    assertEquals("", session.getProperty(JCSMPProperties.PASSWORD));
+        (String) session.getProperty(JCSMPProperties.USERNAME));
+    assertEquals("", (String) session.getProperty(JCSMPProperties.PASSWORD));
     assertEquals(JCSMPProperties.SUPPORTED_MESSAGE_ACK_AUTO,
-            session.getProperty(JCSMPProperties.MESSAGE_ACK_MODE));
+        (String) session.getProperty(JCSMPProperties.MESSAGE_ACK_MODE));
     assertEquals(Boolean.FALSE,
-            session.getProperty(JCSMPProperties.REAPPLY_SUBSCRIPTIONS));
-    assertNotNull(session.getProperty(JCSMPProperties.CLIENT_NAME));
+        (Boolean) session.getProperty(JCSMPProperties.REAPPLY_SUBSCRIPTIONS));
+    assertNotNull((String) session.getProperty(JCSMPProperties.CLIENT_NAME));
     // Channel properties
     JCSMPChannelProperties cp = (JCSMPChannelProperties) session
         .getProperty(JCSMPProperties.CLIENT_CHANNEL_PROPERTIES);
-    assertEquals(1, cp.getConnectRetries());
-    assertEquals(-1, cp.getReconnectRetries());
-    assertEquals(20, cp.getConnectRetriesPerHost());
-    assertEquals(3000, cp.getReconnectRetryWaitInMillis());
+    assertEquals(1, (int) cp.getConnectRetries());
+    assertEquals(-1, (int) cp.getReconnectRetries());
+    assertEquals(20, (int) cp.getConnectRetriesPerHost());
+    assertEquals(3000, (int) cp.getReconnectRetryWaitInMillis());
   }
 
   @Test
@@ -85,18 +88,18 @@ class SolaceJavaAutoConfigurationTest {
     JCSMPSession session = jcsmpFactory.createSession();
     assertNotNull(session);
 
-    assertEquals("192.168.1.80:55500", session.getProperty(JCSMPProperties.HOST));
-    assertEquals("newVpn", session.getProperty(JCSMPProperties.VPN_NAME));
-    assertEquals("bob", session.getProperty(JCSMPProperties.USERNAME));
-    assertEquals("password", session.getProperty(JCSMPProperties.PASSWORD));
-    assertEquals("client-name", session.getProperty(JCSMPProperties.CLIENT_NAME));
+    assertEquals("192.168.1.80:55500", (String) session.getProperty(JCSMPProperties.HOST));
+    assertEquals("newVpn", (String) session.getProperty(JCSMPProperties.VPN_NAME));
+    assertEquals("bob", (String) session.getProperty(JCSMPProperties.USERNAME));
+    assertEquals("password", (String) session.getProperty(JCSMPProperties.PASSWORD));
+    assertEquals("client-name", (String) session.getProperty(JCSMPProperties.CLIENT_NAME));
     // Channel properties
     JCSMPChannelProperties cp = (JCSMPChannelProperties) session
         .getProperty(JCSMPProperties.CLIENT_CHANNEL_PROPERTIES);
-    assertEquals(5, cp.getConnectRetries());
-    assertEquals(10, cp.getReconnectRetries());
-    assertEquals(40, cp.getConnectRetriesPerHost());
-    assertEquals(1000, cp.getReconnectRetryWaitInMillis());
+    assertEquals(5, (int) cp.getConnectRetries());
+    assertEquals(10, (int) cp.getReconnectRetries());
+    assertEquals(40, (int) cp.getConnectRetriesPerHost());
+    assertEquals(1000, (int) cp.getReconnectRetryWaitInMillis());
   }
 
   void load(String... environment) {

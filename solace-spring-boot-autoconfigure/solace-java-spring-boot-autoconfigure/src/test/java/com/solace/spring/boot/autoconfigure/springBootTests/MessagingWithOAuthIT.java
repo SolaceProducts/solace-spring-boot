@@ -1,5 +1,7 @@
 package com.solace.spring.boot.autoconfigure.springBootTests;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 import com.solace.it.util.semp.config.BrokerConfiguratorBuilder;
 import com.solace.it.util.semp.config.BrokerConfiguratorBuilder.BrokerConfigurator;
 import com.solace.it.util.semp.monitor.BrokerMonitorBuilder;
@@ -11,7 +13,20 @@ import com.solace.test.integration.semp.v2.config.model.ConfigMsgVpnAuthenticati
 import com.solace.test.integration.semp.v2.config.model.ConfigMsgVpnAuthenticationOauthProfile.OauthRoleEnum;
 import com.solace.test.integration.semp.v2.config.model.ConfigMsgVpnAuthorizationGroup;
 import com.solace.test.integration.semp.v2.monitor.model.MonitorMsgVpnClient;
-import com.solacesystems.jcsmp.*;
+import com.solacesystems.jcsmp.DefaultSolaceOAuth2SessionEventHandler;
+import com.solacesystems.jcsmp.JCSMPProperties;
+import com.solacesystems.jcsmp.JCSMPSession;
+import com.solacesystems.jcsmp.SessionEventArgs;
+import com.solacesystems.jcsmp.SessionEventHandler;
+import com.solacesystems.jcsmp.SolaceSessionOAuth2TokenProvider;
+import com.solacesystems.jcsmp.SpringJCSMPFactory;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.assertj.core.util.Files;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
@@ -25,17 +40,6 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest(
     classes = SampleApp.class,
