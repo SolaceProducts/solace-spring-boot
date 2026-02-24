@@ -16,8 +16,11 @@ public class DefaultSolaceOAuth2SessionEventHandler implements SolaceOAuth2Sessi
 
   private static final Logger logger = LoggerFactory.getLogger(DefaultSolaceOAuth2SessionEventHandler.class);
 
+  /** The OAuth2 token provider used to fetch access tokens. */
   protected final SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider;
+  /** The JCSMP properties used for the session configuration. */
   protected final JCSMPProperties jcsmpProperties;
+  /** The JCSMP session instance managed by this event handler. */
   protected JCSMPSession jcsmpSession;
 
   /**
@@ -46,6 +49,10 @@ public class DefaultSolaceOAuth2SessionEventHandler implements SolaceOAuth2Sessi
     }
   }
 
+  /**
+   * Checks whether the authentication scheme is configured for OAuth2.
+   * @return {@code true} if OAuth2 authentication is configured, {@code false} otherwise
+   */
   protected boolean isAuthSchemeOAuth2() {
     return AUTHENTICATION_SCHEME_OAUTH2.equalsIgnoreCase(
         jcsmpProperties.getStringProperty(AUTHENTICATION_SCHEME));
