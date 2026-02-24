@@ -25,6 +25,7 @@ Consult the table below to determine which version of the BOM you need to use:
 | 3.3.3       | 2.2.0                  |
 | 3.4.4       | 2.4.0                  |
 | 3.5.5       | 2.5.0                  |
+| 4.0.3       | 3.0.0                  |
 
 ## Including the BOM
 
@@ -37,7 +38,7 @@ In addition to showing how to include the BOM, the following snippets also shows
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-spring-boot-bom</artifactId>
-            <version>2.5.0</version>
+            <version>3.0.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -55,7 +56,7 @@ In addition to showing how to include the BOM, the following snippets also shows
 ### Using it with Gradle
 ```groovy
 dependencies {
-    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:2.5.0"))
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.0.0"))
     implementation("com.solace.spring.boot:solace-spring-boot-starter")
 }
 ```
