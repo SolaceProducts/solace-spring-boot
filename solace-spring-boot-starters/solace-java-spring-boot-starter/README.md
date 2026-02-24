@@ -141,7 +141,7 @@ To use OAuth2 authentication scheme with Solace Java API, follow these steps:
 Firstly, add the required dependencies to your `build.gradle` file:
 
 ```groovy
-compile("org.springframework.boot:spring-boot-starter-oauth2-client")
+compile("org.springframework.boot:spring-boot-starter-security-oauth2-client")
 ```
 
 or `pom.xml` file:
@@ -150,7 +150,7 @@ or `pom.xml` file:
 
 <dependency>
   <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-oauth2-client</artifactId>
+  <artifactId>spring-boot-starter-security-oauth2-client</artifactId>
 </dependency>
 ```
 

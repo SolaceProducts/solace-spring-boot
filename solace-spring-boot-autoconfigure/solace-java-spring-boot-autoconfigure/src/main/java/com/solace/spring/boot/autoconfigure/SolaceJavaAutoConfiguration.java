@@ -34,7 +34,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.lang.Nullable;
 
@@ -44,7 +43,7 @@ import org.springframework.lang.Nullable;
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)
 @Import(SolaceOAuthClientConfiguration.class)
-final class SolaceJavaAutoConfiguration {
+public final class SolaceJavaAutoConfiguration {
 
   private SolaceJavaProperties properties;
 

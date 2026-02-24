@@ -43,7 +43,7 @@ import org.springframework.jndi.JndiTemplate;
 @ConditionalOnClass({ConnectionFactory.class, SolConnectionFactory.class})
 @ConditionalOnMissingBean({ConnectionFactory.class, JndiTemplate.class})
 @EnableConfigurationProperties(SolaceJmsProperties.class)
-final class SolaceJmsAutoConfiguration {
+public final class SolaceJmsAutoConfiguration {
 
   private static final Logger logger = LoggerFactory.getLogger(
       SolaceJmsAutoConfiguration.class);
