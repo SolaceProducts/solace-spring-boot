@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Configuration properties for Solace Java API integration.
+ * Configuration properties for Solace Java(JCSMP) API integration.
  * <p>
  * These properties are bound from the {@code solace.java.*} namespace in application properties
  * and are used to configure the Solace JCSMP session.
