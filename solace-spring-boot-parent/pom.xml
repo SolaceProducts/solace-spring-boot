@@ -30,8 +30,8 @@
         <solace.jcsmp.version>10.29.1</solace.jcsmp.version>
         <solace.jms-jakarta.version>10.29.1</solace.jms-jakarta.version>
 
-        <surefire.plugin.version>2.22.2</surefire.plugin.version>
-        <failsafe.plugin.version>2.22.2</failsafe.plugin.version>
+        <surefire.plugin.version>3.5.5</surefire.plugin.version>
+        <failsafe.plugin.version>3.5.5</failsafe.plugin.version>
     </properties>
 
     <dependencyManagement>

@@ -21,7 +21,7 @@ public interface MessagingServiceFreeTierBrokerTestContainerWithTlsSetup {
       MessagingServiceFreeTierBrokerTestContainerWithTlsSetup.class);
 
   ComposeContainer COMPOSE_CONTAINER = new ComposeContainer(
-      new File(FULL_DOCKER_COMPOSE_FILE_PATH)).withLocalCompose(true).withPull(true)
+      new File(FULL_DOCKER_COMPOSE_FILE_PATH)).withPull(true)
       .withExposedService(PUBSUB_BROKER_SERVICE_NAME, 8080)
       .withExposedService(PUBSUB_BROKER_SERVICE_NAME, 55443)
       .withExposedService(PUBSUB_BROKER_SERVICE_NAME, 55555)
