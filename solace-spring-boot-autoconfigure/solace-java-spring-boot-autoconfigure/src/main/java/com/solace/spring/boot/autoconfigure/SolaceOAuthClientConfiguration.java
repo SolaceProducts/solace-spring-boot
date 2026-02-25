@@ -4,7 +4,7 @@ import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.OAuth
 import com.solace.spring.boot.autoconfigure.SolaceOAuthClientConfiguration.SolaceOAuth2SchemeCondition;
 import com.solacesystems.jcsmp.DefaultSolaceSessionOAuth2TokenProvider;
 import com.solacesystems.jcsmp.JCSMPProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.security.oauth2.client.autoconfigure.OAuth2ClientAutoConfiguration;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
