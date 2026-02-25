@@ -34,12 +34,11 @@ import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jndi.JndiTemplate;
 
 @AutoConfiguration
-@AutoConfigureBefore(JmsAutoConfiguration.class)
+@AutoConfigureBefore(name = "org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration")
 @ConditionalOnClass({ConnectionFactory.class, SolConnectionFactory.class})
 @ConditionalOnMissingBean({ConnectionFactory.class, JndiTemplate.class})
 @EnableConfigurationProperties(SolaceJmsProperties.class)
