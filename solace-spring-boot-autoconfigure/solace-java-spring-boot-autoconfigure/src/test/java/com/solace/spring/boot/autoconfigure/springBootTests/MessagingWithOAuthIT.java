@@ -257,8 +257,8 @@ class MessagingWithOAuthIT implements
             try {
               logger.info("Forcing Session Reconnect for client: {}", msgVpnClient.getClientName());
               sempV2Api.action()
-                  .doMsgVpnClientDisconnect(MSG_VPN_DEFAULT, msgVpnClient.getClientName(),
-                      new ActionMsgVpnClientDisconnect());
+                  .doMsgVpnClientDisconnect(new ActionMsgVpnClientDisconnect(),
+                      MSG_VPN_DEFAULT, msgVpnClient.getClientName());
             } catch (ApiException e) {
               throw new RuntimeException(e);
             }
