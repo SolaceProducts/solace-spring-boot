@@ -29,9 +29,37 @@ Consult the table below to determine which version of the BOM you need to use:
 
 ## Including the BOM
 
-In addition to showing how to include the BOM, the following snippets also shows how to use "version-less" Solace dependencies (`solace-spring-boot-starer` in this case) when using the BOM.
+The Solace Spring Boot BOM allows you to manage Solace Spring Boot dependency versions. You will use **one** of the following starters based on your messaging API preference:
+- `solace-java-spring-boot-starter` - for using the Solace JCSMP API
+- `solace-jms-spring-boot-starter` - for using the Solace JMS API
 
 ### Using it with Maven
+
+#### For Solace JCSMP API
+
+```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.solace.spring.boot</groupId>
+      <artifactId>solace-spring-boot-bom</artifactId>
+      <version>3.0.0</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+
+<dependencies>
+<dependency>
+  <groupId>com.solace.spring.boot</groupId>
+  <artifactId>solace-java-spring-boot-starter</artifactId>
+</dependency>
+</dependencies>
+```
+
+#### For Solace JMS API
+
 ```xml
 <dependencyManagement>
     <dependencies>
@@ -48,16 +76,27 @@ In addition to showing how to include the BOM, the following snippets also shows
 <dependencies>
     <dependency>
         <groupId>com.solace.spring.boot</groupId>
-        <artifactId>solace-spring-boot-starter</artifactId>
+        <artifactId>solace-jms-spring-boot-starter</artifactId>
     </dependency>
 </dependencies>
 ```
 
 ### Using it with Gradle
+
+#### For Solace JCSMP API
+
 ```groovy
 dependencies {
     implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.0.0"))
-    implementation("com.solace.spring.boot:solace-spring-boot-starter")
+    implementation("com.solace.spring.boot:solace-java-spring-boot-starter")
 }
 ```
 
+#### For Solace JMS API
+
+```groovy
+dependencies {
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.0.0"))
+    implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
+}
+```
