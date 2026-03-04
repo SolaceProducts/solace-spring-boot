@@ -28,9 +28,17 @@ import org.springframework.lang.Nullable;
  */
 public class SpringJCSMPFactory {
 
+  /** The JCSMP properties used to create sessions. */
   protected JCSMPProperties jcsmpProperties;
+  /** The OAuth2 token provider for OAuth2-authenticated sessions. */
   protected SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider;
 
+  /**
+   * Constructs a new SpringJCSMPFactory with the specified properties and OAuth2 token provider.
+   *
+   * @param properties the JCSMP properties to use for creating sessions (will be cloned)
+   * @param solaceSessionOAuth2TokenProvider the OAuth2 token provider, or {@code null} if not using OAuth2
+   */
   public SpringJCSMPFactory(JCSMPProperties properties,
       @Nullable SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider) {
     this.jcsmpProperties = (JCSMPProperties) properties.clone();

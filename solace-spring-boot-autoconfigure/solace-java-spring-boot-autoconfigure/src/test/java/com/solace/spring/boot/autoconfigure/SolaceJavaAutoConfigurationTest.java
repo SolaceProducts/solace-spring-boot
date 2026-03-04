@@ -18,8 +18,8 @@
  */
 package com.solace.spring.boot.autoconfigure;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.solacesystems.jcsmp.InvalidPropertiesException;
 import com.solacesystems.jcsmp.JCSMPChannelProperties;
 import com.solacesystems.jcsmp.JCSMPProperties;

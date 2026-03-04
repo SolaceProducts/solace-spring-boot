@@ -27,28 +27,27 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.lang.Nullable;
 
-@Configuration
-@AutoConfigureBefore(JmsAutoConfiguration.class)
+@AutoConfiguration
+@AutoConfigureBefore(name = "org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration")
 @ConditionalOnClass({JCSMPProperties.class})
 @ConditionalOnMissingBean(SpringJCSMPFactory.class)
 @EnableConfigurationProperties(SolaceJavaProperties.class)
 @Import(SolaceOAuthClientConfiguration.class)
-public class SolaceJavaAutoConfiguration {
+public final class SolaceJavaAutoConfiguration {
 
   private SolaceJavaProperties properties;
 
   @Autowired
-  public SolaceJavaAutoConfiguration(SolaceJavaProperties properties) {
+  SolaceJavaAutoConfiguration(SolaceJavaProperties properties) {
     this.properties = properties;
   }
 
@@ -58,7 +57,7 @@ public class SolaceJavaAutoConfiguration {
    * @return {@link SpringJCSMPFactory} based on {@link JCSMPProperties} bean.
    */
   @Bean
-  public SpringJCSMPFactory getSpringJCSMPFactory(JCSMPProperties jcsmpProperties,
+  SpringJCSMPFactory getSpringJCSMPFactory(JCSMPProperties jcsmpProperties,
       @Nullable SolaceSessionOAuth2TokenProvider solaceSessionOAuth2TokenProvider) {
     return new SpringJCSMPFactory(jcsmpProperties, solaceSessionOAuth2TokenProvider);
   }
@@ -69,7 +68,7 @@ public class SolaceJavaAutoConfiguration {
    * @return {@link JCSMPProperties} based on {@link SolaceJavaProperties}.
    */
   @Bean
-  public JCSMPProperties getJCSMPProperties() {
+  JCSMPProperties getJCSMPProperties() {
     Properties p = new Properties();
     Set<Entry<String, String>> set = properties.getApiProperties().entrySet();
     for (Map.Entry<String, String> entry : set) {

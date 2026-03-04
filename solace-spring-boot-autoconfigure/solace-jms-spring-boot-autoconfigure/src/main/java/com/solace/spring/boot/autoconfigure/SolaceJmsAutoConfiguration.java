@@ -29,21 +29,20 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.jms.JmsAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jndi.JndiTemplate;
 
-@Configuration
-@AutoConfigureBefore(JmsAutoConfiguration.class)
+@AutoConfiguration
+@AutoConfigureBefore(name = "org.springframework.boot.jms.autoconfigure.JmsAutoConfiguration")
 @ConditionalOnClass({ConnectionFactory.class, SolConnectionFactory.class})
 @ConditionalOnMissingBean({ConnectionFactory.class, JndiTemplate.class})
 @EnableConfigurationProperties(SolaceJmsProperties.class)
-public class SolaceJmsAutoConfiguration {
+public final class SolaceJmsAutoConfiguration {
 
   private static final Logger logger = LoggerFactory.getLogger(
       SolaceJmsAutoConfiguration.class);
@@ -51,7 +50,7 @@ public class SolaceJmsAutoConfiguration {
   private SolaceJmsProperties properties;
 
   @Autowired
-  public SolaceJmsAutoConfiguration(SolaceJmsProperties properties) {
+  SolaceJmsAutoConfiguration(SolaceJmsProperties properties) {
     this.properties = properties;
   }
 
@@ -61,7 +60,7 @@ public class SolaceJmsAutoConfiguration {
    * @return {@link SolConnectionFactory} based on the {@link SolaceJmsProperties}
    */
   @Bean
-  public SolConnectionFactory getSolConnectionFactory() {
+  SolConnectionFactory getSolConnectionFactory() {
     try {
       Hashtable<String, String> ht = new Hashtable<>(properties.getApiProperties());
       JMSProperties props = new JMSProperties(ht);
@@ -87,7 +86,7 @@ public class SolaceJmsAutoConfiguration {
    * @return {@link JndiTemplate} based on the {@link SolaceJmsProperties}
    */
   @Bean
-  public JndiTemplate getJndiTemplate() {
+  JndiTemplate getJndiTemplate() {
     try {
       Properties env = new Properties();
       env.putAll(properties.getApiProperties());

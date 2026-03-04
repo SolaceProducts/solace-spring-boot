@@ -34,9 +34,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -257,8 +257,8 @@ class MessagingWithOAuthIT implements
             try {
               logger.info("Forcing Session Reconnect for client: {}", msgVpnClient.getClientName());
               sempV2Api.action()
-                  .doMsgVpnClientDisconnect(MSG_VPN_DEFAULT, msgVpnClient.getClientName(),
-                      new ActionMsgVpnClientDisconnect());
+                  .doMsgVpnClientDisconnect(new ActionMsgVpnClientDisconnect(),
+                      MSG_VPN_DEFAULT, msgVpnClient.getClientName());
             } catch (ApiException e) {
               throw new RuntimeException(e);
             }

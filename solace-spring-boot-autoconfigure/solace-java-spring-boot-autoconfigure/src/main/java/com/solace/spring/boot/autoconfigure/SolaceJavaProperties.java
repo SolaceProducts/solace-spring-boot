@@ -20,13 +20,26 @@
 package com.solace.spring.boot.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Configuration properties for Solace Java(JCSMP) API integration.
+ * <p>
+ * These properties are bound from the {@code solace.java.*} namespace in application properties
+ * and are used to configure the Solace JCSMP session.
+ * </p>
+ * @see com.solace.spring.boot.autoconfigure.SolaceJavaAutoConfiguration
+ */
 @ConfigurationProperties("solace.java")
 public class SolaceJavaProperties {
 
+    /**
+     * Property key for storing the Spring OAuth2 client registration ID in JCSMP properties.
+     * This is used internally to pass the registration ID through to the OAuth2 token provider.
+     */
     public static final String SPRING_OAUTH2_CLIENT_REGISTRATION_ID = "SPRING_OAUTH2_CLIENT_REGISTRATION_ID";
 
     /**
@@ -99,6 +112,7 @@ public class SolaceJavaProperties {
      *
      * Example: solace.java.apiProperties.reapply_subscriptions=true
      */
+    @NestedConfigurationProperty
     private final Map<String,String> apiProperties = new ConcurrentHashMap<>();
 
     /**
@@ -110,86 +124,170 @@ public class SolaceJavaProperties {
      */
     private String oauth2ClientRegistrationId;
 
+    /**
+     * Gets the Spring Security OAuth2 Client Registration Id.
+     * @return the OAuth2 client registration ID, or {@code null} if not configured
+     */
     public String getOauth2ClientRegistrationId() {
         return oauth2ClientRegistrationId;
     }
 
+    /**
+     * Sets the Spring Security OAuth2 Client Registration Id.
+     * @param oauth2ClientRegistrationId the OAuth2 client registration ID to use
+     */
     public void setOauth2ClientRegistrationId(String oauth2ClientRegistrationId) {
         this.oauth2ClientRegistrationId = oauth2ClientRegistrationId;
     }
 
+    /**
+     * Gets the Solace Message Router Host address.
+     * @return the host address
+     */
     public String getHost() {
         return host;
     }
 
+    /**
+     * Sets the Solace Message Router Host address.
+     * @param host the host address to use
+     */
     public void setHost(String host) {
         this.host = host;
     }
 
+    /**
+     * Gets the Solace Message Router Client Username.
+     * @return the client username
+     */
     public String getClientUsername() {
         return clientUsername;
     }
 
+    /**
+     * Sets the Solace Message Router Client Username.
+     * @param clientUsername the client username to use
+     */
     public void setClientUsername(String clientUsername) {
         this.clientUsername = clientUsername;
     }
 
+    /**
+     * Gets the Solace Message Router Client Password.
+     * @return the client password, or {@code null} if not set
+     */
     public String getClientPassword() {
         return clientPassword;
     }
 
+    /**
+     * Sets the Solace Message Router Client Password.
+     * @param clientPassword the client password to use
+     */
     public void setClientPassword(String clientPassword) {
         this.clientPassword = clientPassword;
     }
 
+    /**
+     * Gets the Solace Message Router Message-VPN.
+     * @return the message VPN name
+     */
     public String getMsgVpn() {
         return msgVpn;
     }
 
+    /**
+     * Sets the Solace Message Router Message-VPN.
+     * @param msgVpn the message VPN name to use
+     */
     public void setMsgVpn(String msgVpn) {
         this.msgVpn = msgVpn;
     }
 
+    /**
+     * Gets the client name to use when connecting to Solace Message Router.
+     * @return the client name, or {@code null} if the API will generate one
+     */
     public String getClientName() {
         return clientName;
     }
 
+    /**
+     * Sets the client name to use when connecting to Solace Message Router.
+     * @param clientName the client name to use
+     */
     public void setClientName(String clientName) {
         this.clientName = clientName;
     }
 
+    /**
+     * Gets the number of times to attempt and retry a connection during initial connection setup.
+     * @return the number of connect retries
+     */
     public int getConnectRetries() {
         return connectRetries;
     }
 
+    /**
+     * Sets the number of times to attempt and retry a connection during initial connection setup.
+     * @param connectRetries the number of connect retries
+     */
     public void setConnectRetries(int connectRetries) {
         this.connectRetries = connectRetries;
     }
 
+    /**
+     * Gets the number of times to attempt to reconnect after an initial connected session goes down.
+     * @return the number of reconnect retries
+     */
     public int getReconnectRetries() {
         return reconnectRetries;
     }
 
+    /**
+     * Sets the number of times to attempt to reconnect after an initial connected session goes down.
+     * @param reconnectRetries the number of reconnect retries
+     */
     public void setReconnectRetries(int reconnectRetries) {
         this.reconnectRetries = reconnectRetries;
     }
 
+    /**
+     * Gets the number of times to try to connect or reconnect to a single host before moving to the next host.
+     * @return the number of connect retries per host
+     */
     public int getConnectRetriesPerHost() {
         return connectRetriesPerHost;
     }
 
+    /**
+     * Sets the number of times to try to connect or reconnect to a single host before moving to the next host.
+     * @param connectRetriesPerHost the number of connect retries per host
+     */
     public void setConnectRetriesPerHost(int connectRetriesPerHost) {
         this.connectRetriesPerHost = connectRetriesPerHost;
     }
 
+    /**
+     * Gets the time in milliseconds to wait between each attempt to connect or reconnect to a host.
+     * @return the reconnect retry wait time in milliseconds
+     */
     public int getReconnectRetryWaitInMillis() {
         return reconnectRetryWaitInMillis;
     }
 
+    /**
+     * Sets the time in milliseconds to wait between each attempt to connect or reconnect to a host.
+     * @param reconnectRetryWaitInMillis the reconnect retry wait time in milliseconds
+     */
     public void setReconnectRetryWaitInMillis(int reconnectRetryWaitInMillis) {
         this.reconnectRetryWaitInMillis = reconnectRetryWaitInMillis;
     }
 
+    /**
+     * Gets the API properties map for additional JCSMP configuration.
+     * @return the API properties map
+     */
     public Map<String,String> getApiProperties() {
         return apiProperties;
     }
