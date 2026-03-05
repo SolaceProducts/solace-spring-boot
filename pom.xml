@@ -159,13 +159,6 @@
                 <configuration>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.shared</groupId>
-                        <artifactId>maven-invoker</artifactId>
-                        <version>3.9.1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
