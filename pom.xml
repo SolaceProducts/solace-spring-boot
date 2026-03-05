@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
@@ -17,9 +17,9 @@
     <!-- This is the version of Spring Boot we have targeted for this build -->
     <spring.boot.version>4.0.3</spring.boot.version>
 
-    <solace.spring.boot.java-starter.version>6.0.0
+    <solace.spring.boot.java-starter.version>6.0.1-SNAPSHOT
     </solace.spring.boot.java-starter.version>
-    <solace.spring.boot.jms-starter.version>6.0.0</solace.spring.boot.jms-starter.version>
+    <solace.spring.boot.jms-starter.version>6.0.1-SNAPSHOT</solace.spring.boot.jms-starter.version>
     <solace.spring.boot.starter.version>3.0.0-SNAPSHOT</solace.spring.boot.starter.version>
     <testcontainers.version>2.0.3</testcontainers.version>
     <solace.integration.test.support.version>3.0.0</solace.integration.test.support.version>
@@ -65,7 +65,7 @@
         <url>https://github.com/${repoName}/solace-spring-boot.git</url>
         <connection>scm:git:git://github.com/${repoName}/solace-spring-boot.git</connection>
         <developerConnection>scm:git:git@github.com:${repoName}/solace-spring-boot.git</developerConnection>
-        <tag>3.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
