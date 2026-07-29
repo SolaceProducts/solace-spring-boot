@@ -1,0 +1,21 @@
+version: 3
+project:
+  locator: SolaceProducts_solace-java-spring-boot-autoconfigure
+  id: SolaceProducts_solace-java-spring-boot-autoconfigure
+  name: solace-java-spring-boot-autoconfigure
+  teams: []
+  labels:
+    - java
+vendoredDependencies:
+  forceRescans: false
+  scanMethod: CLILicenseScan
+  licenseScanPathFilters:
+    exclude:
+      - "./.git"
+      - "./.github"
+paths:
+  exclude:
+    - ./.git
+    - ./.github
+telemetry:
+  scope: full
