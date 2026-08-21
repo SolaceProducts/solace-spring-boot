@@ -58,7 +58,7 @@ jobs:
           ddb_sort_key: repository
           ddb_item_to_be_added: |
             {
-              "squad": "temp",
+              "squad": "connectors-core",
               "repository": "${{ matrix.name }}",
               "dev": {
                 "sha": "${{ github.sha }}",
