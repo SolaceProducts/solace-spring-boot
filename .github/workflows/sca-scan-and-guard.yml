@@ -30,7 +30,7 @@ jobs:
       # a shallow graph with no transitive dependencies.
       setup_actions: '["maven-settings"]'
       maven_settings_repositories: '[{"id": "github-solacedev", "url": "https://maven.pkg.github.com/SolaceDev/*"}]'
-      maven_settings_servers: '[{"id": "github-solacedev", "username": "${{ github.actor }}", "password": "${{ secrets.GITHUB_TOKEN }}"}]'
+      maven_settings_servers: '[{"id": "github-solacedev", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
     secrets:
       FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
 
