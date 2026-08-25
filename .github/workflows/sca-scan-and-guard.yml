@@ -28,7 +28,9 @@ jobs:
       # without credentials in ~/.m2/settings.xml the import POM fails to
       # resolve, `mvn dependency:tree` errors, and FOSSA silently falls back to
       # a shallow graph with no transitive dependencies.
-      setup_actions: '["maven-settings"]'
+      setup_actions: '["setup-java", "maven-settings"]'
+      java_version: '17'
+      java_distribution: 'zulu'
       maven_settings_repositories: '[{"id": "github-solacedev", "url": "https://maven.pkg.github.com/SolaceDev/*"}]'
       maven_settings_servers: '[{"id": "github-solacedev", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
     secrets:
