@@ -13,19 +13,14 @@ permissions:
   pull-requests: write
 
 jobs:
+  # Scans the repository root so the FOSSA CLI analyses the whole Maven reactor
+  # in a single pass. Per-module `fossa.only_path` filters must not be
+  # reintroduced: the Maven strategy discovers one project at the root pom, so
+  # filtering to a child module directory skips it and uploads nothing.
   sca_scan:
-    strategy:
-      matrix:
-        include:
-          - path: solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure
-            name: solace-java-spring-boot-autoconfigure
-          - path: solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure
-            name: solace-jms-spring-boot-autoconfigure
     uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@main
     with:
       config_file: '.github/workflow-config.json'
-      additional_scan_params: |
-        fossa.only_path=${{ matrix.path }}
     secrets:
       FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
 
@@ -33,11 +28,6 @@ jobs:
     needs: sca_scan
     if: needs.sca_scan.result == 'success' && github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - name: solace-java-spring-boot-autoconfigure
-          - name: solace-jms-spring-boot-autoconfigure
     permissions:
       id-token: write
       contents: read
@@ -59,7 +49,7 @@ jobs:
           ddb_item_to_be_added: |
             {
               "squad": "connectors-core",
-              "repository": "${{ matrix.name }}",
+              "repository": "solace-spring-boot",
               "dev": {
                 "sha": "${{ github.sha }}",
                 "version": "${{ github.ref_name }}"
