@@ -1,7 +1,8 @@
-name: SCA Scan on merge to main
+name: SCA Scan
 on:
   push:
     branches: [master]
+  pull_request:
 
 permissions:
   contents: read
@@ -13,19 +14,30 @@ permissions:
   pull-requests: write
 
 jobs:
+  # Scans the repository root so the FOSSA CLI analyses the whole Maven reactor
+  # in a single pass. Per-module `fossa.only_path` filters must not be
+  # reintroduced: the Maven strategy discovers one project at the root pom, so
+  # filtering to a child module directory skips it and uploads nothing.
   sca_scan:
-    strategy:
-      matrix:
-        include:
-          - path: solace-spring-boot-autoconfigure/solace-java-spring-boot-autoconfigure
-            name: solace-java-spring-boot-autoconfigure
-          - path: solace-spring-boot-autoconfigure/solace-jms-spring-boot-autoconfigure
-            name: solace-jms-spring-boot-autoconfigure
     uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@main
     with:
       config_file: '.github/workflow-config.json'
-      additional_scan_params: |
-        fossa.only_path=${{ matrix.path }}
+      # solace-integration-test-support-bom is not published to Maven Central and
+      # GitHub Packages requires auth, but the source repo is public and tagged.
+      # Build and install the BOM the same way build-test.yml does, so the plain
+      # `mvn` the FOSSA CLI shells out to can resolve the root pom's import.
+      # Without this, dependency:tree errors and FOSSA silently uploads a
+      # shallow graph with no transitive dependencies.
+      # Cloned outside the workspace so FOSSA does not scan it as its own project.
+      setup_actions: '["setup-java"]'
+      java_version: '17'
+      java_distribution: 'zulu'
+      custom_setup_script: |
+        sudo apt-get update -qq && sudo apt-get install -y libxml2-utils
+        version="$(xmllint --xpath '/*[local-name()="project"]/*[local-name()="properties"]/*[local-name()="solace.integration.test.support.version"]/text()' pom.xml)"
+        echo "Installing solace-integration-test-support ${version}"
+        git clone --depth 1 --branch "${version}" https://github.com/SolaceDev/solace-integration-test-support.git "${RUNNER_TEMP}/sits"
+        mvn -B -q install -f "${RUNNER_TEMP}/sits" -Dchangelist= -DskipTests
     secrets:
       FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
 
@@ -33,11 +45,6 @@ jobs:
     needs: sca_scan
     if: needs.sca_scan.result == 'success' && github.ref_name == github.event.repository.default_branch
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - name: solace-java-spring-boot-autoconfigure
-          - name: solace-jms-spring-boot-autoconfigure
     permissions:
       id-token: write
       contents: read
@@ -59,7 +66,7 @@ jobs:
           ddb_item_to_be_added: |
             {
               "squad": "connectors-core",
-              "repository": "${{ matrix.name }}",
+              "repository": "solace-spring-boot",
               "dev": {
                 "sha": "${{ github.sha }}",
                 "version": "${{ github.ref_name }}"

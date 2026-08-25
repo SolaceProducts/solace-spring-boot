@@ -1,0 +1,14 @@
+# FOSSA configuration for solace-spring-boot
+#
+# The scan runs from the repository root so the FOSSA CLI analyses the full
+# Maven reactor in one pass. Do NOT add per-module `--only-path` filters: the
+# Maven strategy discovers a single project at the root pom, so filtering to a
+# child module directory causes that project to be skipped and nothing is
+# uploaded.
+version: 3
+
+server: https://app.fossa.com
+
+project:
+  id: SolaceProducts_solace-spring-boot
+  name: solace-spring-boot
