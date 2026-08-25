@@ -1,7 +1,8 @@
-name: SCA Scan on merge to main
+name: SCA Scan
 on:
   push:
     branches: [master]
+  pull_request:
 
 permissions:
   contents: read
