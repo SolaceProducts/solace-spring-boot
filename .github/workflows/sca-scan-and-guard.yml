@@ -22,17 +22,6 @@ jobs:
     uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@main
     with:
       config_file: '.github/workflow-config.json'
-      # The root pom imports com.solace.test.integration:solace-integration-test-support-bom,
-      # which is published to GitHub Packages, not Maven Central. The FOSSA CLI
-      # shells out to a plain `mvn` that does not read maven/settings.xml, so
-      # without credentials in ~/.m2/settings.xml the import POM fails to
-      # resolve, `mvn dependency:tree` errors, and FOSSA silently falls back to
-      # a shallow graph with no transitive dependencies.
-      setup_actions: '["setup-java", "maven-settings"]'
-      java_version: '17'
-      java_distribution: 'zulu'
-      maven_settings_repositories: '[{"id": "github-solacedev", "url": "https://maven.pkg.github.com/SolaceDev/*"}]'
-      maven_settings_servers: '[{"id": "github-solacedev", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
     secrets:
       FOSSA_API_KEY: ${{ secrets.FOSSA_API_KEY }}
 
