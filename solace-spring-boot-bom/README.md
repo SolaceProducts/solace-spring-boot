@@ -26,6 +26,7 @@ Consult the table below to determine which version of the BOM you need to use:
 | 3.4.4       | 2.4.0                  |
 | 3.5.5       | 2.5.0                  |
 | 4.0.3       | 3.0.0                  |
+| 4.1.1       | 3.1.0                  |
 
 ## Including the BOM
 
@@ -43,7 +44,7 @@ The Solace Spring Boot BOM allows you to manage Solace Spring Boot dependency ve
     <dependency>
       <groupId>com.solace.spring.boot</groupId>
       <artifactId>solace-spring-boot-bom</artifactId>
-      <version>3.0.0</version>
+      <version>3.1.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -66,7 +67,7 @@ The Solace Spring Boot BOM allows you to manage Solace Spring Boot dependency ve
         <dependency>
             <groupId>com.solace.spring.boot</groupId>
             <artifactId>solace-spring-boot-bom</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -87,7 +88,7 @@ The Solace Spring Boot BOM allows you to manage Solace Spring Boot dependency ve
 
 ```groovy
 dependencies {
-    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.0.0"))
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.1.0"))
     implementation("com.solace.spring.boot:solace-java-spring-boot-starter")
 }
 ```
@@ -96,7 +97,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.0.0"))
+    implementation(platform("com.solace.spring.boot:solace-spring-boot-bom:3.1.0"))
     implementation("com.solace.spring.boot:solace-jms-spring-boot-starter")
 }
 ```
