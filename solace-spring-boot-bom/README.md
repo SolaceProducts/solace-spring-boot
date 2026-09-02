@@ -28,6 +28,8 @@ Consult the table below to determine which version of the BOM you need to use:
 | 4.0.3       | 3.0.0                  |
 | 4.1.1       | 3.1.0                  |
 
+> **Note:** This table shows the Spring Boot version each Solace Spring Boot BOM was tested against — it's not a strict requirement. The Solace starters are auto-configuration with no hard dependency on a specific Spring Boot version, so a given Solace Spring Boot BOM generally keeps working with newer Spring Boot versions within the same major line too. For example, Solace Spring Boot BOM 3.0.0 was tested against Spring Boot 4.0.3, but also works with 4.1.1 and later 4.x versions — use Spring Boot's own `spring-boot-dependencies` BOM to manage the newer version.
+
 ## Including the BOM
 
 The Solace Spring Boot BOM allows you to manage Solace Spring Boot dependency versions. You will use **one** of the following starters based on your messaging API preference:
