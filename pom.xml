@@ -4,7 +4,7 @@
 
     <groupId>com.solace.spring.boot</groupId>
     <artifactId>solace-spring-boot-build</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Solace Spring Boot Build</name>
