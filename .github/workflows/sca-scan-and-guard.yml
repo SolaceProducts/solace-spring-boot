@@ -19,7 +19,7 @@ jobs:
   # reintroduced: the Maven strategy discovers one project at the root pom, so
   # filtering to a child module directory skips it and uploads nothing.
   sca_scan:
-    uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@main
+    uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@55aba02b3ed20d1ec61684f19d660425362c2cf4 # main
     with:
       config_file: '.github/workflow-config.json'
       # solace-integration-test-support-bom is not published to Maven Central and
@@ -57,7 +57,7 @@ jobs:
           aws-region: us-east-1
 
       - name: Update solace-cloud-manifest
-        uses: SolaceDev/solace-public-workflows/.github/actions/cicd-helper@main
+        uses: SolaceDev/solace-public-workflows/.github/actions/cicd-helper@55aba02b3ed20d1ec61684f19d660425362c2cf4 # main
         with:
           rc_step: add_item_from_json_to_dynamodb_table
           ddb_table_name: solace-cloud-manifest
