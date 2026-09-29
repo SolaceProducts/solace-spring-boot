@@ -11,3 +11,8 @@ updates:
       - dependency-name: "org.springframework.*"
       - dependency-name: "io.pivotal.cfenv:*"
       - dependency-name: "org.apache.logging.log4j:*"
+    cooldown:
+      default-days: 3
+      exclude:
+        - "com.solace.*"
+        - "com.solacesystems:*"
