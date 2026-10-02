@@ -19,7 +19,7 @@ jobs:
   # reintroduced: the Maven strategy discovers one project at the root pom, so
   # filtering to a child module directory skips it and uploads nothing.
   sca_scan:
-    uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@668d31d070ebdbbb5d6f2bdd13d406697055ae3c # main
+    uses: SolaceDev/solace-public-workflows/.github/workflows/sca-scan-and-guard.yaml@main
     with:
       config_file: '.github/workflow-config.json'
       # solace-integration-test-support-bom is not published to Maven Central and
